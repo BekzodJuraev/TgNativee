@@ -1,0 +1,36 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Регистрация</h1>
+    <form id="registrationForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#registrationForm').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url 'create' %}',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        alert("вы успешно зарегистрировались");
+                        window.location.replace("{% url 'login' %}");
+
+                    },
+                    error: function() {
+                        // Handle any errors that occur during the AJAX request
+                        console.log('An error occurred!');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
