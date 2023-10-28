@@ -13,9 +13,18 @@ class RegistrationForm(UserCreationForm):
     password2 = forms.CharField(max_length=63, widget=forms.PasswordInput, label='Повторите Пароль')
     email = forms.EmailField(label='Ввидите E-mail ',required=True )
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email address is already registered. Please use a different one.")
+        return email
+
     class Meta:
         model=User
         fields = ['username', 'email', 'password1', 'password2']
+        error_messages = {
+            'password_mismatch': "The two password fields didn't match.",
+        }
 
 
 
