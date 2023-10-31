@@ -3,8 +3,8 @@ import requests
 from pyrogram.enums import ChatAction,ParseMode
 from pyrogram.handlers import MessageHandler
 from pyrogram.types import Message
-api_id = '#'
-api_hash = '#'
+api_id = '26340505'
+api_hash = '7960c20df051be9831dbc9919926393b'
 from pyrogram import filters
 
 client=Client('me_client', api_id, api_hash)
@@ -22,7 +22,8 @@ def all_message(client:Client,message:Message):
         chat = client.get_chat("@" + channel_username)
         payload = {
             'name': chat.title,
-            'subscribers': chat.members_count
+            'subscribers': chat.members_count,
+            'chanel_link':channel_link
         }
 
         #client.send_message('@lsbnvVm9TmhjZDNi', payload)

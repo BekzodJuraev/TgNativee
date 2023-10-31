@@ -5,4 +5,4 @@ from .models import Chanel
 class ChanelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chanel
-        fields = ['name', 'subscribers','pictures']
+        fields = ['chanel_link','name', 'subscribers','pictures']

@@ -1,6 +1,7 @@
 from django.db import models
 
 class Chanel(models.Model):
+    chanel_link=models.CharField(max_length=150)
     name=models.CharField(max_length=150,verbose_name="Називание канала")
     pictures=models.ImageField(verbose_name='Лого')
     subscribers=models.IntegerField()

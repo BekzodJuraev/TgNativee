@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+from django.db.models import Sum
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
@@ -46,6 +47,12 @@ class AviatorView(LoginRequiredMixin,ListView):
     template_name = 'aviator.html'
     login_url = reverse_lazy('login')
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['lists']=Chanel.objects.all().count()
+        context['count']=Chanel.objects.all()
+        context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
+        return context
 
 
 def register_page(request):
