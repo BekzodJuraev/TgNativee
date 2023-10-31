@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'accounts'
+    'accounts',
+    'API',
+    'rest_framework'
 
 ]
 
@@ -122,6 +124,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = ''
+MEDIA_ROOT = BASE_DIR / 'uploads'
 from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy("logging")
 

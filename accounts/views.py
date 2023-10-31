@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from .forms import LoginForm,RegistrationForm
+from API.models import Chanel
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView
 def login_page(request):
@@ -40,9 +41,11 @@ def login_page(request):
 
 
 
-class AviatorView(LoginRequiredMixin,TemplateView):
+class AviatorView(LoginRequiredMixin,ListView):
+    model = Chanel
     template_name = 'aviator.html'
     login_url = reverse_lazy('login')
+
 
 
 def register_page(request):
