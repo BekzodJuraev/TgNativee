@@ -9,12 +9,16 @@
 <h1>Количество Каналов:{{lists}}</h1>
 <br>
 <h1>Количество Подписчиков:{{subscribers}}</h1>
+<br>
+<h1>Количество Просмотров:{{total_views}}</h1>
 {% for item in object_list %}
 {{item.name}}
 {{item.subscribers}}
 
+
 <img src="/{{item.pictures}}" alt="" width="100"
      height="100">
+{{item.views}}
 <br>
 
 {% endfor %}

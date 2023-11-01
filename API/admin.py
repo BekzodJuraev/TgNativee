@@ -3,4 +3,4 @@ from .models import Chanel
 # Register your models here.
 @admin.register(Chanel)
 class ChanelAdmin(admin.ModelAdmin):
-    list_display = ['name','subscribers','chanel_link']
+    list_display = ['name','subscribers','chanel_link','views']

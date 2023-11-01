@@ -52,6 +52,7 @@ class AviatorView(LoginRequiredMixin,ListView):
         context['lists']=Chanel.objects.all().count()
         context['count']=Chanel.objects.all()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
+        context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
         return context
 
 

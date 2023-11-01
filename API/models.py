@@ -5,6 +5,7 @@ class Chanel(models.Model):
     name=models.CharField(max_length=150,verbose_name="Називание канала")
     pictures=models.ImageField(verbose_name='Лого')
     subscribers=models.IntegerField()
+    views=models.IntegerField()
     created_at=models.DateTimeField(auto_now_add=True)
 
 
