@@ -3,8 +3,8 @@ import requests
 from pyrogram.enums import ChatAction,ParseMode
 from pyrogram.handlers import MessageHandler
 from pyrogram.types import Message
-api_id = '26340505'
-api_hash = '7960c20df051be9831dbc9919926393b'
+api_id = ''
+api_hash = ''
 from pyrogram import filters
 
 client=Client('me_client', api_id, api_hash)
