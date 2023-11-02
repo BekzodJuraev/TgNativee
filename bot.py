@@ -8,8 +8,9 @@ api_hash = ''
 from pyrogram import filters
 
 client=Client('me_client', api_id, api_hash)
-
-
+#client.start()
+#channel_link = "@juicewrld_rus"
+#client.join_chat(channel_link)
 
 
 @client.on_message(filters.chat('@lsbnvVm9TmhjZDNi') & filters.text)
@@ -23,7 +24,13 @@ def all_message(client:Client,message:Message):
         total_view =  client.get_chat_history("@" + channel_username,limit=5)
         send_view=0
         for views in total_view:
-            send_view+=views.views
+            if views.views:
+                send_view += views.views
+
+
+
+
+
 
 
 

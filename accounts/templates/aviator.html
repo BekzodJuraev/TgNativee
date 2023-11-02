@@ -6,11 +6,22 @@
 </head>
 <body>
 
+Name:{{user.first_name}}
+<br>
+Lastname:{{user.last_name}}
+<br>
+Email:{{user.email}}
+<br>
+Balance:{{user.balance}}{{user.currency}}
+<br>
+<img src="/{{user.photo}}" alt="">
+
 <h1>Количество Каналов:{{lists}}</h1>
 <br>
 <h1>Количество Подписчиков:{{subscribers}}</h1>
 <br>
 <h1>Количество Просмотров:{{total_views}}</h1>
+
 {% for item in object_list %}
 {{item.name}}
 {{item.subscribers}}

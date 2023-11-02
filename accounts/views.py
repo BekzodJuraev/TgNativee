@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from .forms import LoginForm,RegistrationForm
 from API.models import Chanel
+from .models import Profile
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView
 def login_page(request):
@@ -53,6 +54,7 @@ class AviatorView(LoginRequiredMixin,ListView):
         context['count']=Chanel.objects.all()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
         context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
+        context['user']=Profile.objects.get(username=self.request.user.username)
         return context
 
 
@@ -70,8 +72,11 @@ def create(request):
         form = RegistrationForm(request.POST)
 
         if form.is_valid():
+
             form.save()
-            return JsonResponse({'success': True})
+            return JsonResponse({'success': "good"})
         else:
+            print(form)
+
             return JsonResponse({'success': False, 'errors': form.errors})
     return JsonResponse({'success': False})

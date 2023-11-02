@@ -4,7 +4,7 @@
 </head>
 <body>
     <h1>Регистрация</h1>
-    <form id="registrationForm">
+    <form id="registrationForm" action="{% url 'create' %}">
         {% csrf_token %}
         {{ form.as_p }}
 
