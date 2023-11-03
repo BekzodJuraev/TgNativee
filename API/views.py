@@ -8,8 +8,8 @@ from rest_framework import status
 
 class ChanelAPI(APIView):
     def get(self, request):
-        chanel = Chanel.objects.all()
-        serializer = ChanelSerializer(chanel, many=True)
+        chanel_links = Chanel.objects.all()
+        serializer = ChanelSerializer(chanel_links, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
