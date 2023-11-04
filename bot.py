@@ -7,8 +7,8 @@ from pyrogram.enums import ChatAction,ParseMode
 from pyrogram.handlers import MessageHandler
 from pyrogram.types import Message
 
-api_id = '#'
-api_hash = '#'
+api_id = '26340505'
+api_hash = '7960c20df051be9831dbc9919926393b'
 from pyrogram import filters
 import time
 client=Client('me_client', api_id, api_hash)
@@ -26,34 +26,59 @@ async def all_message(client,message:Message):
         async for views in total_view:
             if views.views:
                 send_view += views.views
-
         payload = {
             'name': chat.title,
-            'subscribers': chat.members_count,
+            'subscribers': str(chat.members_count),
             'chanel_link': channel_link,
-            'views': send_view
+            'views': str(send_view),
+
         }
+
+
+
+
 
         if chat.photo is not None:
             file_path = await client.download_media(chat.photo.big_file_id, file_name="channel_photo.jpg")
+            form_data = aiohttp.FormData()
+
+            # Add the file to the FormData object
+            form_data.add_field('pictures', open(file_path, 'rb'))
+
+            # Add the payload as form fields
+            for key, value in payload.items():
+                form_data.add_field(key, value)
+
             async with aiohttp.ClientSession() as session:
-                async with session.post('https://9f65-217-30-171-58.ngrok-free.app/api/', data=payload) as resp:
+                async with session.post('https://38e1-217-30-171-58.ngrok-free.app/api/', data=form_data) as resp:
                     await resp.text()
-            with open(file_path, "rb") as photo:
-                await client.send_photo("@lsbnvVm9TmhjZDNi", photo)
+                with open(file_path, "rb") as photo:
+                    await client.send_photo("@lsbnvVm9TmhjZDNi", photo)
+
+
         else:
             async with aiohttp.ClientSession() as session:
-                async with session.post('https://9f65-217-30-171-58.ngrok-free.app/api/', data=payload) as resp:
+                async with session.post('https://38e1-217-30-171-58.ngrok-free.app/api/', data=payload) as resp:
                     await resp.text()
 
         await client.send_message('@lsbnvVm9TmhjZDNi', payload)
+
+
+
+
+
+
+
+
+
+
 
 
 async def update(client):
     session=aiohttp.ClientSession()
     while True:
         print("Enter")
-        async with session.get('https://2860-217-30-171-58.ngrok-free.app/api/') as resp:
+        async with session.get('https://38e1-217-30-171-58.ngrok-free.app/api/') as resp:
             data = await resp.json()
             #print(data)
             for i in data:
@@ -72,10 +97,9 @@ async def update(client):
                     'views': send_view
                 }
 
-                await session.post('https://2860-217-30-171-58.ngrok-free.app/api/', data=payload)
+                await session.post('https://38e1-217-30-171-58.ngrok-free.app/api/', data=payload)
                 print(payload)
-            await asyncio.sleep(3)
-
+            await asyncio.sleep(10)
 
 
 
