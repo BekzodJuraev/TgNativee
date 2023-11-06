@@ -72,6 +72,7 @@ def create(request):
         form = RegistrationForm(request.POST)
 
         if form.is_valid():
+            print(form)
 
             form.save()
             return JsonResponse({'success': "good"})
