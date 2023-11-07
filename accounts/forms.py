@@ -2,6 +2,15 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 class LoginForm(forms.Form):
+    CHOICES = [
+        ('admin', 'Я администратор'),
+        ('reklama', 'Я рекламодатель'),
+    ]
+    order = forms.ChoiceField(
+        widget=forms.RadioSelect,
+        choices=CHOICES,
+        label=""
+    )
     username = forms.CharField(max_length=63,label="Логин")
     password = forms.CharField(max_length=63, widget=forms.PasswordInput,label="Пароль")
 
