@@ -1,6 +1,16 @@
 from django import forms
+from .models import Add_chanel
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+class ChaneladdForm(forms.ModelForm):
+    class Meta:
+        model=Add_chanel
+        fields=['chanel_link']
+
+
+
+
+
 class LoginForm(forms.Form):
     CHOICES = [
         ('admin', 'Я администратор'),

@@ -1,14 +1,15 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+
 from django.db.models import Sum
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm,RegistrationForm
+from .forms import LoginForm,RegistrationForm,ChaneladdForm
 from API.models import Chanel
-from .models import Profile,Profile_advertiser
+from .models import Profile,Profile_advertiser,Add_chanel
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView
 def login_page(request):
@@ -51,6 +52,17 @@ def login_page(request):
 
 
 
+class CreateChanel(LoginRequiredMixin,CreateView):
+    template_name='create.html'
+    form_class=ChaneladdForm
+    success_url = reverse_lazy('logging')
+    login_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        profile = Profile.objects.get(username=self.request.user)
+        form.instance.username_id = profile.id
+        return super().form_valid(form)
+
 
 class AviatorView(LoginRequiredMixin,ListView):
     model = Chanel
@@ -59,15 +71,16 @@ class AviatorView(LoginRequiredMixin,ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
+        context['reklama'] = Chanel.objects.all().filter(username=self.request.user.username)
         context['lists']=Chanel.objects.all().count()
         context['count']=Chanel.objects.all()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
         context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
-        context['user']=Profile.objects.get(username=self.request.user.username)
+        context['user']=Profile.objects.get(username=self.request.user)
         return context
 class ProfileView(LoginRequiredMixin,ListView):
     model = Chanel
-    template_name = 'aviator.html'
+    template_name = 'Profile_reklama.html'
     login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -76,7 +89,7 @@ class ProfileView(LoginRequiredMixin,ListView):
         context['count']=Chanel.objects.all()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
         context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
-        context['user']=Profile_advertiser.objects.get(username=self.request.user.username)
+        context['user']=Profile_advertiser.objects.get(username=self.request.user)
         return context
 
 

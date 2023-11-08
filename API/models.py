@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import Add_chanel
 
 class Chanel(models.Model):
     chanel_link=models.CharField(max_length=150)
@@ -7,6 +8,7 @@ class Chanel(models.Model):
     subscribers=models.IntegerField()
     views=models.IntegerField()
     created_at=models.DateTimeField(auto_now_add=True)
+    username=models.CharField(max_length=150)
 
 
 
