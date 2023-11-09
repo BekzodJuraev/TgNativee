@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
-
+from django.http import HttpResponse
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Sum
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,6 +13,8 @@ from API.models import Chanel
 from .models import Profile,Profile_advertiser,Add_chanel
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView
+
+
 def login_page(request):
     next = request.GET.get('next')
     form = LoginForm(request.POST or None)
@@ -58,6 +61,17 @@ class CreateChanel(LoginRequiredMixin,CreateView):
     success_url = reverse_lazy('logging')
     login_url = reverse_lazy('login')
 
+    def dispatch(self, request, *args, **kwargs):
+        if not Profile.objects.filter(username=request.user).exists():
+            # Redirect the user to a different page or return an error message
+            # if they don't have a profile.
+            return HttpResponse("You do not have access to this page.")
+        return super().dispatch(request, *args, **kwargs)
+
+
+
+
+
     def form_valid(self, form):
         profile = Profile.objects.get(username=self.request.user)
         form.instance.username_id = profile.id
@@ -76,7 +90,7 @@ class AviatorView(LoginRequiredMixin,ListView):
         context['count']=Chanel.objects.all()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
         context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
-        context['user']=Profile.objects.get(username=self.request.user)
+        context['user'] = Profile.objects.get(username=self.request.user)
         return context
 class ProfileView(LoginRequiredMixin,ListView):
     model = Chanel

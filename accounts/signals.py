@@ -14,5 +14,6 @@ def create_profile_for_user(sender,instance,created,*args,**kwargs):
 @receiver(post_save,sender=Add_chanel)
 def create_chanel(sender,instance,created,*args,**kwargs):
     if created:
+
         Chanel.objects.create(username=instance,chanel_link=instance.chanel_link,subscribers=0,views=0)
 

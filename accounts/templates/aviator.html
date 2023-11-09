@@ -6,7 +6,9 @@
 </head>
 <body>
 <a href="{% url 'post' %}">Add chanel</a>
+<br>
 Мои каналы:
+<br>
 {% for item in reklama %}
 {{item.name}}
 {{item.subscribers}}
