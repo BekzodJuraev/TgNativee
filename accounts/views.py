@@ -85,7 +85,8 @@ class AviatorView(LoginRequiredMixin,ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
-        context['reklama'] = Chanel.objects.all().filter(username=self.request.user.username)
+
+        context['reklama'] = Chanel.objects.all().filter(chanel_id=28)
         context['lists']=Chanel.objects.all().count()
         context['count']=Chanel.objects.all()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']

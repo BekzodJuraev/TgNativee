@@ -1,12 +1,20 @@
 from django import forms
-from .models import Add_chanel
+from .models import Add_chanel,Cost_Format
 from django.contrib.auth.models import User
+from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm
+
+
 class ChaneladdForm(forms.ModelForm):
+
     class Meta:
         model=Add_chanel
-        fields=['chanel_link']
+        fields=['chanel_link','description']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['chanel_link'].widget.attrs['placeholder'] = 'Enter channel link'
+        self.fields['description'].widget.attrs['placeholder'] = 'Enter description'
 
 
 

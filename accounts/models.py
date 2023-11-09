@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import AbstractUser, UserManager, Permission
+
 class Profile(models.Model):
     username=models.ForeignKey(User,on_delete=models.CASCADE)
     first_name=models.CharField(max_length=150)
@@ -34,7 +35,10 @@ class Profile_advertiser(models.Model):
 
 class Add_chanel(models.Model):
     username = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    #cost=models.ForeignKey("Cost_Format", on_delete=models.CASCADE)
     chanel_link = models.CharField(max_length=150)
+    description=models.TextField()
+
 
 
 
@@ -45,6 +49,14 @@ class Add_chanel(models.Model):
 
 
 
+
+class Cost_Format(models.Model):
+    add_chanel=models.ForeignKey(Add_chanel,on_delete=models.CASCADE)
+    placement_format = models.CharField(max_length=100)
+    cost_per_format = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.add_chanel.username.username.username
 
 
 

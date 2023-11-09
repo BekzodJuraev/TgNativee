@@ -12,6 +12,8 @@
 {% for item in reklama %}
 {{item.name}}
 {{item.subscribers}}
+{{item.chanel.description}}
+{{item.chanel.description}}
 
 
 <img src="/{{item.pictures}}" alt="" width="100"
@@ -39,6 +41,7 @@ Balance:{{user.balance}}{{user.currency}}
 {% for item in object_list %}
 {{item.name}}
 {{item.subscribers}}
+{{item.add_chanel.username}}
 
 
 <img src="/{{item.pictures}}" alt="" width="100"
