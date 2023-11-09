@@ -8,7 +8,8 @@ class Chanel(models.Model):
     subscribers=models.IntegerField()
     views=models.IntegerField()
     created_at=models.DateTimeField(auto_now_add=True)
-    chanel=models.ForeignKey(Add_chanel, on_delete=models.CASCADE)
+    add_chanel =models.ForeignKey(Add_chanel, on_delete=models.CASCADE)
+    username=models.CharField(max_length=150)
 
 
 

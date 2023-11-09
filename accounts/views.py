@@ -85,10 +85,15 @@ class AviatorView(LoginRequiredMixin,ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
+         # Get all related CostFormat objects
+        # chanel_objects = Chanel.objects.select_related('add_chanel')
+        #print(chanel_objects)
+        #add_chanel_objects = Add_chanel.objects.prefetch_related('cost_formats')
+        #print(add_chanel_objects)
 
-        context['reklama'] = Chanel.objects.all().filter(chanel_id=28)
+        context['reklama'] = Chanel.objects.all().filter(username=self.request.user)
         context['lists']=Chanel.objects.all().count()
-        context['count']=Chanel.objects.all()
+        context['count']= Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
         context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
         context['user'] = Profile.objects.get(username=self.request.user)

@@ -4,6 +4,6 @@ from accounts.models import Add_chanel
 # Register your models here.
 @admin.register(Chanel)
 class ChanelAdmin(admin.ModelAdmin):
-    list_display = ['name','subscribers','chanel_link','views']
-    raw_id_fields = ['chanel']
+    list_display = ['username','subscribers','chanel_link','views']
+
     list_display_links = ['chanel_link']

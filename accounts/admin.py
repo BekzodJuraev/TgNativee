@@ -21,9 +21,23 @@ class DiaryInline(admin.TabularInline):
     list_display = ['add_chanel','placement_format', 'cost_per_format']
 
 
-@admin.register(Add_chanel)
-class ChanelAdvertiser(admin.ModelAdmin):
+
+class AddChanelAdmin(admin.ModelAdmin):
     inlines = [DiaryInline]
 
-    list_display = ['username', 'chanel_link']
+    list_display = ['username', 'chanel_link','get_order_info']
     raw_id_fields = ['username']
+
+    def get_order_info(self, obj):
+        # Get related CostFormat objects for the Add_chanel object
+        cost_formats = obj.cost_formats.all()
+
+        # Extract placement formats and cost per formats from related CostFormat objects
+        placement_formats = ', '.join([str(cost_format.placement_format) for cost_format in cost_formats])
+        cost_per_formats = ', '.join([str(cost_format.cost_per_format) for cost_format in cost_formats])
+
+        return f"Placement Formats: {placement_formats}, Cost Per Formats: {cost_per_formats}"
+
+    get_order_info.short_description = 'Order Info'
+
+admin.site.register(Add_chanel, AddChanelAdmin)

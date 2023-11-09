@@ -13,7 +13,7 @@
 {{item.name}}
 {{item.subscribers}}
 {{item.chanel.description}}
-{{item.chanel.description}}
+
 
 
 <img src="/{{item.pictures}}" alt="" width="100"
@@ -38,17 +38,23 @@ Balance:{{user.balance}}{{user.currency}}
 <br>
 <h1>Количество Просмотров:{{total_views}}</h1>
 
-{% for item in object_list %}
-{{item.name}}
-{{item.subscribers}}
-{{item.add_chanel.username}}
+{% for item in count %}
+Name:{{item.name}}
+Subscribers:{{item.subscribers}}
 
+Views:{{item.views}}
+description:{{item.add_chanel.description}}
 
 <img src="/{{item.pictures}}" alt="" width="100"
      height="100">
-{{item.views}}
-<br>
 
+
+
+     {% for cost_format in item.add_chanel.cost_formats.all %}
+        Format:{{ cost_format.placement_format }}
+         Cost:{{ cost_format.cost_per_format }}
+    {% endfor %}
+<br>
 {% endfor %}
 </body>
 </html>
