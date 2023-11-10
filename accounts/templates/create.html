@@ -9,8 +9,33 @@
     {% csrf_token %}
     {{ form.as_p }}
 
-    <input type="submit" value="Отправить">
+    <h3>Cost Formats</h3>
+    {{ cost_format_formset.management_form }}
+    <div id="formset">
+      {% for form in cost_format_formset %}
+           {{ form.as_p }}
+        {% endfor %}
+    </div>
+    <button type="button" id="add-form">Add Cost Format</button>
+    <input type="submit" value="Save">
 
 </form>
+<script>
+    // Add formset management functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const formset = document.getElementById('formset');
+      const addFormButton = document.getElementById('add-form');
+      const managementForm = document.getElementById('id_cost_formats-TOTAL_FORMS');
+      let formCount = {{ cost_format_formset.total_form_count }};
+
+      addFormButton.addEventListener('click', function () {
+        const newForm = formset.children[0].cloneNode(true);
+        formCount++;
+        newForm.innerHTML = newForm.innerHTML.replace(/__prefix__/g, formCount);
+        formset.appendChild(newForm);
+        managementForm.value = formCount;
+      });
+    });
+  </script>
 </body>
 </html>

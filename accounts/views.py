@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm,RegistrationForm,ChaneladdForm
+from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet
 from API.models import Chanel
 from .models import Profile,Profile_advertiser,Add_chanel
 
@@ -57,9 +57,17 @@ def login_page(request):
 
 class CreateChanel(LoginRequiredMixin,CreateView):
     template_name='create.html'
-    form_class=ChaneladdForm
+    form_class=AddChanelForm
     success_url = reverse_lazy('logging')
     login_url = reverse_lazy('login')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['cost_format_formset'] = CostFormatFormSet(self.request.POST, prefix='cost_formats')
+        else:
+            context['cost_format_formset'] = CostFormatFormSet(prefix='cost_formats')
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not Profile.objects.filter(username=request.user).exists():
@@ -73,9 +81,18 @@ class CreateChanel(LoginRequiredMixin,CreateView):
 
 
     def form_valid(self, form):
+        context = self.get_context_data()
+        cost_format_formset = context['cost_format_formset']
         profile = Profile.objects.get(username=self.request.user)
         form.instance.username_id = profile.id
-        return super().form_valid(form)
+        if cost_format_formset.is_valid():
+            self.object = form.save()
+            cost_format_formset.instance = self.object
+            cost_format_formset.save()
+            return super().form_valid(form)
+        else:
+
+            return self.form_invalid(form)
 
 
 class AviatorView(LoginRequiredMixin,ListView):

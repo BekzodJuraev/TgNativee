@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Profile,Profile_advertiser,Add_chanel,Cost_Format
 @admin.register(Profile)
 class ChanelAdmin(admin.ModelAdmin):
@@ -27,6 +28,8 @@ class AddChanelAdmin(admin.ModelAdmin):
 
     list_display = ['username', 'chanel_link','get_order_info']
     raw_id_fields = ['username']
+
+
 
     def get_order_info(self, obj):
         # Get related CostFormat objects for the Add_chanel object
