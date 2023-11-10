@@ -1,6 +1,10 @@
 from django.contrib import admin
 
-from .models import Profile,Profile_advertiser,Add_chanel,Cost_Format
+from .models import Profile,Profile_advertiser,Add_chanel,Cost_Format,Add_Reklama
+@admin.register(Add_Reklama)
+class ChanelAdmin(admin.ModelAdmin):
+    list_display = ['chanel']
+
 @admin.register(Profile)
 class ChanelAdmin(admin.ModelAdmin):
     list_display = ['username','first_name','last_name','balance']

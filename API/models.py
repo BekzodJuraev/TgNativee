@@ -3,7 +3,7 @@ from accounts.models import Add_chanel
 
 class Chanel(models.Model):
     chanel_link=models.CharField(max_length=150)
-    name=models.CharField(max_length=150,verbose_name="Називание канала")
+    name=models.CharField(max_length=150,verbose_name="Называние канала")
     pictures=models.ImageField(verbose_name='Лого')
     subscribers=models.IntegerField()
     views=models.IntegerField()

@@ -61,6 +61,14 @@ class Cost_Format(models.Model):
 
 
 
+class Add_Reklama(models.Model):
+    from API.models import Chanel
+    chanel=models.ForeignKey(Chanel,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.chanel.name
+
+
 
 
 

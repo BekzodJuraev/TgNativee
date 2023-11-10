@@ -17,7 +17,7 @@ class CostFormatForm(forms.ModelForm):
 
 
 
-CostFormatFormSet = inlineformset_factory(Add_chanel, Cost_Format, form=CostFormatForm, extra=1, can_delete=False,validate_max=True)
+CostFormatFormSet = inlineformset_factory(Add_chanel, Cost_Format, form=CostFormatForm, extra=2, can_delete=False,validate_max=True)
 
 
 class LoginForm(forms.Form):
