@@ -63,10 +63,25 @@ class Cost_Format(models.Model):
 
 class Add_Reklama(models.Model):
     from API.models import Chanel
+    class Status(models.TextChoices):
+        DRAFT = 'WT', 'Waiting'
+        PUBLISHED = "DN", "Done"
     chanel=models.ForeignKey(Chanel,on_delete=models.CASCADE)
+    format=models.ForeignKey(Cost_Format,on_delete=models.CASCADE)
+    user_order=models.ForeignKey(Profile_advertiser,on_delete=models.CASCADE,null=True)
+    text_ads=models.TextField(null=True)
+    media=models.ImageField(null=True,blank=True)
+    name_ads = models.CharField(max_length=150,null=True)
+    comment=models.TextField(null=True)
+    order_data=models.DateTimeField(null=True)
+    status = models.CharField(max_length=2, choices=Status.choices,
+                              default=Status.DRAFT)
+
 
     def __str__(self):
-        return self.chanel.name
+        return self.name_ads
+
+
 
 
 

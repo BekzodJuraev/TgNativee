@@ -5,6 +5,7 @@ from .models import Profile,Profile_advertiser,Add_chanel,Cost_Format,Add_Reklam
 class ChanelAdmin(admin.ModelAdmin):
     list_display = ['chanel']
 
+
 @admin.register(Profile)
 class ChanelAdmin(admin.ModelAdmin):
     list_display = ['username','first_name','last_name','balance']

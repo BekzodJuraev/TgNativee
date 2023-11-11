@@ -8,9 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet
+from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,Add_ReklamaForm,Add_ReklamaStatus
 from API.models import Chanel
-from .models import Profile,Profile_advertiser,Add_chanel
+from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView
 
@@ -53,6 +53,22 @@ def login_page(request):
 
     return render(request, "login.html", context)
 
+class CreateAds(LoginRequiredMixin,CreateView):
+    template_name = 'create_ads.html'
+    form_class = Add_ReklamaForm
+    success_url=reverse_lazy('login_reklama')
+    login_url = reverse_lazy('login')
+    def dispatch(self, request, *args, **kwargs):
+        if not Profile_advertiser.objects.filter(username=request.user).exists():
+            # Redirect the user to a different page or return an error message
+            # if they don't have a profile.
+            return HttpResponse("You do not have access to this page.")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        profile = Profile_advertiser.objects.get(username=self.request.user)
+        form.instance.user_order_id = profile.id
+        return super().form_valid(form)
 
 
 class CreateChanel(LoginRequiredMixin,CreateView):
@@ -94,7 +110,12 @@ class CreateChanel(LoginRequiredMixin,CreateView):
 
             return self.form_invalid(form)
 
-
+class Updatestatus(LoginRequiredMixin,UpdateView):
+    model = Add_Reklama
+    form_class = Add_ReklamaStatus
+    template_name = 'updated_status.html'
+    success_url = reverse_lazy('logging')
+    login_url = reverse_lazy('login')
 class AviatorView(LoginRequiredMixin,ListView):
     model = Chanel
     template_name = 'aviator.html'
@@ -108,6 +129,12 @@ class AviatorView(LoginRequiredMixin,ListView):
         #add_chanel_objects = Add_chanel.objects.prefetch_related('cost_formats')
         #print(add_chanel_objects)
 
+        try:
+            chanel_instance = Chanel.objects.get(username=self.request.user)
+            context['order']=Add_Reklama.objects.filter(chanel=chanel_instance)
+            # Now you can use chanel_instance in your queries or operations.
+        except Chanel.DoesNotExist:
+            print("Netu")
         context['reklama'] = Chanel.objects.all().filter(username=self.request.user)
         context['lists']=Chanel.objects.all().count()
         context['count']= Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
@@ -122,10 +149,16 @@ class ProfileView(LoginRequiredMixin,ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
-        context['lists']=Chanel.objects.all().count()
-        context['count']=Chanel.objects.all()
-        context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
-        context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
+        try:
+            chanel_instance = Profile_advertiser.objects.get(username=self.request.user)
+            context['order']=Add_Reklama.objects.filter(user_order=chanel_instance)
+            # Now you can use chanel_instance in your queries or operations.
+        except Chanel.DoesNotExist:
+            print("Netu")
+        #context['lists']=Chanel.objects.all().count()
+        #context['count']=Chanel.objects.all()
+        #context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
+        #context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
         context['user']=Profile_advertiser.objects.get(username=self.request.user)
         return context
 

@@ -1,9 +1,43 @@
 from django import forms
-from .models import Add_chanel,Cost_Format
+from .models import Add_chanel,Cost_Format,Add_Reklama
 from django.contrib.auth.models import User
 from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import inlineformset_factory
+class Add_ReklamaForm(forms.ModelForm):
+    matching_formats = forms.ModelChoiceField(
+
+        queryset=Cost_Format.objects.filter(add_chanel=26),  # You may want to filter this queryset based on your specific needs
+        label='Matching Formats',
+        required=False,
+    )
+    class Meta:
+        model=Add_Reklama
+        fields=['chanel','matching_formats','text_ads','media','name_ads','comment','order_data']
+
+
+
+
+
+    def save(self, commit=True):
+        # Get the selected matching format
+        selected_format = self.cleaned_data.get('matching_formats')
+
+        # Create an Add_Reklama instance without saving it yet
+        instance = super().save(commit=False)
+
+        # Set the format field to the selected matching format
+        instance.format = selected_format
+
+        if commit:
+            instance.save()
+
+        return instance
+class Add_ReklamaStatus(forms.ModelForm):
+    class Meta:
+        model = Add_Reklama
+        fields = ['chanel', 'text_ads', 'media', 'name_ads', 'comment', 'order_data','status']
+
 
 class AddChanelForm(forms.ModelForm):
     class Meta:
