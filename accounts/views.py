@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
+
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Sum
 from django.shortcuts import render,redirect,get_object_or_404
@@ -33,6 +35,7 @@ def login_page(request):
                     return redirect(next)
                 return redirect('login_reklama')
             elif order=="admin":
+
                 login(request, user)
                 if next:
                     return redirect(next)
@@ -105,6 +108,7 @@ class CreateChanel(LoginRequiredMixin,CreateView):
             self.object = form.save()
             cost_format_formset.instance = self.object
             cost_format_formset.save()
+
             return super().form_valid(form)
         else:
 

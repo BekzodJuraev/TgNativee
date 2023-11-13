@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
+import asyncio
 import sys
-
+import threading
+from accounts.bot import run_userbot
 
 def main():
     """Run administrative tasks."""
@@ -18,5 +20,17 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+
+
 if __name__ == '__main__':
+    # Create a thread for running run_userbot asynchronously
+    #userbot_thread = threading.Thread(target=run_userbot_async)
+
     main()
+
+
+
+
+
+    # Wait for the userbot_thread to finish
+    #userbot_thread.join()

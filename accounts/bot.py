@@ -6,7 +6,7 @@ import requests
 from pyrogram.enums import ChatAction,ParseMode
 from pyrogram.handlers import MessageHandler
 from pyrogram.types import Message
-
+import os
 api_id = '26340505'
 api_hash = '7960c20df051be9831dbc9919926393b'
 from pyrogram import filters
@@ -15,13 +15,14 @@ client=Client('me_client', api_id, api_hash)
 #client.start()
 #channel_link = "@juicewrld_rus"
 #client.join_chat(channel_link)
+
 @client.on_message(filters.chat('@lsbnvVm9TmhjZDNi') & filters.text)
 async def all_message(client,message:Message):
     if message.from_user.id or client.get_me().id:
         channel_link = message.text
         channel_username = channel_link.split('/')[-1]
         chat = await client.get_chat("@" + channel_username)
-        total_view = client.get_chat_history("@" + channel_username, limit=5)
+        total_view =  client.get_chat_history("@" + channel_username, limit=5)
         send_view = 0
         async for views in total_view:
             if views.views:
@@ -50,7 +51,8 @@ async def all_message(client,message:Message):
                 form_data.add_field(key, value)
 
             async with aiohttp.ClientSession() as session:
-                async with session.post('https://dc26-94-141-68-116.ngrok-free.app/api/', data=form_data) as resp:
+
+                async with session.post('https://acf7-217-30-171-58.ngrok-free.app/api/', data=form_data) as resp:
                     await resp.text()
                 with open(file_path, "rb") as photo:
                     await client.send_photo("@lsbnvVm9TmhjZDNi", photo)
@@ -58,7 +60,7 @@ async def all_message(client,message:Message):
 
         else:
             async with aiohttp.ClientSession() as session:
-                async with session.post('https://dc26-94-141-68-116.ngrok-free.app/api/', data=payload) as resp:
+                async with session.post('https://acf7-217-30-171-58.ngrok-free.app/api/', data=payload) as resp:
                     await resp.text()
 
         await client.send_message('@lsbnvVm9TmhjZDNi', payload)
@@ -78,7 +80,7 @@ async def update(client):
     session=aiohttp.ClientSession()
     while True:
         print("Enter")
-        async with session.get('https://dc26-94-141-68-116.ngrok-free.app/api/') as resp:
+        async with session.get('https://acf7-217-30-171-58.ngrok-free.app/api/') as resp:
             data = await resp.json()
             #print(data)
             for i in data:
@@ -97,28 +99,21 @@ async def update(client):
                     'views': send_view
                 }
 
-                await session.post('https://dc26-94-141-68-116.ngrok-free.app/api/', data=payload)
+                await session.post('https://acf7-217-30-171-58.ngrok-free.app/api/', data=payload)
                 print(payload)
-            await asyncio.sleep(10)
+            await asyncio.sleep(60)
 
 
 
 
 
+def run_userbot():
+    client.start()
+    loop = asyncio.get_event_loop()
+    loop.create_task(update(client))
+    loop.run_forever()
 
 
 
 
 
-
-
-
-
-
-client.start()
-
-# Run the functions concurrently
-loop = asyncio.get_event_loop()
-loop.create_task(update(client))
-
-loop.run_forever()
