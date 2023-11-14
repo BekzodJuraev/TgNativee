@@ -4,7 +4,7 @@ import os
 import asyncio
 import sys
 import threading
-from accounts.bot import run_userbot
+
 
 def main():
     """Run administrative tasks."""

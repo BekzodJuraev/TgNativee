@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from accounts.bot import run_userbot
-from pyrogram import Client
+
 
 class Command(BaseCommand):
     help = 'Run the Pyrogram userbot'

@@ -9,14 +9,16 @@ from pyrogram.types import Message
 import os
 api_id = '26340505'
 api_hash = '7960c20df051be9831dbc9919926393b'
+
 from pyrogram import filters
 import time
 client=Client('me_client', api_id, api_hash)
-#client.start()
+
+
 #channel_link = "@juicewrld_rus"
 #client.join_chat(channel_link)
 
-@client.on_message(filters.chat('@lsbnvVm9TmhjZDNi') & filters.text)
+@client.on_message(filters.chat('@Tgnative_bot') & filters.text)
 async def all_message(client,message:Message):
     if message.from_user.id or client.get_me().id:
         channel_link = message.text
@@ -39,6 +41,7 @@ async def all_message(client,message:Message):
 
 
 
+
         if chat.photo is not None:
             file_path = await client.download_media(chat.photo.big_file_id, file_name="channel_photo.jpg")
             form_data = aiohttp.FormData()
@@ -52,7 +55,7 @@ async def all_message(client,message:Message):
 
             async with aiohttp.ClientSession() as session:
 
-                async with session.post('https://acf7-217-30-171-58.ngrok-free.app/api/', data=form_data) as resp:
+                async with session.post('https://1437-217-30-171-58.ngrok-free.app/api/', data=form_data) as resp:
                     await resp.text()
                 with open(file_path, "rb") as photo:
                     await client.send_photo("@lsbnvVm9TmhjZDNi", photo)
@@ -60,7 +63,7 @@ async def all_message(client,message:Message):
 
         else:
             async with aiohttp.ClientSession() as session:
-                async with session.post('https://acf7-217-30-171-58.ngrok-free.app/api/', data=payload) as resp:
+                async with session.post('https://1437-217-30-171-58.ngrok-free.app/api/', data=payload) as resp:
                     await resp.text()
 
         await client.send_message('@lsbnvVm9TmhjZDNi', payload)
@@ -80,7 +83,7 @@ async def update(client):
     session=aiohttp.ClientSession()
     while True:
         print("Enter")
-        async with session.get('https://acf7-217-30-171-58.ngrok-free.app/api/') as resp:
+        async with session.get('https://1437-217-30-171-58.ngrok-free.app/api/') as resp:
             data = await resp.json()
             #print(data)
             for i in data:
@@ -99,9 +102,10 @@ async def update(client):
                     'views': send_view
                 }
 
-                await session.post('https://acf7-217-30-171-58.ngrok-free.app/api/', data=payload)
+                await session.post('https://1437-217-30-171-58.ngrok-free.app/api/', data=payload)
                 print(payload)
             await asyncio.sleep(60)
+
 
 
 
@@ -112,8 +116,6 @@ def run_userbot():
     loop = asyncio.get_event_loop()
     loop.create_task(update(client))
     loop.run_forever()
-
-
 
 
 

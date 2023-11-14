@@ -134,9 +134,9 @@ class AviatorView(LoginRequiredMixin,ListView):
         #print(add_chanel_objects)
 
         try:
-            chanel_instance = Chanel.objects.get(username=self.request.user)
-            context['order']=Add_Reklama.objects.filter(chanel=chanel_instance)
-            # Now you can use chanel_instance in your queries or operations.
+            chanel_instances = Chanel.objects.filter(username=self.request.user)
+            context['order']=Add_Reklama.objects.filter(chanel__in=chanel_instances)
+            #Now you can use chanel_instance in your queries or operations.
         except Chanel.DoesNotExist:
             print("Netu")
         context['reklama'] = Chanel.objects.all().filter(username=self.request.user)
