@@ -7,6 +7,8 @@ from pyrogram.enums import ChatAction,ParseMode
 from pyrogram.handlers import MessageHandler
 from pyrogram.types import Message
 import os
+import telegram
+BOT_TOKEN="6782469164:AAG9NWxQZ2mPx5I9U7E3QX3HgbhU5MYr6Z4"
 api_id = '26340505'
 api_hash = '7960c20df051be9831dbc9919926393b'
 
@@ -14,7 +16,7 @@ from pyrogram import filters
 import time
 client=Client('me_client', api_id, api_hash)
 
-
+bot_telegram = telegram.Bot(token=BOT_TOKEN)
 #channel_link = "@juicewrld_rus"
 #client.join_chat(channel_link)
 

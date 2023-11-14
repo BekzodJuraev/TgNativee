@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+from django.utils import timezone
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'social_django',
     'accounts',
     'API',
-    'rest_framework'
+    'rest_framework',
+    'django_celery_results'
+
 
 ]
 
@@ -111,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -141,3 +143,13 @@ SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = "6782469164:AAG9NWxQZ2mPx5I9U7E3QX3HgbhU5MYr6Z4
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1028424281512-7gur1o8od48qkbrdgu3ch16g6fcaghcf.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+CELERY_BEAT_SCHEDULE = {
+    'send_scheduled_ads': {
+        'task': 'TgNativee.tasks.send_scheduled_ads',
+        'schedule': timezone.timedelta(seconds=10),
+    },
+}
+CELERY_IMPORTS = ('TgNativee.tasks',)

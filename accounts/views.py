@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
-
-
+import telegram
+from .bot import BOT_TOKEN
+from django.utils import timezone
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Sum
 from django.shortcuts import render,redirect,get_object_or_404
@@ -120,10 +121,22 @@ class Updatestatus(LoginRequiredMixin,UpdateView):
     template_name = 'updated_status.html'
     success_url = reverse_lazy('logging')
     login_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+
+        if form.instance.status=="DN" and form.instance.order_data==timezone.now():
+            bot_telegram.sendMessage('@lsbnvVm9TmhjZDNi',form.instance.chanel.chanel_link)
+          # Print "good" when the status is successfully updated
+        return response
+
+
 class AviatorView(LoginRequiredMixin,ListView):
     model = Chanel
     template_name = 'aviator.html'
     login_url = reverse_lazy('login')
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
