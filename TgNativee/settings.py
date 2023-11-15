@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'accounts',
     'API',
     'rest_framework',
-    'django_celery_results'
+    'django_celery_results',
+    'django_cron',
+
 
 
 ]
@@ -145,11 +147,14 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1028424281512-7gur1o8od48qkbrdgu3ch16g6fcaghcf.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-
+CELERY_IMPORTS = ('TgNativee.tasks',)
 CELERY_BEAT_SCHEDULE = {
     'send_scheduled_ads': {
         'task': 'TgNativee.tasks.send_scheduled_ads',
         'schedule': timezone.timedelta(seconds=10),
     },
 }
-CELERY_IMPORTS = ('TgNativee.tasks',)
+CRON_CLASSES = [
+    'accounts.cron.SendTelegramMessageCronJob',
+    # ... other cron jobs ...
+]

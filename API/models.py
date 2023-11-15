@@ -25,3 +25,12 @@ class Chanel(models.Model):
 
 
 
+class Add_userbot(models.Model):
+    name=models.CharField(max_length=100)
+    api_id=models.IntegerField()
+    api_hash=models.CharField(max_length=100)
+    session=models.TextField()
+    created=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
