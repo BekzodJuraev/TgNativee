@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from accounts.bot import  run_userbot
+from accounts.models import Add_Reklama
 import asyncio
 
 class Command(BaseCommand):

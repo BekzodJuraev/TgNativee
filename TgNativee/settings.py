@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'API',
     'rest_framework',
     'django_celery_results',
-    'django_cron',
+
 
 
 
@@ -154,7 +154,3 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timezone.timedelta(seconds=10),
     },
 }
-CRON_CLASSES = [
-    'accounts.cron.SendTelegramMessageCronJob',
-    # ... other cron jobs ...
-]
