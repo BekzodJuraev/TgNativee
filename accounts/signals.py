@@ -6,7 +6,7 @@ from django.utils import timezone
 import telegram
 from django.contrib.auth.models import User
 from .bot import BOT_TOKEN,bot_telegram
-
+from .tasks import send_notification
 timezone_from_settings = timezone.get_current_timezone()
 
 # Use the timezone
@@ -25,8 +25,10 @@ def create_profile_for_user(sender,instance,created,*args,**kwargs):
 @receiver(post_save,sender=Add_chanel)
 def create_chanel(sender,instance,created,*args,**kwargs):
     if created:
+        send_notification.delay()
 
-        bot_telegram.sendMessage(chat_id=Bekzod, text=instance.chanel_link)
+
+
         Chanel.objects.create(username=instance.username,add_chanel=instance,chanel_link=instance.chanel_link,subscribers=0,views=0,)
 
 @receiver(post_save, sender=Add_Reklama)

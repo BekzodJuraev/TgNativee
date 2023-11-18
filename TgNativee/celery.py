@@ -1,16 +1,8 @@
-from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
-from django.conf import settings
-
-# set the default Django settings module for the 'celery' program.
+# задать стандартный модуль настроек Django
+# для программы 'celery'.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'TgNativee.settings')
-
-# create a Celery instance and configure it using the settings module.
 app = Celery('TgNativee')
-
-# Load task modules from all registered Django app configs.
 app.config_from_object('django.conf:settings', namespace='CELERY')
-
-# Auto-discover tasks in all installed apps
-app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+app.autodiscover_tasks()

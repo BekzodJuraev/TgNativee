@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 
 
+
 ]
 
 MIDDLEWARE = [
@@ -145,12 +146,6 @@ SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = "6782469164:AAG9NWxQZ2mPx5I9U7E3QX3HgbhU5MYr6Z4
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1028424281512-7gur1o8od48qkbrdgu3ch16g6fcaghcf.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERY_IMPORTS = ('TgNativee.tasks',)
-CELERY_BEAT_SCHEDULE = {
-    'send_scheduled_ads': {
-        'task': 'TgNativee.tasks.send_scheduled_ads',
-        'schedule': timezone.timedelta(seconds=10),
-    },
-}
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+
