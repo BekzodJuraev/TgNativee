@@ -1,7 +1,6 @@
 from pyrogram import Client
 import aiohttp
 import asyncio
-import nest_asyncio
 import requests
 from pyrogram.enums import ChatAction,ParseMode
 from pyrogram.handlers import MessageHandler
@@ -140,6 +139,7 @@ async def run_userbot():
     await initialize_clients()
     # Start all clients and wait for them to start
     await run_userbots()
+
 
 
 

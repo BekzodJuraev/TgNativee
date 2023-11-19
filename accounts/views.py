@@ -124,11 +124,6 @@ class Updatestatus(LoginRequiredMixin,UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-
-
-        if form.instance.status=="DN" and form.instance.order_data==timezone.now():
-            bot_telegram.sendMessage('@lsbnvVm9TmhjZDNi',form.instance.chanel.chanel_link)
-          # Print "good" when the status is successfully updated
         return response
 
 

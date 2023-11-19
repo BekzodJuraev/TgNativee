@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'API',
     'rest_framework',
-    'django_celery_results',
+
 
 
 
