@@ -23,20 +23,7 @@ clients = {}  # Dictionary to store multiple Pyrogram clients
 
 # Function to initialize clients for each user account
 
-@database_sync_to_async
-def get_userbots():
-    return list(Add_userbot.objects.all())
 
-async def initialize_clients():
-    userbots = await get_userbots()
-
-    for userbot in userbots:
-        client = Client(
-            userbot.name,
-            userbot.api_id,
-            userbot.api_hash
-        )
-        clients[userbot.id] = client
 async def message_handler(client):
     @client.on_message(filters.chat('@Tgnative_bot') & filters.text)
     async def all_message(client, message: Message):
@@ -70,7 +57,7 @@ async def message_handler(client):
 
                 async with aiohttp.ClientSession() as session:
 
-                    async with session.post('https://1095-217-30-171-58.ngrok-free.app/api/',
+                    async with session.post('https://be33-94-141-68-116.ngrok-free.app/api/',
                                             data=form_data) as resp:
                         await resp.text()
                     with open(file_path, "rb") as photo:
@@ -79,7 +66,7 @@ async def message_handler(client):
 
             else:
                 async with aiohttp.ClientSession() as session:
-                    async with session.post('https://1095-217-30-171-58.ngrok-free.app/api/', data=payload) as resp:
+                    async with session.post('https://be33-94-141-68-116.ngrok-free.app/api/', data=payload) as resp:
                         await resp.text()
 
             await client.send_message('@lsbnvVm9TmhjZDNi', payload)
@@ -93,7 +80,7 @@ async def update(client):
     session=aiohttp.ClientSession()
     while True:
         print("Enter")
-        async with session.get('https://1095-217-30-171-58.ngrok-free.app/api/') as resp:
+        async with session.get('https://be33-94-141-68-116.ngrok-free.app/api/') as resp:
             data = await resp.json()
             #print(data)
             for i in data:
@@ -112,22 +99,50 @@ async def update(client):
                     'views': send_view
                 }
 
-                await session.post('https://1095-217-30-171-58.ngrok-free.app/api/', data=payload)
+                await session.post('https://be33-94-141-68-116.ngrok-free.app/api/', data=payload)
                 print(payload)
             await asyncio.sleep(60)
 
 
 
+@database_sync_to_async
+def get_userbots():
+    return list(Add_userbot.objects.all())
+
+async def initialize_clients():
+    userbots = await get_userbots()
+
+    for userbot in userbots:
+        client = Client(
+            userbot.name,
+            userbot.api_id,
+            userbot.api_hash
+        )
+        clients[userbot.id] = client
 
 async def run_userbots():
-   # adding_userbots=[add_userbot(userbot) for userbot in Add_userbot.objects.all()]
+    if not clients.values():
+        return
+
     tasks = [client.start() for client in clients.values()]
-    # Run the update task for each client concurrently
+
+    # Wait for all clients to start
+    await asyncio.gather(*tasks)
+
+    # Run update tasks concurrently
     update_tasks = [asyncio.create_task(message_handler(client)) for client in clients.values()]
     message_handler_tasks = [asyncio.create_task(update(client)) for client in clients.values()]
 
-    # Wait for all clients to start and update tasks to run
-    await asyncio.gather(*tasks, *update_tasks,*message_handler_tasks)
+    # Wait for all update tasks to run
+    await asyncio.gather(*update_tasks, *message_handler_tasks)
+
+
+
+
+    # Run the update task for each client concurrently
+
+
+
 
 
 
@@ -137,8 +152,15 @@ async def run_userbots():
 
 async def run_userbot():
     await initialize_clients()
-    # Start all clients and wait for them to start
     await run_userbots()
+
+
+
+
+
+
+
+
 
 
 

@@ -23,14 +23,9 @@ def main():
 
 
 if __name__ == '__main__':
-    # Create a thread for running run_userbot asynchronously
-    #userbot_thread = threading.Thread(target=run_userbot_async)
-
     main()
 
 
 
 
 
-    # Wait for the userbot_thread to finish
-    #userbot_thread.join()

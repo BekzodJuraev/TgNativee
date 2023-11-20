@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Chanel,Add_userbot
+from .models import Chanel,Add_userbot,Add_Sponsors
 from accounts.models import Add_chanel
 # Register your models here.
 @admin.register(Chanel)
@@ -11,3 +11,6 @@ class ChanelAdmin(admin.ModelAdmin):
 class Add_Userbot(admin.ModelAdmin):
     list_display = ['name','api_id','api_hash',]
 
+@admin.register(Add_Sponsors)
+class Add_Sponsors(admin.ModelAdmin):
+    list_display = ['name','created_at']
