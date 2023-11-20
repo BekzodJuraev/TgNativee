@@ -116,7 +116,9 @@ async def initialize_clients():
         client = Client(
             userbot.name,
             userbot.api_id,
-            userbot.api_hash
+            userbot.api_hash,
+            phone_number=userbot.phone_number
+
         )
         clients[userbot.id] = client
 

@@ -31,6 +31,8 @@ class Add_userbot(models.Model):
     api_hash=models.CharField(max_length=100)
     session=models.TextField()
     created=models.DateTimeField(auto_now_add=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    confirmation_code = models.CharField(max_length=6, blank=True, null=True)
 
     def __str__(self):
         return self.name
