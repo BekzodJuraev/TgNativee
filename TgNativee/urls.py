@@ -24,7 +24,7 @@ admin.site.site_title="TgNativee"
 admin.site.index_title="TgNativee Adminstration Dashboard"
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include('accounts.urls')),
+    path('', include('accounts.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
     path('api/',include('API.urls'))
 

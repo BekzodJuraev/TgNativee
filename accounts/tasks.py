@@ -15,4 +15,4 @@ bot_telegram = telegram.Bot(token=BOT_TOKEN)
 def send_telegram_message(ad_id):
     ad = Add_Reklama.objects.get(pk=ad_id)
     # Ваш код для выполнения, когда статус - PUBLISHED и order_data соответствует текущему времени
-    bot_telegram.sendMessage('@lsbnvVm9TmhjZDNi', "hello")
+    bot_telegram.sendMessage('@lsbnvVm9TmhjZDNi', ad.name_ads)

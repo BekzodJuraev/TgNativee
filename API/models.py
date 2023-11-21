@@ -20,7 +20,7 @@ class Chanel(models.Model):
     class Meta:
         verbose_name="Канал"
         verbose_name_plural="Канал"
-        ordering=['created_at']
+        ordering=['-subscribers']
 
 
 

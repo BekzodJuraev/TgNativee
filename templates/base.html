@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" class="page">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#111111">
+    <title>TGNATIVE</title>
+    <link rel="stylesheet" href="{% static 'css/vendor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script defer="defer" src="{% static 'js/main.js' %}"></script>
+</head>
+
+    {% block header %}{% endblock %}
+    {% include 'inc/header.html' %}
+
+    {% block content %}{% endblock %}
+    {% include 'inc/footer.html' %}
+
+    <!--================ End Header Menu Area =================-->
+
+
+</html>
+
+

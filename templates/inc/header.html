@@ -1,0 +1,17 @@
+{% load static %}
+
+    <header class="header">
+        <div class="container-fluid header__menu">
+            <div class="header__left">
+                <a class="header__logo" href="index.html">
+                    <img src="{% static 'img/logo.png' %}" alt="">
+                </a><div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Eng</button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="#">Eng</a></li>
+                    <li><a class="dropdown-item" href="#">Ru</a></li>
+                </ul></div></div><div class="header__right">
+            <ul class="header__navbar list-reset" data-menu>
+                <li class="header__nav"><a class="header__nav_link" href="about.html">О платформе</a></li><li class="header__nav"><a class="header__nav_link" href="list-channel.html">Списки каналов</a></li><li class="header__nav"><a class="header__nav_link" href="telegram-channel.html">Каталог каналов</a></li></ul><div class="header__buttons"><a href="registration.html" class="btn-reset header__registration">Регистрация </a><a href="login.html" class="btn-reset header__login">Войти <img src=" {% static 'img/header-icon-btn.png' %}" alt=""></a></div><div class="header__burger"><button class="btn-reset burger__icon"><svg class="burger" width="51" height="33" viewBox="0 0 51 33" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Group 4"><line id="Line 28" x1="3" y1="3" x2="48" y2="3" stroke="#23242F" stroke-width="6" stroke-linecap="round"/><line id="Line 29" x1="3" y1="17" x2="48" y2="17" stroke="#23242F" stroke-width="6" stroke-linecap="round"/><line id="Line 30" x1="3" y1="30" x2="48" y2="30" stroke="#23242F" stroke-width="6" stroke-linecap="round"/></g></svg></button></div></div><!--  Menu Burger   --><div class="header__dropdown"><ul class="list-reset"><li class="header__dropdown-item"><a href="" class="header__dropdown-login">Войти <img src="{% static 'img/icon-mobile-login.svg' %}" alt=""> </a><img src="{% static 'img/arrow-mobile.svg'%}" alt=""></li><li class="header__dropdown-item"><a href="" class="header__dropdown-link">Регистрация </a><img src="{% static 'img/arrow-mobile.svg' %}" alt=""></li><li class="header__dropdown-item"><a href="" class="header__dropdown-link">Каталог каналов</a></li><li class="header__dropdown-item"><a href="" class="header__dropdown-link">Отслеживание постов</a></li><li class="header__dropdown-item"><a href="" class="header__dropdown-link">Мои каналы</a></li><li class="header__dropdown-item"><a href="faq.html" class="header__dropdown-link">FAQ</a></li><li class="header__dropdown-item"><a href="" class="header__dropdown-link">Вернуться на главную</a></li></ul></div></div>
+    </header>
