@@ -12,17 +12,20 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,Add_ReklamaForm,Add_ReklamaStatus
-from API.models import Chanel
+from API.models import Chanel,Feedback,Add_Sponsors
 from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView
+
+class FaqPage(TemplateView):
+    template_name = 'faq.html'
 
 class AboutPage(TemplateView):
     template_name = 'about.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        context['sponsors']=Add_Sponsors.objects.all().order_by('-id')[:4]
         context['lists'] = Chanel.objects.all().count()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
         context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
@@ -33,6 +36,7 @@ class MainPage(TemplateView):
     template_name = 'index.html'
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
+        context['feedback']=Feedback.objects.all().order_by('-id')[:3]
         context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
         context['lists'] = Chanel.objects.all().count()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
@@ -77,7 +81,7 @@ def login_page(request):
     }
 
 
-    return render(request, "login.html", context)
+    return render(request, "login_.html", context)
 
 class CreateAds(LoginRequiredMixin,CreateView):
     template_name = 'create_ads.html'

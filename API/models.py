@@ -45,3 +45,17 @@ class Add_Sponsors(models.Model):
     def __str__(self):
         return self.name
 
+
+class Feedback(models.Model):
+    name = models.CharField(max_length=150, verbose_name="Клиент")
+    company_name = models.CharField(max_length=150, verbose_name="Название")
+    feedback=models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.company_name
+
+
+
+
