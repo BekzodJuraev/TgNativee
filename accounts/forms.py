@@ -60,12 +60,13 @@ class LoginForm(forms.Form):
         ('reklama', 'Я рекламодатель'),
     ]
     order = forms.ChoiceField(
-        widget=forms.RadioSelect,
+        widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
         choices=CHOICES,
         label=""
     )
-    username = forms.CharField(max_length=63,label="Логин")
-    password = forms.CharField(max_length=63, widget=forms.PasswordInput,label="Пароль")
+    username = forms.CharField(max_length=63,label="Логин",widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}))
+    password = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),label="Пароль")
+
 
 
 
