@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+<body class="page__body">
+<div class="registration-container">
+{% endblock %}
+ {% block content %}
+
+    <main class="main"><div class="registration">
+        <div class="container-fluid"><div class="registration__form">
+            <form  id="registrationForm" action="{% url 'create' %}"><h3 class="registration__form-title">Регистрация</h3>
+                <div class="registration__form-radio">
+                      {% for radio in form.order %}
+        <label>
+            {{ radio.tag }}
+            <span>{{ radio.choice_label }}</span>
+        </label>
+    {% endfor %}
+
+                </div>
+
+                <div class="registration__form-input">
+
+
+                <input type="text" class="form-control" placeholder="Имя">
+                    <input type="text" class="form-control" placeholder="Фамилия">
+                    <input type="email" class="form-control" placeholder="Ваш email">
+                <input type="tel" class="form-control" placeholder="+380">
+                    <input type="email" class="form-control" placeholder="Пароль">
+
+                </div>
+                <a href="" class="registration__form-link">Соглашение об использовании персональных данных</a>
+                <div class="d-flex justify-content-center"><button type="submit" class="registration__form-btn btn-reset">Завершить регистрацию</button></div>
+                <p class="registration__form-info">Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+            </form><p class="registration__desc">или продолжить с</p><div class="registration__buttons"><a class="registration__buttons-social" href="#">
+
+
+        <img src="{% static 'img/telegram.png' %}" alt=""> Telegram </a><a class="registration__buttons-social" href="#">
+        <img src="{% static 'img/google.png' %}" alt=""> Google</a></div></div></div></div></main></div></body></html>
+
+
+    {% endblock %}

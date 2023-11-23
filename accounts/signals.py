@@ -19,9 +19,9 @@ def create_profile_for_user(sender,instance,created,*args,**kwargs):
     if created:
         order = instance.order
         if order == 'admin':
-            Profile.objects.create(username=instance)
+            Profile.objects.create(username=instance,first_name=instance.username,last_name=instance.last_name)
         elif order == 'reklama':
-            Profile_advertiser.objects.create(username=instance)
+            Profile_advertiser.objects.create(username=instance,first_name=instance.username,last_name=instance.last_name)
 @receiver(post_save,sender=Add_chanel)
 def create_chanel(sender,instance,created,*args,**kwargs):
     if created:

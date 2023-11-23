@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import inlineformset_factory
+from phonenumber_field.formfields import PhoneNumberField
 class Add_ReklamaForm(forms.ModelForm):
     matching_formats = forms.ModelChoiceField(
 
@@ -65,6 +66,7 @@ class LoginForm(forms.Form):
         label=""
     )
     username = forms.CharField(max_length=63,label="Логин",widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}))
+
     password = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),label="Пароль")
 
 
@@ -76,14 +78,24 @@ class RegistrationForm(UserCreationForm):
         ('reklama', 'Я рекламодатель'),
     ]
     order = forms.ChoiceField(
-        widget=forms.RadioSelect,
+        widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
         choices=CHOICES,
         label=""
     )
-    username = forms.CharField(max_length=63, label='Придумайте логин')
-    password1 = forms.CharField(max_length=63, widget=forms.PasswordInput, label='Придумайте пароль')
-    password2 = forms.CharField(max_length=63, widget=forms.PasswordInput, label='Повторите Пароль')
+    username = forms.CharField(max_length=63, label="Логин",
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}))
+    last_name = forms.CharField(max_length=63, label="Логин",
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}))
+
+
+
+    password1 = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),label="Пароль")
     email = forms.EmailField(label='Ввидите E-mail ',required=True )
+    phone_number = PhoneNumberField()
+
+    def clean_password2(self):
+        # Bypass password confirmation check
+        return self.cleaned_data.get('password1')
 
 
     def clean_email(self):
@@ -94,10 +106,8 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model=User
-        fields = ['order','username', 'email', 'password1', 'password2']
-        error_messages = {
-            'password_mismatch': "The two password fields didn't match.",
-        }
+        fields = ['order','last_name','username', 'email', 'password1', 'phone_number']
+
 
     def save(self, commit=True):
         user = super().save(commit=False)

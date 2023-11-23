@@ -2,9 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import AbstractUser, UserManager, Permission
-
+from phonenumber_field.modelfields import PhoneNumberField
 class Profile(models.Model):
     username=models.ForeignKey(User,on_delete=models.CASCADE)
+    phone_number = PhoneNumberField()
     first_name=models.CharField(max_length=150)
     last_name=models.CharField(max_length=150)
     email=models.EmailField()
@@ -20,6 +21,7 @@ class Profile(models.Model):
         return self.username.username
 class Profile_advertiser(models.Model):
     username=models.ForeignKey(User,on_delete=models.CASCADE)
+    phone_number = PhoneNumberField()
     first_name=models.CharField(max_length=150)
     last_name=models.CharField(max_length=150)
     email=models.EmailField()

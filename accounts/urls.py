@@ -4,6 +4,9 @@ from django.contrib.auth import views as auth_views
 urlpatterns=[
      path('', views.MainPage.as_view(), name='main'),
      path('about/', views.AboutPage.as_view(),name='about'),
+     path('contact/', views.ContactPage.as_view(), name='contact'),
+     path('list-chanel/',views.ListChanelPage.as_view(),name='list-chanel'),
+     path('category-list/',views.CategoryChanelPage.as_view(),name='category-list'),
      path('faq/',views.FaqPage.as_view(),name='faq'),
      path('login/', views.login_page, name='login'),
      path('post/',views.CreateChanel.as_view(),name='post'),

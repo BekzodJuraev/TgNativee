@@ -17,6 +17,23 @@ from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView
 
+class CategoryChanelPage(ListView):
+    template_name = 'category.html'
+    model = Chanel
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['lists'] = Chanel.objects.all().count()
+        context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
+
+        return context
+
+
+class ListChanelPage(TemplateView):
+    template_name = 'listchanel.html'
+
+class ContactPage(TemplateView):
+    template_name = 'contact.html'
+
 class FaqPage(TemplateView):
     template_name = 'faq.html'
 
@@ -69,7 +86,7 @@ def login_page(request):
                 return redirect('logging')
 
         else:
-            return redirect('login')
+            form.add_error(None, 'Логин или пароль неверны')
 
 
 
@@ -208,7 +225,7 @@ def register_page(request):
     context = {
         'form': form
     }
-    return render(request, 'register.html', context)
+    return render(request, 'register_.html', context)
 
 
 def create(request):
