@@ -7,6 +7,7 @@ urlpatterns=[
      path('contact/', views.ContactPage.as_view(), name='contact'),
      path('list-chanel/',views.ListChanelPage.as_view(),name='list-chanel'),
      path('category-list/',views.CategoryChanelPage.as_view(),name='category-list'),
+     path('page/<int:pk>', views.Page_List.as_view(),name='page'),
      path('faq/',views.FaqPage.as_view(),name='faq'),
      path('login/', views.login_page, name='login'),
      path('post/',views.CreateChanel.as_view(),name='post'),

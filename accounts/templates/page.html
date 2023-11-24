@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block header %}
+<body class="page__body">
+<div class="registration-container">
+{% endblock %}
+{% block content %}
+    {% with er=object.views|div:object.subscribers|mul:100 %}
+
+    <main class="main">
+        <div class="page__channel"><div class="container-fluid"><div class="page__channel-cards"><div class="page__channel-cards-box"><div class="d-flex justify-content-end">
+            <img src="{% static 'img/love.png' %}" alt=""></div><div class="d-flex gap-3"><div class="box__image"><img src="/{{object.pictures}}" alt=""></div><div>
+            <h3 class="box__title">{{object.name}}</h3><a href="{{object.chanel_link}}" class="box__link">{{object.chanel_link}} <img src="{% static 'img/copy.png' %}" alt=""></a><p class="box__desc">Категория: <b>Интернет технологии</b></p><p class="box__desc">Язык: <b>Русский</b></p><div><span><img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""></span></div></div></div>
+            <p class="box__info">
+                {{object.add_chanel.description}}
+
+        </p><a href="" class="box__link" style="color: #008E8B">Подробнее</a></div><div class="page__channel-cards-box"><p class="box__right-title">Подписчиков</p><div class="d-flex justify-content-between mb-5"><div><p class="number__title">Всего</p><span class="number__count" style="color:#00B2EB;">{{object.subscribers}}</span></div><div><p class="number__title">Сегодня</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Неделя</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Месяц</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div></div><div class="d-flex justify-content-between"><p class="number__title">Просмотров на пост</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div><div class="d-flex justify-content-between"><p class="number__title">За последние 24</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div></div><div class="page__channel-cards-box">
+            <p class="box__right-title fw-bold" style="color: #00B2EB">Заказать рекламу на этом канале</p>
+            <label>Формат <select class="form-select" aria-label="Default select example">
+                <option selected="selected">Open this select menu</option>
+
+                 {% for cost_format in object.add_chanel.cost_formats.all %}
+                <option value="">{{ cost_format.placement_format }}</option>
+                {% endfor %}
+
+
+
+            </select>
+            </label> <span class="box__time">8 часов в топе/24 часа в ленте</span> <span class="box__time" style="color:#000;">Ближайшее время публикации: </span><span class="box__time" style="color:#000;">26.05.2023 12:30</span> <span class="box__time" style="color:#008E8B;">Выбрать время</span><div class="d-flex gap-3 mt-3 time__wrapper"><div><input type="date" class="form-control" placeholder="Выбрать дату"></div><div><select class="form-select" aria-label="Default select example"><option selected="selected">Выбрать время</option>
+            <option value="1">One</option><option value="2">Two</option><option value="3">Three</option></select></div></div>
+            <div class="box__bottom">
+                {% for cost_format in object.add_chanel.cost_formats.all %}
+
+
+                <p class="box__bottom-text">Стоимость: {{cost_format.cost_per_format}} UAH</p>
+                {% endfor %}
+
+
+                <div class="d-flex align-items-center gap-3"><button class="btn-reset">Заказать</button> <a href="{% url 'logging' %}"><img src="{% static 'img/add-shopping-cart.png' %}" alt=""></a></div></div></div><div class="page__channel-cards-box"><div class="d-flex flex-column"><div class="d-flex justify-content-between"><p class="number__title">ER</p><span class="number__count" style="color:#00B2EB;">{{er|floatformat:2}}</span></div><div class="d-flex justify-content-between"><p class="number__title">Суточный</p><span class="number__count" style="color:#00B2EB;">2387956</span></div><div class="d-flex justify-content-between"><p class="number__title">Упоминаний в ТГ</p><span class="number__count" style="color:#00B2EB;">2387956</span></div></div></div><div></div><div><p class="statistics__title">Статистика просмотров</p><img src="img/stat.png" alt=""></div></div><p class="page__channel-reviews">Отзывы</p><div class="reviews-card-wrapper"><div class="reviews-card"><div class="reviews-card-left"><div class="reviews-card-left-images"><img src="img/Test Account.png" alt=""></div><div><p class="reviews-card-title">Алена</p><p class="reviews-card-subtitle">Отзыв о <b>ДНЕВНИК ВЕРСТАЛЬЩИКА</b></p><p class="reviews-card-desc">Все сделано должным образом, довольна размещением</p></div></div><div class="reviews-card-right"><div><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""></span></div><div class="d-flex align-items-center gap-3"><div class="d-flex align-items-center"><img src="img/like.png" alt=""> 0</div><div class="d-flex align-items-center"><img src="img/dislike.png" alt=""> 0</div></div></div></div><div class="reviews-card"><div class="reviews-card-left"><div class="reviews-card-left-images"><img src="img/Test Account.png" alt=""></div><div><p class="reviews-card-title">Алена</p><p class="reviews-card-subtitle">Отзыв о <b>ДНЕВНИК ВЕРСТАЛЬЩИКА</b></p><p class="reviews-card-desc">Все сделано должным образом, довольна размещением</p></div></div><div class="reviews-card-right"><div><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""></span></div><div class="d-flex align-items-center gap-3"><div class="d-flex align-items-center"><img src="img/like.png" alt=""> 0</div><div class="d-flex align-items-center"><img src="img/dislike.png" alt=""> 0</div></div></div></div><div class="d-flex justify-content-center align-items-center"><a href="" class="reviews-card-wrapper-link">Посмотреть все</a></div></div></div></div></main></div>
+
+    {% endwith %}
+    {% endblock %}

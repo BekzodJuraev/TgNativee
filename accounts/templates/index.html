@@ -18,7 +18,7 @@
              {% with last_cost_format=item.add_chanel.cost_formats.last %}
 
 
-            <tbody><tr><th scope="row" style="width: 8rem"><img src="/{{item.pictures}}"></th><td><p class="tableB">{{item.name}}</p><span class="tableUsername">{{item.chanel_link}}</span></td><td><p class="tableB">{{item.subscribers}}</p></td><td><p class="tableB">{{item.views}}</p></td><td><span class="tableGreen">{{ last_cost_format.cost_per_format }} ₽</span><p class="tableB">{{ last_cost_format.placement_format }}</p></td><td style="width: 10rem"><a class="tableLink" href="">Подробнее</a></td></tr>
+            <tbody><tr><th scope="row" style="width: 8rem"><img src="/{{item.pictures}}"></th><td><p class="tableB">{{item.name}}</p><span class="tableUsername">{{item.chanel_link}}</span></td><td><p class="tableB">{{item.subscribers}}</p></td><td><p class="tableB">{{item.views}}</p></td><td><span class="tableGreen">{{ last_cost_format.cost_per_format }} UAH</span><p class="tableB">{{ last_cost_format.placement_format }}</p></td><td style="width: 10rem"><a class="tableLink" href="{% url 'page' item.pk  %} ">Подробнее</a></td></tr>
             </tbody>
               {% endwith %}
 

@@ -13,17 +13,25 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,Add_ReklamaForm,Add_ReklamaStatus
 from API.models import Chanel,Feedback,Add_Sponsors
-from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama
+from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama,Category_chanels
 
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView,DetailView
+
+class Page_List(DetailView):
+    template_name = 'page.html'
+    model = Chanel
+
+
 
 class CategoryChanelPage(ListView):
     template_name = 'category.html'
     model = Chanel
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['lists'] = Chanel.objects.all().count()
         context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
+        context['category']=Category_chanels.objects.all()
 
         return context
 
