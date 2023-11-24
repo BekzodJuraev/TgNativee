@@ -83,19 +83,27 @@ class RegistrationForm(UserCreationForm):
         label=""
     )
     username = forms.CharField(max_length=63, label="Логин",
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}))
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}))
     last_name = forms.CharField(max_length=63, label="Логин",
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}))
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'}))
 
 
 
     password1 = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),label="Пароль")
-    email = forms.EmailField(label='Ввидите E-mail ',required=True )
-    phone_number = PhoneNumberField()
+
+    email = forms.EmailField(max_length=63,required=True, label="email",
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваш email'}))
+    phone_number = PhoneNumberField(max_length=63,required=True, label="email",
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+380'}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password2'].required = False
 
     def clean_password2(self):
         # Bypass password confirmation check
         return self.cleaned_data.get('password1')
+
 
 
     def clean_email(self):

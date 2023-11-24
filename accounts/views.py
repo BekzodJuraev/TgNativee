@@ -233,12 +233,11 @@ def create(request):
         form = RegistrationForm(request.POST)
 
         if form.is_valid():
-            print(form)
 
             form.save()
-            return JsonResponse({'success': "good"})
+            return redirect('login')
         else:
-            print(form)
+
 
             return JsonResponse({'success': False, 'errors': form.errors})
     return JsonResponse({'success': False})

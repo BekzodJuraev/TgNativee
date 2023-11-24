@@ -7,7 +7,7 @@
  {% block content %}
 
     <main class="main"><div class="login"><div class="container-fluid"><div class="login__form">
-        <form method="post" action="{% url 'login' %}">
+        <form  method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <h3 class="login__form-title">Вход</h3>
             <div class="login__form-radio">
