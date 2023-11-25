@@ -11,7 +11,7 @@
     <main class="main">
         <div class="page__channel"><div class="container-fluid"><div class="page__channel-cards"><div class="page__channel-cards-box"><div class="d-flex justify-content-end">
             <img src="{% static 'img/love.png' %}" alt=""></div><div class="d-flex gap-3"><div class="box__image"><img src="/{{object.pictures}}" alt=""></div><div>
-            <h3 class="box__title">{{object.name}}</h3><a href="{{object.chanel_link}}" class="box__link">{{object.chanel_link}} <img src="{% static 'img/copy.png' %}" alt=""></a><p class="box__desc">Категория: <b>Интернет технологии</b></p><p class="box__desc">Язык: <b>Русский</b></p><div><span><img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""></span></div></div></div>
+            <h3 class="box__title">{{object.name}}</h3><a href="{{object.chanel_link}}" class="box__link">{{object.chanel_link}} <img src="{% static 'img/copy.png' %}" alt=""></a><p class="box__desc">Категория: <b>{{object.add_chanel.category}}</b></p><p class="box__desc">Язык: <b>Русский</b></p><div><span><img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""></span></div></div></div>
             <p class="box__info">
                 {{object.add_chanel.description}}
 
@@ -37,7 +37,26 @@
                 {% endfor %}
 
 
-                <div class="d-flex align-items-center gap-3"><button class="btn-reset">Заказать</button> <a href="{% url 'logging' %}"><img src="{% static 'img/add-shopping-cart.png' %}" alt=""></a></div></div></div><div class="page__channel-cards-box"><div class="d-flex flex-column"><div class="d-flex justify-content-between"><p class="number__title">ER</p><span class="number__count" style="color:#00B2EB;">{{er|floatformat:2}}</span></div><div class="d-flex justify-content-between"><p class="number__title">Суточный</p><span class="number__count" style="color:#00B2EB;">2387956</span></div><div class="d-flex justify-content-between"><p class="number__title">Упоминаний в ТГ</p><span class="number__count" style="color:#00B2EB;">2387956</span></div></div></div><div></div><div><p class="statistics__title">Статистика просмотров</p><img src="img/stat.png" alt=""></div></div><p class="page__channel-reviews">Отзывы</p><div class="reviews-card-wrapper"><div class="reviews-card"><div class="reviews-card-left"><div class="reviews-card-left-images"><img src="img/Test Account.png" alt=""></div><div><p class="reviews-card-title">Алена</p><p class="reviews-card-subtitle">Отзыв о <b>ДНЕВНИК ВЕРСТАЛЬЩИКА</b></p><p class="reviews-card-desc">Все сделано должным образом, довольна размещением</p></div></div><div class="reviews-card-right"><div><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""></span></div><div class="d-flex align-items-center gap-3"><div class="d-flex align-items-center"><img src="img/like.png" alt=""> 0</div><div class="d-flex align-items-center"><img src="img/dislike.png" alt=""> 0</div></div></div></div><div class="reviews-card"><div class="reviews-card-left"><div class="reviews-card-left-images"><img src="img/Test Account.png" alt=""></div><div><p class="reviews-card-title">Алена</p><p class="reviews-card-subtitle">Отзыв о <b>ДНЕВНИК ВЕРСТАЛЬЩИКА</b></p><p class="reviews-card-desc">Все сделано должным образом, довольна размещением</p></div></div><div class="reviews-card-right"><div><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""> </span><span><img src="img/star2.png" alt=""></span></div><div class="d-flex align-items-center gap-3"><div class="d-flex align-items-center"><img src="img/like.png" alt=""> 0</div><div class="d-flex align-items-center"><img src="img/dislike.png" alt=""> 0</div></div></div></div><div class="d-flex justify-content-center align-items-center"><a href="" class="reviews-card-wrapper-link">Посмотреть все</a></div></div></div></div></main></div>
+                <div class="d-flex align-items-center gap-3"><button class="btn-reset">Заказать</button> <a href="{% url 'logging' %}"><img src="{% static 'img/add-shopping-cart.png' %}" alt=""></a></div></div></div><div class="page__channel-cards-box"><div class="d-flex flex-column"><div class="d-flex justify-content-between"><p class="number__title">ER</p><span class="number__count" style="color:#00B2EB;">{{er|floatformat:2}}</span></div><div class="d-flex justify-content-between"><p class="number__title">Суточный</p><span class="number__count" style="color:#00B2EB;">2387956</span></div><div class="d-flex justify-content-between"><p class="number__title">Упоминаний в ТГ</p><span class="number__count" style="color:#00B2EB;">2387956</span></div></div></div><div></div><div><p class="statistics__title">Статистика просмотров</p><img src="{% static 'img/stat.png' %}" alt=""></div></div><p class="page__channel-reviews">
+            Отзывы</p>
+
+            <div class="reviews-card-wrapper">
+                          {% for item in category %}
+
+
+
+
+
+
+                <div class="reviews-card"><div class="reviews-card-left"><div class="reviews-card-left-images"><img src="/{{item.user_order.photo}}" alt=""></div><div><p class="reviews-card-title">
+                    {{item.user_order.first_name}}</p><p class="reviews-card-subtitle">Отзыв о <b>{{item.chanel.name}} </b></p><p class="reviews-card-desc">
+                    {{item.comment}}</p></div></div><div class="reviews-card-right"><div><span><img src="{% static 'img/star2.png' %}" alt=""> </span><span><img src="{% static 'img/star2.png' %}" alt=""> </span><span><img src="{% static 'img/star2.png' %}" alt=""> </span><span><img src="{% static 'img/star2.png' %}" alt=""></span></div><div class="d-flex align-items-center gap-3"><div class="d-flex align-items-center"><img src="{% static 'img/like.png' %}" alt=""> 0</div><div class="d-flex align-items-center"><img src="{% static 'img/dislike.png' %}" alt=""> 0</div></div></div></div>
+                {% endfor %}
+
+                <div class="d-flex justify-content-center align-items-center"><a href="" class="reviews-card-wrapper-link">Посмотреть все</a></div></div></div></div></main></div>
 
     {% endwith %}
+
+
     {% endblock %}
+

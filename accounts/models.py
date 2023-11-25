@@ -37,6 +37,7 @@ class Profile_advertiser(models.Model):
 
 class Add_chanel(models.Model):
     username = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    category=models.ForeignKey('Category_chanels',on_delete=models.CASCADE)
 
     chanel_link = models.CharField(max_length=150)
     description=models.TextField()

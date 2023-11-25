@@ -20,6 +20,15 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView,Te
 class Page_List(DetailView):
     template_name = 'page.html'
     model = Chanel
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        channel_name = self.object.name  # Assuming 'name' is the field in Chanel model
+
+        # Retrieve all comments related to the channel
+        comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(comment__isnull=True)
+
+        context['category'] = comments
+        return context
 
 
 
