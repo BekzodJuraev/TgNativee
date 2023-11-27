@@ -18,3 +18,4 @@ class Add_Sponsors(admin.ModelAdmin):
 @admin.register(Feedback)
 class Feedback(admin.ModelAdmin):
     list_display = ['name','created_at']
+

@@ -11,7 +11,6 @@ urlpatterns=[
      path('faq/',views.FaqPage.as_view(),name='faq'),
      path('login/', views.login_page, name='login'),
      path('post/',views.CreateChanel.as_view(),name='post'),
-     path('create', views.create, name='create'),
      path('register/', views.register_page, name='register'),
      path('tgnative/',views.AviatorView.as_view(),name="logging"),
      path('reklama/',views.ProfileView.as_view(),name="login_reklama"),

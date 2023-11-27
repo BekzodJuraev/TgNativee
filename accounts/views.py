@@ -237,24 +237,19 @@ class ProfileView(LoginRequiredMixin,ListView):
 
 
 def register_page(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
 
-    form = RegistrationForm()
+    else:
+        form = RegistrationForm()
+
     context = {
         'form': form
     }
+
     return render(request, 'register_.html', context)
 
 
-def create(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-
-        if form.is_valid():
-
-            form.save()
-            return redirect('login')
-        else:
-
-
-            return JsonResponse({'success': False, 'errors': form.errors})
-    return JsonResponse({'success': False})

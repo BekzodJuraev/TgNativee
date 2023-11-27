@@ -9,7 +9,7 @@
 
     <main class="main"><div class="registration">
         <div class="container-fluid"><div class="registration__form">
-            <form   id="registrationForm"  method="post" action="{% url 'create' %}">
+            <form   id="registrationForm"  method="post" action="{% url 'register' %}">
                 <h3 class="registration__form-title">Регистрация</h3>
                 <div class="registration__form-radio">
                       {% for radio in form.order %}
@@ -22,6 +22,7 @@
                 </div>
 
                 <div class="registration__form-input">
+
                     {% csrf_token %}
                     {{ form.username}}
                     {{ form.last_name}}
@@ -34,13 +35,27 @@
 
 
 
+
                 </div>
                 <br>
-                {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ form.non_field_errors }}
-        </div>
-    {% endif %}
+                {% if form.errors %}
+    <div class="alert alert-danger">
+
+        {% for field, errors in form.errors.items %}
+
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+
+
+
                 <a href="" class="registration__form-link">Соглашение об использовании персональных данных</a>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="registration__form-btn btn-reset">Завершить регистрацию</button></div>
@@ -52,28 +67,7 @@
         <img src="{% static 'img/google.png' %}" alt=""> Google</a></div></div></div></div></main></div></body></html>
 
 
-<script>
-        $(document).ready(function() {
-            $('#registrationForm').on('submit', function(event) {
-                event.preventDefault();
 
-                var form = $(this);
-                var url = form.attr('action');
-
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: form.serialize(),
-                    success: function(response) {
-                        console.log('POSTED!');
-                    },
-                    error: function() {
-                        console.log('An error occurred!');
-                    }
-                });
-            });
-        });
-    </script>
 
 
     {% endblock %}
