@@ -7,7 +7,7 @@ import telegram
 import asyncio
 from django.contrib.auth.models import User
 from .bot import BOT_TOKEN,bot_telegram,Client, message_handler, update,run_userbot
-from .tasks import send_telegram_message
+from .tasks import send_telegram_message,process_user_bot
 timezone_from_settings = timezone.get_current_timezone()
 from datetime import timedelta
 
@@ -36,7 +36,9 @@ def execute_code_on_published(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Add_userbot)
 def handle_new_userbot(sender, instance, **kwargs):
-    pass
+    process_user_bot.delay(name=instance.name,api_id=instance.api_id,api_hash=instance.api_hash,phone=instance.phone_number)
+
+
 
 
 
