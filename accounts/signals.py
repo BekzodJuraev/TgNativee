@@ -10,7 +10,7 @@ from .bot import BOT_TOKEN,bot_telegram,Client, message_handler, update,run_user
 from .tasks import send_telegram_message,process_user_bot
 timezone_from_settings = timezone.get_current_timezone()
 from datetime import timedelta
-
+from pyrogram import Client
 # Use the timezone
 Bekzod = "531080457"
 
@@ -35,8 +35,17 @@ def execute_code_on_published(sender, instance, created, **kwargs):
         send_telegram_message.apply_async(args=[instance.id], eta=instance.order_data)
 
 @receiver(post_save, sender=Add_userbot)
-def handle_new_userbot(sender, instance, **kwargs):
+def handle_new_userbot(sender, instance,created, **kwargs):
     process_user_bot.delay(name=instance.name,api_id=instance.api_id,api_hash=instance.api_hash,phone=instance.phone_number)
+   # client = Client(name=instance.name,api_id=instance.api_id,api_hash=instance.api_hash,phone_number=instance.phone_number)
+
+
+
+
+
+
+
+
 
 
 

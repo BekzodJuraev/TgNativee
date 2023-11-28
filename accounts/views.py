@@ -14,8 +14,42 @@ from django.urls import reverse_lazy
 from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,Add_ReklamaForm,Add_ReklamaStatus
 from API.models import Chanel,Feedback,Add_Sponsors
 from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama,Category_chanels
-
+from django.contrib.auth import logout
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView,DetailView
+
+
+
+class Reklama_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'reklama_cabinet.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not Profile_advertiser.objects.filter(username=request.user).exists():
+            # Redirect the user to a different page or return an error message
+            # if they don't have a profile.
+            logout(request)
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
+
+def logout_view(request):
+    logout(request)
+    return redirect('main')
+
+class Cabinet_telegramPage(LoginRequiredMixin,TemplateView):
+    template_name = 'telegram_cabinet.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not Profile.objects.filter(username=request.user).exists():
+            # Redirect the user to a different page or return an error message
+            # if they don't have a profile.
+            logout(request)
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
+
+
+
+
+
+
 
 class Page_List(DetailView):
     template_name = 'page.html'
