@@ -8,10 +8,16 @@ def user_authenticated(request):
         try:
             user_profile = Profile.objects.get(username=request.user)
             user_authenticated_data['user_photo'] = user_profile.photo
+            user_authenticated_data['url']='logging'
+            user_authenticated_data['url_cabinet']='cabinet_telegram'
+            user_authenticated_data['pk'] = user_profile.pk
         except Profile.DoesNotExist:
             try:
                 advertiser_profile = Profile_advertiser.objects.get(username=request.user)
                 user_authenticated_data['user_photo'] = advertiser_profile.photo
+                user_authenticated_data['url'] = 'login_reklama'
+                user_authenticated_data['url_cabinet'] = 'cabinet_reklama'
+                user_authenticated_data['pk'] = advertiser_profile.pk
             except Profile_advertiser.DoesNotExist:
                 pass
 

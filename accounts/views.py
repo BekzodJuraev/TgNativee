@@ -18,6 +18,38 @@ from django.contrib.auth import logout
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView,DetailView
 
 
+class UpdateReklama(LoginRequiredMixin,UpdateView):
+    template_name = "update_reklama.html"
+    model = Profile_advertiser
+    form_class = AddChanelForm
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['user']=Profile_advertiser.objects.get(username=self.request.user)
+        return context
+
+class UpdateTelegram(LoginRequiredMixin,UpdateView):
+    template_name = "update_telegram.html"
+    model = Profile
+    form_class = AddChanelForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = Profile.objects.get(username=self.request.user)
+        return context
+
+class Zayavka_Page(LoginRequiredMixin,TemplateView):
+    template_name = 'zayavki.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not Profile.objects.filter(username=request.user).exists():
+            # Redirect the user to a different page or return an error message
+            # if they don't have a profile.
+            logout(request)
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
+
 
 class Reklama_Page(LoginRequiredMixin,TemplateView):
     template_name = 'reklama_cabinet.html'
@@ -170,7 +202,7 @@ class CreateAds(LoginRequiredMixin,CreateView):
 
 
 class CreateChanel(LoginRequiredMixin,CreateView):
-    template_name='create.html'
+    template_name='add_chanel.html'
     form_class=AddChanelForm
     success_url = reverse_lazy('logging')
     login_url = reverse_lazy('login')
