@@ -20,6 +20,7 @@ urlpatterns=[
      #path('reklama/',views.ProfileView.as_view(),name="login_reklama"),
      path('<int:pk>/reklama',views.UpdateReklama.as_view(),name='cabinet_reklama'),
      path('<int:pk>/telegram',views.UpdateTelegram.as_view(),name='cabinet_telegram'),
+     path('balance/',views.BalancePage.as_view(),name='balance'),
 
      path('reklama/create/',views.CreateAds.as_view(),name="ads"),
      path('<int:pk>/update',views.Updatestatus.as_view(),name='update'),

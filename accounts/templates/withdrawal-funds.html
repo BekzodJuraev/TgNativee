@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+<body class="page__body">
+<div class="withdrawal-funds-container">
+{% endblock %}
+
+    {% block content %}
+    <main class="main"><div class="withdrawal__funds"><div class="container-fluid"><h3 class="title withdrawal__funds-title">Вывод средств</h3><div class="withdrawal__funds__tabs"><a href="" class="active">История платежей</a> <a href="">Пополнение</a> <a href="">Вывод</a> <a href="">Счета</a></div><p class="card__title">Быстрый</p><div class="button_wrapper"><button class="btn-reset btn_info"><img src="{% static 'img/image 104.png' %}" alt=""><p>Пластиковая карта</p><span>Комиссия 3%</span></button> <button class="btn-reset btn_info"><img src="{% static 'img/image 104.png' %}" alt=""><p>Пластиковая карта</p><span>Комиссия 3%</span></button> <button class="btn-reset btn_info"><img src="{% static 'img/Add New.png' %}" alt=""></button></div><p class="card__title mt-3">Безналичный</p><div class="button_wrapper"><button class="btn-reset btn_info"><img src="{% static 'img/User3.png' %}" alt=""><p>Безналичный платеж ФОП</p><span>Комиссия 0%</span></button></div></div></div></main></div>
+
+
+    {% endblock %}

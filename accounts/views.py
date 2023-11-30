@@ -18,6 +18,13 @@ from django.contrib.auth import logout
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView,DetailView
 
 
+
+
+
+class BalancePage(LoginRequiredMixin,TemplateView):
+    template_name = 'withdrawal-funds.html'
+
+
 class UpdateReklama(LoginRequiredMixin,UpdateView):
     template_name = "update_reklama.html"
     model = Profile_advertiser

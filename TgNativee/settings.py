@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-a6k2mycl)cq6u3i+k)iz0%^r6tl9)4aq3k&$p4*d3sfn4i3cia
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://362c-94-141-68-116.ngrok-free.app','https://www.362c-94-141-68-116.ngrok-free.app']
 
 
 # Application definition
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+
 ]
 
 ROOT_URLCONF = 'TgNativee.urls'
