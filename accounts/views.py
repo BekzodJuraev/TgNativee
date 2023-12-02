@@ -49,6 +49,24 @@ class UpdateTelegram(LoginRequiredMixin,UpdateView):
 class Zayavka_Page(LoginRequiredMixin,TemplateView):
     template_name = 'zayavki.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+
+        try:
+            chanel_instances = Chanel.objects.filter(username=self.request.user)
+            context['order'] = Add_Reklama.objects.filter(chanel__in=chanel_instances)
+            context['count'] = Add_Reklama.objects.filter(chanel__in=chanel_instances).count()
+            # Now you can use chanel_instance in your queries or operations.
+        except Chanel.DoesNotExist:
+           pass
+
+        return context
+
+
+
+
+
     def dispatch(self, request, *args, **kwargs):
         if not Profile.objects.filter(username=request.user).exists():
             # Redirect the user to a different page or return an error message
@@ -75,6 +93,16 @@ def logout_view(request):
 
 class Cabinet_telegramPage(LoginRequiredMixin,TemplateView):
     template_name = 'telegram_cabinet.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['chanel'] = Chanel.objects.filter(username=self.request.user)
+        context['count'] = Chanel.objects.filter(username=self.request.user).count()
+        return context
+
+
+
+
 
     def dispatch(self, request, *args, **kwargs):
         if not Profile.objects.filter(username=request.user).exists():
@@ -209,7 +237,7 @@ class CreateAds(LoginRequiredMixin,CreateView):
 
 
 class CreateChanel(LoginRequiredMixin,CreateView):
-    template_name='add_chanel.html'
+    template_name='Add_chanel.html'
     form_class=AddChanelForm
     success_url = reverse_lazy('logging')
     login_url = reverse_lazy('login')

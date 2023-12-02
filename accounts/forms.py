@@ -1,5 +1,5 @@
 from django import forms
-from .models import Add_chanel,Cost_Format,Add_Reklama
+from .models import Add_chanel,Cost_Format,Add_Reklama,Category_chanels
 from django.contrib.auth.models import User
 from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm
@@ -41,11 +41,30 @@ class Add_ReklamaStatus(forms.ModelForm):
 
 
 class AddChanelForm(forms.ModelForm):
+    chanel_link=forms.CharField(max_length=63,label="Линк",widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Добавить ссылку'}))
+    category = forms.ModelChoiceField(
+        queryset=Category_chanels.objects.all(),  # Adjust this queryset based on your actual model
+        label="Линк",
+        widget=forms.Select(attrs={'class': 'form-control', 'placeholder': 'Добавить канал'})
+    )
+    description = forms.CharField(
+        max_length=63,
+        label="Линк",
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Описание'})
+    )
     class Meta:
         model = Add_chanel
-        fields = [ 'chanel_link', 'description']
+        fields = [ 'chanel_link', 'category','description']
 
 class CostFormatForm(forms.ModelForm):
+    placement_format = forms.CharField(max_length=63, label="Линк", widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Формат'}))
+    cost_per_format = forms.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        label="Линк",
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Цена'})
+    )
     class Meta:
         model = Cost_Format
         fields = ['placement_format', 'cost_per_format']

@@ -57,7 +57,7 @@ async def message_handler(client):
 
                 async with aiohttp.ClientSession() as session:
 
-                    async with session.post('https://f978-94-141-68-116.ngrok-free.app/api/',
+                    async with session.post('https://7bb4-94-141-68-116.ngrok-free.app/api/',
                                             data=form_data) as resp:
                         await resp.text()
                     with open(file_path, "rb") as photo:
@@ -66,7 +66,7 @@ async def message_handler(client):
 
             else:
                 async with aiohttp.ClientSession() as session:
-                    async with session.post('https://f978-94-141-68-116.ngrok-free.app/api/', data=payload) as resp:
+                    async with session.post('https://7bb4-94-141-68-116.ngrok-free.app/api/', data=payload) as resp:
                         await resp.text()
 
             await client.send_message('@lsbnvVm9TmhjZDNi', payload)
@@ -82,7 +82,7 @@ async def update(client):
     session=aiohttp.ClientSession()
     while True:
         print("Enter")
-        async with session.get('https://f978-94-141-68-116.ngrok-free.app/api/') as resp:
+        async with session.get('https://7bb4-94-141-68-116.ngrok-free.app/api/') as resp:
             data = await resp.json()
             #print(data)
             for i in data:
@@ -101,9 +101,9 @@ async def update(client):
                     'views': send_view
                 }
 
-                await session.post('https://f978-94-141-68-116.ngrok-free.app/api/', data=payload)
+                await session.post('https://7bb4-94-141-68-116.ngrok-free.app/api/', data=payload)
                 print(payload)
-            await asyncio.sleep(360)
+            await asyncio.sleep(60)
 
 
 

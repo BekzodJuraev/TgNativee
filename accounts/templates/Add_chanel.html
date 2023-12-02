@@ -9,11 +9,21 @@
     <main class="main">
         <div class="add">
             <div class="container-fluid">
-                <div class="row"><div class="col-12">
+                <div class="row">
+                    <div class="col-12">
                     <form method="post" action="{% url 'create' %}">
-                        <input type="text" class="form-control" placeholder="Добавить канал">
+                        {% csrf_token %}
+                        {{form.chanel_link}}
+                        {{form.description}}
+                        {{form.category}}
+                          {{ cost_format_formset.management_form }}
+                         {% for form in cost_format_formset %}
+                             {{ form.as_p }}
+                          {% endfor %}
+
                         <button class="btn-reset button__custom">Добавить</button>
-                    </form></div></div></div></div></main></div>
+                    </form>
+                    </div></div></div></div></main></div>
 
 
     {% endblock %}
