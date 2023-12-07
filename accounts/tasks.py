@@ -4,6 +4,7 @@ from .models import Add_Reklama
 from pyrogram import Client
 from pyrogram import filters
 import logging
+from django.db import transaction
 import telegram
 import os
 logger = logging.getLogger(__name__)
@@ -19,18 +20,29 @@ def send_telegram_message(ad_id):
     bot_telegram.sendMessage('@lsbnvVm9TmhjZDNi', ad.name_ads)
 
 
-
 @shared_task
+@transaction.atomic
 def process_user_bot(name, api_id, api_hash, phone):
-    client = Client(name, api_id=api_id, api_hash=api_hash, phone_number=phone)
+    with Client(name, api_id=api_id, api_hash=api_hash, phone_number=phone) as client:
+        try:
 
-    client.start()
+            # Export the session string
+            session_data = client.export_session_string()
 
-    session_data = client.export_session_string()
+            # Update the Add_userbot instance
+            userbot = Add_userbot.objects.select_for_update().get(name=name)
+            userbot.session = session_data
+            userbot.save()
 
-    userbot = Add_userbot.objects.get(name=name)
-    userbot.session = session_data
-    userbot.save()
+        except Exception as e:
+            print(f"Authentication failed: {str(e)}")
+
+
+
+
+
+
+
 
 
 

@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,Add_ReklamaForm,Add_ReklamaStatus
+from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,Add_ReklamaForm,Add_ReklamaStatus,Update_Profile,Update_Reklama
 from API.models import Chanel,Feedback,Add_Sponsors
 from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama,Category_chanels
 from django.contrib.auth import logout
@@ -28,7 +28,7 @@ class BalancePage(LoginRequiredMixin,TemplateView):
 class UpdateReklama(LoginRequiredMixin,UpdateView):
     template_name = "update_reklama.html"
     model = Profile_advertiser
-    form_class = AddChanelForm
+    form_class = Update_Reklama
 
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -36,15 +36,22 @@ class UpdateReklama(LoginRequiredMixin,UpdateView):
         context['user']=Profile_advertiser.objects.get(username=self.request.user)
         return context
 
+    def get_success_url(self):
+        return self.request.path
+
 class UpdateTelegram(LoginRequiredMixin,UpdateView):
     template_name = "update_telegram.html"
     model = Profile
-    form_class = AddChanelForm
+    form_class = Update_Profile
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = Profile.objects.get(username=self.request.user)
         return context
+
+    def get_success_url(self):
+        return self.request.path
 
 class Zayavka_Page(LoginRequiredMixin,TemplateView):
     template_name = 'zayavki.html'

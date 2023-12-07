@@ -6,10 +6,36 @@
 {% endblock %}
     {% block content %}
     <main class="main">
+        <form method="post">
+               {% csrf_token %}
 
-        <div class="personal__cabinet"><div class="container-fluid"><div class="personal__cabinet-row"><div class="cards"><div class="d-flex gap-5 align-items-center"><div class="d-flex flex-column gap-3 align-items-center"><div>
-            <img src="/{{user.photo}}"  width="150px" height="150px" alt=""></div><p class="p-photo-title">Сменить фото</p></div><div><h3 class="p-title">{{user.first_name}} {{user.last_name}}</h3><div class="d-flex gap-3"><div><img src="static 'img/Money Box.png' %}" alt=""></div><div class="d-flex flex-column"><p class="p-balance">Баланс</p><p class="p-price">
-            {{user.balance}} UAH</p></div></div><p class="p-email">Email: <a href="mailto:leonid.nsl@gmail.com">{{user.email}}</a></p><p class="p-phone">Номер телефона: <a href="mailto:{{user.email}}">{{user.phone_number}}</a></p></div><div><button class="btn-reset">Вывод средств</button></div></div><textarea class="form-control" placeholder="О себе" rows="4">О вас, как о владельце площадок</textarea></div><div class="inputs"><div><p class="p-setting">Настройки</p><label class="input-label">Telegram: <button class="btn-reset">Прикрепить</button></label> <label class="input-label">Telegram: <input type="text" class="form-control" placeholder="leonid.nsl@gmail.com"></label> <label class="input-label">Номер телефона: <input type="text" class="form-control" placeholder="leonid.nsl@gmail.com"></label> <button class="btn-pay">Вывод средств</button></div><div><label class="input-label">Валюта аккаунта: <select class="form-select" aria-label="Default select example"><option selected="selected">Open this select menu</option><option value="1">One</option><option value="2">Two</option><option value="3">Three</option></select></label> <label class="input-label">Часовой пояс: <select class="form-select" aria-label="Default select example"><option selected="selected">Open this select menu</option><option value="1">One</option><option value="2">Two</option><option value="3">Three</option></select></label> <label class="input-label"><a href="" class="p-link">Настройки профиля</a></label></div></div></div></div></div></main></div>
+
+
+        <div class="personal__cabinet"><div class="container-fluid"><div class="personal__cabinet-row"><div class="cards"><div class="d-flex gap-5 align-items-center">
+            <div class="d-flex flex-column gap-3 align-items-center">
+                <div>
+            <img src="/{{user.photo}}"  width="150px" height="150px" alt="">
+
+                </div>
+
+                <p class="p-photo-title" ">Сменить фото</p>
+
+            </div>
+
+
+            <div><h3 class="p-title">{{user.first_name}} {{user.last_name}}</h3><div class="d-flex gap-3"><div>
+                <img src="{%static 'img/Money_Box.png' %}" alt="">
+            </div><div class="d-flex flex-column"><p class="p-balance">Баланс</p><p class="p-price">
+
+            {{user.balance}} UAH</p></div></div><p class="p-email">Email: <a href="mailto:leonid.nsl@gmail.com">{{user.email}}</a></p><p class="p-phone">Номер телефона: <a href="mailto:{{user.email}}">{{user.phone_number}}</a></p></div><div><button class="btn-reset">Вывод средств</button>
+        </div></div>
+            <textarea class="form-control" placeholder="О себе" rows="4">О вас, как о владельце площадок</textarea></div><div class="inputs"><div><p class="p-setting">Настройки</p><label class="input-label">Telegram: <button class="btn-reset">Прикрепить</button></label>
+            <label class="input-label">Email:
+                {{form.email}}
+            </label> <label class="input-label">Номер телефона:
+                {{form.phone_number}}
+            </label> <button class="btn-pay">Сохранить</button></div><div><label class="input-label">Валюта аккаунта: <select class="form-select" aria-label="Default select example"><option selected="selected">Open this select menu</option><option value="1">One</option><option value="2">Two</option><option value="3">Three</option></select></label> <label class="input-label">Часовой пояс: <select class="form-select" aria-label="Default select example"><option selected="selected">Open this select menu</option><option value="1">One</option><option value="2">Two</option><option value="3">Three</option></select></label> <label class="input-label"><a href="" class="p-link">Настройки профиля</a></label></div></div></div></div></div></main></div>
+             </form>
 
 
 

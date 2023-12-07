@@ -36,7 +36,19 @@ def execute_code_on_published(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Add_userbot)
 def handle_new_userbot(sender, instance,created, **kwargs):
-    process_user_bot.delay(name=instance.name,api_id=instance.api_id,api_hash=instance.api_hash,phone=instance.phone_number)
+    if created:
+        # Ensure that the instance is saved with the provided phone number
+
+
+        # Schedule the Celery task after the instance is saved
+        process_user_bot.delay(
+            name=instance.name,
+            api_id=instance.api_id,
+            api_hash=instance.api_hash,
+            phone=instance.phone_number
+        )
+
+    #process_user_bot.delay(name=instance.name,api_id=instance.api_id,api_hash=instance.api_hash,phone=instance.phone_number)
    # client = Client(name=instance.name,api_id=instance.api_id,api_hash=instance.api_hash,phone_number=instance.phone_number)
 
 

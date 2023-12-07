@@ -1,10 +1,35 @@
 from django import forms
-from .models import Add_chanel,Cost_Format,Add_Reklama,Category_chanels
+from .models import Add_chanel,Cost_Format,Add_Reklama,Category_chanels,Profile_advertiser,Profile
 from django.contrib.auth.models import User
 from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import inlineformset_factory
 from phonenumber_field.formfields import PhoneNumberField
+
+
+class BaseUpdateForm(forms.ModelForm):
+    email = forms.EmailField(max_length=63, label="Логин",
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'leonid.nsl@gmail.com'}))
+    phone_number = PhoneNumberField(max_length=63, required=True, label="email",
+                                    widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+380'}))
+
+    photo=forms.ImageField(required=False)
+
+
+    class Meta:
+        fields = ['email', 'phone_number', 'photo']
+
+
+class Update_Profile(BaseUpdateForm):
+    class Meta(BaseUpdateForm.Meta):
+        model=Profile
+
+class Update_Reklama(BaseUpdateForm):
+    class Meta(BaseUpdateForm.Meta):
+        model=Profile_advertiser
+
+
+
 class Add_ReklamaForm(forms.ModelForm):
     matching_formats = forms.ModelChoiceField(
 
