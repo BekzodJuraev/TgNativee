@@ -3,11 +3,12 @@ from API.models import Chanel,Add_userbot
 from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
 from django.utils import timezone
+from celery import shared_task
 import telegram
 import asyncio
 from django.contrib.auth.models import User
 from .bot import BOT_TOKEN,bot_telegram,Client, message_handler, update,run_userbot
-from .tasks import send_telegram_message,process_user_bot
+from .tasks import send_telegram_message,process_user_bot,add_chanel
 timezone_from_settings = timezone.get_current_timezone()
 from datetime import timedelta
 from pyrogram import Client
@@ -25,7 +26,11 @@ def create_profile_for_user(sender,instance,created,*args,**kwargs):
 @receiver(post_save,sender=Add_chanel)
 def create_chanel(sender,instance,created,*args,**kwargs):
     if created:
-        bot_telegram.sendMessage(chat_id=Bekzod, text=instance.chanel_link)
+
+
+        add_chanel.delay(instance.chanel_link)
+
+        #bot_telegram.sendMessage(chat_id=Bekzod, text=instance.chanel_link)
 
         Chanel.objects.create(username=instance.username,add_chanel=instance,chanel_link=instance.chanel_link,subscribers=0,views=0,)
 

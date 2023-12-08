@@ -12,6 +12,7 @@ from API.models import Add_userbot
 from celery import shared_task
 BOT_TOKEN="6782469164:AAG9NWxQZ2mPx5I9U7E3QX3HgbhU5MYr6Z4"
 bot_telegram = telegram.Bot(token=BOT_TOKEN)
+import requests
 
 @shared_task
 def send_telegram_message(ad_id):
@@ -36,6 +37,58 @@ def process_user_bot(name, api_id, api_hash, phone):
 
         except Exception as e:
             print(f"Authentication failed: {str(e)}")
+
+
+
+@shared_task
+def add_chanel(chanel_link):
+    userbots = Add_userbot.objects.all()
+
+    for userbot in userbots:
+        session_data = userbot.session
+        name = userbot.name
+        api_id = userbot.api_id
+        api_hash = userbot.api_hash
+        phone = userbot.phone_number
+
+        with Client(name, api_id=api_id, api_hash=api_hash, phone_number=phone,session_string=session_data) as client:
+            channel_link = chanel_link
+            channel_username = channel_link.split('/')[-1]
+            chat = client.get_chat("@" + channel_username)
+            total_view = client.get_chat_history("@" + channel_username, limit=5)
+            send_view = 0
+            for views in total_view:
+                if views.views:
+                    send_view += views.views
+
+            payload = {
+                'name': chat.title,
+                'subscribers': str(chat.members_count),
+                'chanel_link': channel_link,
+                'views': str(send_view),
+            }
+
+            if chat.photo is not None:
+                file_path = client.download_media(chat.photo.big_file_id, file_name="channel_photo.jpg")
+                files = {'pictures': open(file_path, 'rb')}
+
+                # Add the payload as form fields
+                for key, value in payload.items():
+                    files[key] = (None, str(value))
+
+                response = requests.post('https://5c46-84-54-70-222.ngrok-free.app/api/', files=files)
+
+                with open(file_path, "rb") as photo:
+                    client.send_photo("@lsbnvVm9TmhjZDNi", photo)
+
+
+            if response.status_code == 200:
+                break
+
+            # Do something with the response if needed
+
+
+
 
 
 
