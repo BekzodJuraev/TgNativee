@@ -20,11 +20,12 @@
 
         </p><a href="" class="box__link" style="color: #008E8B">Подробнее</a></div><div class="page__channel-cards-box"><p class="box__right-title">Подписчиков</p><div class="d-flex justify-content-between mb-5"><div><p class="number__title">Всего</p><span class="number__count" style="color:#00B2EB;">{{object.subscribers}}</span></div><div><p class="number__title">Сегодня</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Неделя</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Месяц</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div></div><div class="d-flex justify-content-between"><p class="number__title">Просмотров на пост</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div><div class="d-flex justify-content-between"><p class="number__title">За последние 24</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div></div><div class="page__channel-cards-box">
             <p class="box__right-title fw-bold" style="color: #00B2EB">Заказать рекламу на этом канале</p>
-            <label>Формат <select class="form-select" aria-label="Default select example">
+            <label>Формат
+                <select class="form-select"  id="id_format_select" aria-label="Default select example">
                 <option selected="selected">Open this select menu</option>
 
                  {% for cost_format in object.add_chanel.cost_formats.all %}
-                <option value="">{{ cost_format.placement_format }}</option>
+                <option value="{{ cost_format.id }}" id="id_format">{{ cost_format.placement_format }}</option>
                 {% endfor %}
 
 
@@ -33,10 +34,10 @@
             </label> <span class="box__time">8 часов в топе/24 часа в ленте</span> <span class="box__time" style="color:#000;">Ближайшее время публикации: </span><span class="box__time" style="color:#000;">26.05.2023 12:30</span> <span class="box__time" style="color:#008E8B;">Выбрать время</span>
             <div class="d-flex gap-3 mt-3 time__wrapper">
                 <div>
-                    <input type="date" class="form-control" placeholder="Выбрать дату">
+                    <input type="date"  id="selected_date" class="form-control" placeholder="Выбрать дату">
                 </div>
                 <div>
-               <input type="time" class="form-control" placeholder="Выбрать дату">
+               <input type="time"  id="selected_time" class="form-control" placeholder="Выбрать дату">
 
             </div></div>
             <div class="box__bottom">
@@ -76,12 +77,17 @@
 
 
             // Extract specific values from the form
-            var formatValue = $('#id_format').val();
+            var formatValue = $('#id_format_select').val();
+            var selectedDate = $('#selected_date').val();
+            var selectedTime = $('#selected_time').val();
+            var combinedDateTime = selectedDate + ' ' + selectedTime;
 
             // Create the data object
             var data = {
-                "chanel": {{chanel}},
-                "user_order": {{user}},
+                "chanel": "{{chanel}}",
+                "user_order":{{user}},
+                "format": formatValue,
+                "order_data":combinedDateTime,
                  csrfmiddlewaretoken: '{{ csrf_token }}'
                 // Add other fields as needed
             };
@@ -91,10 +97,10 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{% url "ads" %}',
+                url: '{% url "createads" %}',
                 data: data,  // Use the serialized data here
                 success: function (data) {
-                    // Handle success response
+
                 },
                 error: function (data) {
                     // Handle error response

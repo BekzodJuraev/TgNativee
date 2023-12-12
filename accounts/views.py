@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,Add_ReklamaForm,Add_ReklamaStatus,Update_Profile,Update_Reklama
 from API.models import Chanel,Feedback,Add_Sponsors
-from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama,Category_chanels
+from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format
 from django.contrib.auth import logout
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView,TemplateView,DetailView
 
@@ -130,7 +130,7 @@ class Page_List(DetailView):
     model = Chanel
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        channel_name = self.object.id  # Assuming 'name' is the field in Chanel model
+        channel_name = self.object.name  # Assuming 'name' is the field in Chanel model
 
         # Retrieve all comments related to the channel
         comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(comment__isnull=True)
@@ -357,4 +357,41 @@ def register_page(request):
 
     return render(request, 'register_.html', context)
 
+
+def ads_view(request):
+    if request.method == 'POST':
+        chanel_name = request.POST.get('chanel')
+        user_order = request.POST.get('user_order')
+        format=request.POST.get('format')
+        order_data = request.POST.get('order_data')
+
+
+        chanel=Chanel.objects.get(name=chanel_name)
+        user_order_name=Profile_advertiser.objects.get(username=user_order)
+        format_instance = Cost_Format.objects.get(id=format)
+
+
+        # Assuming you have a Cost_Format model
+
+
+        # Assuming you have a Chanel model
+
+
+
+        # Assuming you have an Add_Reklama model
+        reklama = Add_Reklama.objects.create(
+            chanel=chanel,
+            user_order=user_order_name,
+            format=format_instance,
+            order_data=order_data,
+            # Add other fields as needed
+        )
+
+        # You can return additional data in the response if needed
+        data = {'message': 'Ad created successfully.'}
+        return JsonResponse(data)
+
+    # If it's not a POST request, return an error message
+    data = {'error': 'Invalid request method.'}
+    return JsonResponse(data, status=400)
 
