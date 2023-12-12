@@ -82,7 +82,7 @@ class Add_Reklama(models.Model):
 
 
     def __str__(self):
-        return self.name_ads
+        return self.chanel.name
 
 
 

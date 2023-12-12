@@ -28,37 +28,26 @@ class Update_Reklama(BaseUpdateForm):
     class Meta(BaseUpdateForm.Meta):
         model=Profile_advertiser
 
+class BasketForm(forms.ModelForm):
+    class Meta:
+        model = Add_Reklama
+        fields = ['name_ads', 'text_ads', 'media', 'comment']
 
 
 class Add_ReklamaForm(forms.ModelForm):
-    matching_formats = forms.ModelChoiceField(
 
-        queryset=Cost_Format.objects.filter(add_chanel=26),  # You may want to filter this queryset based on your specific needs
-        label='Matching Formats',
-        required=False,
-    )
+
     class Meta:
         model=Add_Reklama
-        fields=['chanel','matching_formats','text_ads','media','name_ads','comment','order_data']
+        fields=['chanel','user_order',]
 
 
 
 
 
-    def save(self, commit=True):
-        # Get the selected matching format
-        selected_format = self.cleaned_data.get('matching_formats')
 
-        # Create an Add_Reklama instance without saving it yet
-        instance = super().save(commit=False)
 
-        # Set the format field to the selected matching format
-        instance.format = selected_format
 
-        if commit:
-            instance.save()
-
-        return instance
 class Add_ReklamaStatus(forms.ModelForm):
     class Meta:
         model = Add_Reklama

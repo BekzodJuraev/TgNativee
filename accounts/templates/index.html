@@ -9,8 +9,32 @@
 
     <main class="main"><div class="hero"><div class="container-fluid position-relative"><div class="hero__content"><h1 class="hero__title">Платформа для размещения нативной рекламы в Телеграм<p class="hero__text">со встроенным сервисом аналитики телеграмм каналов</p></h1><a class="hero__btn btn" href="#">Разместить рекламу</a></div><img class="hero__user" src="{% static 'img/hero-user.png' %}" alt=""></div></div><div class="info"><div class="container-fluid"><h2 class="info__title">Преимущества рекламной платформы</h2><div class="info__card"><div class="info__item"><img src="../img/card1.png" alt=""><h3 class="info__item-title">Эффективные форматы рекламы</h3><p class="info__item-desc">Нативные рекламные публикации и репосты</p></div><div class="info__item"><img src="../img/card2.png" alt=""><h3 class="info__item-title">Большой реальный охват аудитории</h3><p class="info__item-desc">Высокий показатель просмотра публикаций, до 40% от подписчиков</p></div><div class="info__item"><img src="../img/card3.png" alt=""><h3 class="info__item-title">Аналитика эффективности</h3><p class="info__item-desc">Встроенная система аналитики эффективности рекламы</p></div><div class="info__item"><img src="../img/card4.png" alt=""><h3 class="info__item-title">Гибкая система третирования</h3><p class="info__item-desc">Выбирайте Телеграмм каналы, соответствующие по тематике и показателям эффективности</p></div><div class="info__item"><img src="../img/card5.png" alt=""><h3 class="info__item-title">Удобный кабинет рекламодателя</h3><p class="info__item-desc">Вы сможете самостоятельно размещать рекламные публикации</p></div></div></div></div><div class="offers"><div class="container-fluid"><div class="offers__number"><div class="offers__card"><p class="offers__title">Количество телеграмм каналов</p>
         <h3 class="offers__count">{{lists}}</h3></div><div class="offers__card">
-        <p class="offers__title">Количество подписчиков</p><h3 class="offers__count">{{subscribers}}</h3></div>
-        <div><p class="offers__title">Суммарный охват</p><h3 class="offers__count">{{total_views}}</h3></div></div><div class="offers__table"><h3 class="offers__info">Актуальные предложения
+
+        <p class="offers__title">Количество подписчиков</p>
+        {% if subscribers %}
+
+        <h3 class="offers__count">{{subscribers}}</h3>
+        {% else %}
+        <h3 class="offers__count">0</h3>
+
+        {% endif %}
+
+    </div>
+
+
+        <div><p class="offers__title">Суммарный охват</p>
+            {% if total_views %}
+            <h3 class="offers__count">{{total_views}}</h3>
+             {% else %}
+            <h3 class="offers__count">0</h3>
+
+            {% endif %}
+
+        </div></div>
+
+
+
+        <div class="offers__table"><h3 class="offers__info">Актуальные предложения
     </h3>
         <table class="table"><thead><tr><th scope="col"></th><th scope="col">Канал</th><th scope="col">Подписчики</th><th scope="col">Охват</th><th scope="col">Размещение</th><th scope="col"></th></tr></thead>
 

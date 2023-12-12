@@ -130,11 +130,13 @@ class Page_List(DetailView):
     model = Chanel
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        channel_name = self.object.name  # Assuming 'name' is the field in Chanel model
+        channel_name = self.object.id  # Assuming 'name' is the field in Chanel model
 
         # Retrieve all comments related to the channel
         comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(comment__isnull=True)
 
+        context['user']=self.request.user.id
+        context['chanel']=channel_name
         context['category'] = comments
         return context
 
@@ -230,12 +232,7 @@ class CreateAds(LoginRequiredMixin,CreateView):
     form_class = Add_ReklamaForm
     success_url=reverse_lazy('login_reklama')
     login_url = reverse_lazy('login')
-    def dispatch(self, request, *args, **kwargs):
-        if not Profile_advertiser.objects.filter(username=request.user).exists():
-            # Redirect the user to a different page or return an error message
-            # if they don't have a profile.
-            return HttpResponse("You do not have access to this page.")
-        return super().dispatch(request, *args, **kwargs)
+
 
     def form_valid(self, form):
         profile = Profile_advertiser.objects.get(username=self.request.user)
