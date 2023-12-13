@@ -34,12 +34,7 @@ class BasketForm(forms.ModelForm):
         fields = ['name_ads', 'text_ads', 'media', 'comment']
 
 
-class Add_ReklamaForm(forms.ModelForm):
 
-
-    class Meta:
-        model=Add_Reklama
-        fields=['chanel','user_order',]
 
 
 

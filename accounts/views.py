@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,Add_ReklamaForm,Add_ReklamaStatus,Update_Profile,Update_Reklama
+from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,BasketForm,Add_ReklamaStatus,Update_Profile,Update_Reklama
 from API.models import Chanel,Feedback,Add_Sponsors
 from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format
 from django.contrib.auth import logout
@@ -145,6 +145,7 @@ class Page_List(DetailView):
 class CategoryChanelPage(ListView):
     template_name = 'category.html'
     model = Chanel
+    paginate_by = 6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -227,17 +228,15 @@ def login_page(request):
 
     return render(request, "login_.html", context)
 
-class CreateAds(LoginRequiredMixin,CreateView):
+class CreateAds(LoginRequiredMixin,UpdateView):
     template_name = 'create_ads.html'
-    form_class = Add_ReklamaForm
+    form_class = BasketForm
+    model = Add_Reklama
     success_url=reverse_lazy('login_reklama')
     login_url = reverse_lazy('login')
 
 
-    def form_valid(self, form):
-        profile = Profile_advertiser.objects.get(username=self.request.user)
-        form.instance.user_order_id = profile.id
-        return super().form_valid(form)
+
 
 
 class CreateChanel(LoginRequiredMixin,CreateView):
