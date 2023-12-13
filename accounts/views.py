@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,BasketForm,Add_ReklamaStatus,Update_Profile,Update_Reklama,Search
+from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,BasketForm,Add_ReklamaStatus,Update_Profile,Update_Reklama
 from API.models import Chanel,Feedback,Add_Sponsors
 from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format
 from django.contrib.auth import logout
@@ -150,11 +150,27 @@ class CategoryChanelPage(ListView):
 
     def get_queryset(self):
         search_query = self.request.GET.get('chanel_link')
+        select_category=self.request.GET.get('selected_category')
+        chanel_name=self.request.GET.get('chanel_name')
+
+
+
+
 
         if search_query:
-            return Chanel.objects.filter(chanel_link__icontains=search_query)
-        else:
-            return Chanel.objects.all()
+            queryset = Chanel.objects.filter(chanel_link__icontains=search_query)
+
+        if select_category:
+            queryset = Chanel.objects.filter(add_chanel__category__name=select_category)
+
+        if chanel_name:
+            queryset = Chanel.objects.filter(name__icontains=chanel_name)
+
+            # If no search parameters are provided, return all objects
+        if not (search_query or select_category or chanel_name):
+            queryset = Chanel.objects.all()
+
+        return queryset
 
 
 
