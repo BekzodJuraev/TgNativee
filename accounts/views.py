@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,BasketForm,Add_ReklamaStatus,Update_Profile,Update_Reklama
+from .forms import LoginForm,RegistrationForm,AddChanelForm,CostFormatFormSet,BasketForm,Add_ReklamaStatus,Update_Profile,Update_Reklama,Search
 from API.models import Chanel,Feedback,Add_Sponsors
 from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format
 from django.contrib.auth import logout
@@ -142,16 +142,29 @@ class Page_List(DetailView):
 
 
 
+
 class CategoryChanelPage(ListView):
     template_name = 'category.html'
     model = Chanel
     paginate_by = 6
+
+    def get_queryset(self):
+        search_query = self.request.GET.get('chanel_link')
+
+        if search_query:
+            return Chanel.objects.filter(chanel_link__icontains=search_query)
+        else:
+            return Chanel.objects.all()
+
+
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['lists'] = Chanel.objects.all().count()
         context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
         context['category']=Category_chanels.objects.all()
+
 
         return context
 
