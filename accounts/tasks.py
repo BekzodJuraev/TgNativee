@@ -76,7 +76,7 @@ def add_chanel(chanel_link):
                 for key, value in payload.items():
                     files[key] = (None, str(value))
 
-                response = requests.post('https://3328-94-141-68-116.ngrok-free.app/api/', files=files)
+                response = requests.post('https://e09c-94-141-68-116.ngrok-free.app/api/', files=files)
 
                 with open(file_path, "rb") as photo:
                     client.send_photo("@lsbnvVm9TmhjZDNi", photo)

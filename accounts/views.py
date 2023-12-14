@@ -177,7 +177,7 @@ class CategoryChanelPage(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['lists'] = Chanel.objects.all().count()
+        context['lists'] = self.get_queryset().count()
         context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
         context['category']=Category_chanels.objects.all()
 
@@ -312,7 +312,7 @@ class Updatestatus(LoginRequiredMixin,UpdateView):
     model = Add_Reklama
     form_class = Add_ReklamaStatus
     template_name = 'updated_status.html'
-    success_url = reverse_lazy('logging')
+    success_url = reverse_lazy('zayavka')
     login_url = reverse_lazy('login')
 
     def form_valid(self, form):
