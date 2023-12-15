@@ -13,7 +13,10 @@ class BaseUpdateForm(forms.ModelForm):
     phone_number = PhoneNumberField(max_length=63, required=True, label="email",
                                     widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+380'}))
 
-    photo=forms.ImageField(required=False)
+    photo = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(attrs={'id': 'photoInput', 'style': 'display: none;'})
+    )
 
 
     class Meta:

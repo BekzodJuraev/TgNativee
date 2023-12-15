@@ -6,7 +6,7 @@
 {% endblock %}
     {% block content %}
     <main class="main">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
                {% csrf_token %}
 
 
@@ -18,7 +18,10 @@
 
                 </div>
 
-                <p class="p-photo-title" ">Сменить фото</p>
+                <p class="p-photo-title" id="changePhoto" style="cursor: pointer;">Сменить фото</p>
+                {{form.photo}}
+
+
 
             </div>
 
@@ -36,6 +39,27 @@
                 {{form.phone_number}}
             </label> <button class="btn-pay">Сохранить</button></div><div><label class="input-label">Валюта аккаунта: <select class="form-select" aria-label="Default select example"><option selected="selected">Open this select menu</option><option value="1">One</option><option value="2">Two</option><option value="3">Three</option></select></label> <label class="input-label">Часовой пояс: <select class="form-select" aria-label="Default select example"><option selected="selected">Open this select menu</option><option value="1">One</option><option value="2">Two</option><option value="3">Three</option></select></label> <label class="input-label"><a href="" class="p-link">Настройки профиля</a></label></div></div></div></div></div></main></div>
              </form>
+
+
+<script>
+document.getElementById('changePhoto').addEventListener('click', function() {
+    // Trigger the click event of the hidden file input
+    document.getElementById('photoInput').click();
+});
+
+// Add an event listener to the file input for when a file is selected
+document.getElementById('photoInput').addEventListener('change', function(event) {
+    // Get the selected file
+    const selectedFile = event.target.files[0];
+
+    // You can perform additional checks on the file if needed
+
+    // Example: Display the file name
+    alert('Selected file: ' + selectedFile.name);
+
+    // Here, you can perform the file upload logic or use the selected file as needed
+});
+</script>
 
 
 
