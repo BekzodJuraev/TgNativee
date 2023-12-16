@@ -415,10 +415,11 @@ def ads_view(request):
             # Add other fields as needed
         )
 
-        # You can return additional data in the response if needed
-        data = {'message': 'Ad created successfully.'}
-        return JsonResponse(data)
+        success_url = reverse_lazy('updateads', kwargs={'pk': reklama.id})
 
+        # You can return additional data in the response if needed
+        data = {'redirect_url': success_url}
+        return JsonResponse(data)
     # If it's not a POST request, return an error message
     data = {'error': 'Invalid request method.'}
     return JsonResponse(data, status=400)

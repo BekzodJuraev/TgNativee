@@ -101,6 +101,10 @@
                 data: data,  // Use the serialized data here
                 success: function (data) {
 
+            window.location.replace(data.redirect_url);
+
+
+
                 },
                 error: function (data) {
                     // Handle error response
