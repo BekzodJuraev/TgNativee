@@ -32,6 +32,10 @@ class Update_Reklama(BaseUpdateForm):
         model=Profile_advertiser
 
 class BasketForm(forms.ModelForm):
+
+    text_ads=forms.CharField(max_length=63,label="Линк",widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Текст.....'}))
+    name_ads = forms.CharField(max_length=63, label="Линк",widget=forms.TextInput(attrs={'class': 'form-select', 'placeholder': 'Проект'}))
+    comment=forms.CharField(max_length=63,label="Линк",widget=forms.Textarea(attrs={'class': 'form-control'}))
     class Meta:
         model = Add_Reklama
         fields = ['name_ads', 'text_ads', 'media', 'comment']
