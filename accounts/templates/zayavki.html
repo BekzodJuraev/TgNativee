@@ -14,12 +14,13 @@
 
     </div>
 
-                <div class="cabinet__boxes"><div class="cabinet__boxes-info d-flex"><p style="width: 25rem">ПОДПИСЧИКИ</p><p>ЛИНК</p><p>ОХВАТ</p></div>
+                <div class="cabinet__boxes"><div class="cabinet__boxes-info d-flex"><p style="width: 25rem">Комментарий</p><p>Публикация</p><p>Цена</p></div>
                     <div class="cabinet__boxes-cards">
                         {% for item in order %}
                         <div class="box"><div class="d-flex align-items-center gap-3"><div><img src="/{{item.chanel.pictures}}" width="75px" height="75px" alt=""></div><div><p class="box__title">
-                            {{item.chanel.name}}</p></div></div><p class="desc">{{item.comment}}</p><span class="green">{{item.chanel_link}}</span><p class="bold">
-                            {{item.views}}</p>
+                            {{item.chanel.name}}</p></div></div>
+                            <p class="desc" id="Comment">Смотреть</p><span class="green">{{item.chanel.chanel_link}}</span><p class="bold">
+                            {{item.format.cost_per_format}} UAH</p>
                             {% if item.status == "WT" %}
                             <a href="{% url 'update' item.pk %}"><button class="btn-reset">Одобрить</button></a>
                             {% else %}

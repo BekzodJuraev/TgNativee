@@ -12,13 +12,20 @@
     <main class="main">
 
 
-        <div class="page__channel"><div class="container-fluid"><div class="page__channel-cards"><div class="page__channel-cards-box"><div class="d-flex justify-content-end">
+        <div class="page__channel"><div class="container-fluid"><div class="page__channel-cards">
+
+            <div class="page__channel-cards-box"><div class="d-flex justify-content-end">
             <img src="{% static 'img/love.png' %}" alt=""></div><div class="d-flex gap-3"><div class="box__image"><img src="/{{object.pictures}}" alt=""></div><div>
             <h3 class="box__title">{{object.name}}</h3><a href="{{object.chanel_link}}" class="box__link">{{object.chanel_link}} <img src="{% static 'img/copy.png' %}" alt=""></a><p class="box__desc">Категория: <b>{{object.add_chanel.category}}</b></p><p class="box__desc">Язык: <b>Русский</b></p><div><span><img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""></span></div></div></div>
             <p class="box__info">
                 {{object.add_chanel.description}}
 
-        </p><a href="" class="box__link" style="color: #008E8B">Подробнее</a></div><div class="page__channel-cards-box"><p class="box__right-title">Подписчиков</p><div class="d-flex justify-content-between mb-5"><div><p class="number__title">Всего</p><span class="number__count" style="color:#00B2EB;">{{object.subscribers}}</span></div><div><p class="number__title">Сегодня</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Неделя</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Месяц</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div></div><div class="d-flex justify-content-between"><p class="number__title">Просмотров на пост</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div><div class="d-flex justify-content-between"><p class="number__title">За последние 24</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div></div><div class="page__channel-cards-box">
+        </p><a href="" class="box__link" style="color: #008E8B">Подробнее</a></div><div class="page__channel-cards-box"><p class="box__right-title">Подписчиков</p><div class="d-flex justify-content-between mb-5"><div><p class="number__title">Всего</p><span class="number__count" style="color:#00B2EB;">{{object.subscribers}}</span></div><div><p class="number__title">Сегодня</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Неделя</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Месяц</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div></div><div class="d-flex justify-content-between"><p class="number__title">Просмотров на пост</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div><div class="d-flex justify-content-between"><p class="number__title">За последние 24</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div></div>
+            {% if request.user.is_authenticated %}
+               {% if request.user.profile_advertisers.all %}
+
+
+                 <div class="page__channel-cards-box">
             <p class="box__right-title fw-bold" style="color: #00B2EB">Заказать рекламу на этом канале</p>
             <label>Формат
                 <select class="form-select"  id="id_format_select" aria-label="Default select example">
@@ -48,8 +55,16 @@
                 {% endfor %}
 
 
-                <div class="d-flex align-items-center gap-3"><button class="btn-reset">Заказать</button>
-                    <img src="{% static 'img/add-shopping-cart.png' %}" alt=""></a></div></div></div><div class="page__channel-cards-box"><div class="d-flex flex-column"><div class="d-flex justify-content-between"><p class="number__title">ER</p><span class="number__count" style="color:#00B2EB;">{{er|floatformat:2}}</span></div><div class="d-flex justify-content-between"><p class="number__title">Суточный</p><span class="number__count" style="color:#00B2EB;">2387956</span></div><div class="d-flex justify-content-between"><p class="number__title">Упоминаний в ТГ</p><span class="number__count" style="color:#00B2EB;">2387956</span></div></div></div><div></div><div><p class="statistics__title">Статистика просмотров</p><img src="{% static 'img/stat.png' %}" alt=""></div></div><p class="page__channel-reviews">
+                <div class="d-flex align-items-center gap-3"><button class="btn-reset" id="button">Заказать</button>
+                    <img src="{% static 'img/add-shopping-cart.png' %}" alt=""></a></div></div></div>
+
+
+            {% endif %}
+            {% endif %}
+
+
+
+            <div class="page__channel-cards-box"><div class="d-flex flex-column"><div class="d-flex justify-content-between"><p class="number__title">ER</p><span class="number__count" style="color:#00B2EB;">{{er|floatformat:2}}</span></div><div class="d-flex justify-content-between"><p class="number__title">Суточный</p><span class="number__count" style="color:#00B2EB;">2387956</span></div><div class="d-flex justify-content-between"><p class="number__title">Упоминаний в ТГ</p><span class="number__count" style="color:#00B2EB;">2387956</span></div></div></div><div></div><div><p class="statistics__title">Статистика просмотров</p><img src="{% static 'img/stat.png' %}" alt=""></div></div><p class="page__channel-reviews">
             Отзывы</p>
 
             <div class="reviews-card-wrapper">
@@ -71,7 +86,7 @@
 
 <script>
     $(document).ready(function () {
-        $('.btn-reset').click(function (event) {
+        $('#button').click(function (event) {
             event.preventDefault();
 
 

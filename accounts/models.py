@@ -4,7 +4,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.models import AbstractUser, UserManager, Permission
 from phonenumber_field.modelfields import PhoneNumberField
 class Profile(models.Model):
-    username=models.ForeignKey(User,on_delete=models.CASCADE)
+    username=models.ForeignKey(User,on_delete=models.CASCADE,related_name='profile')
     phone_number = PhoneNumberField()
     first_name=models.CharField(max_length=150)
     last_name=models.CharField(max_length=150)
@@ -20,7 +20,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.username.username
 class Profile_advertiser(models.Model):
-    username=models.ForeignKey(User,on_delete=models.CASCADE)
+    username=models.ForeignKey(User,on_delete=models.CASCADE,related_name='profile_advertisers')
     phone_number = PhoneNumberField()
     first_name=models.CharField(max_length=150)
     last_name=models.CharField(max_length=150)
@@ -36,7 +36,7 @@ class Profile_advertiser(models.Model):
 
 
 class Add_chanel(models.Model):
-    username = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    username = models.ForeignKey(Profile, on_delete=models.CASCADE,related_name='profile')
     category=models.ForeignKey('Category_chanels',on_delete=models.CASCADE)
 
     chanel_link = models.CharField(max_length=150)
