@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Profile,Profile_advertiser,Add_chanel,Cost_Format,Add_Reklama,Category_chanels
+from .models import Profile,Profile_advertiser,Add_chanel,Cost_Format,Add_Reklama,Category_chanels,Message
 @admin.register(Category_chanels)
 class Category_chanelsAdmin(admin.ModelAdmin):
     list_display = ['name','created_at']
@@ -21,7 +21,9 @@ class ChanelAdvertiser(admin.ModelAdmin):
 class ChanelAdvertiser(admin.ModelAdmin):
     list_display = ['username','first_name','last_name','balance']
 
-
+@admin.register(Message)
+class ChanelAdvertiser(admin.ModelAdmin):
+    list_display = ['sender','receiver']
 
 
 
