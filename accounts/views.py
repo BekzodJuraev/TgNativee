@@ -202,7 +202,7 @@ class MainPage(TemplateView):
 def login_page(request):
     next = request.GET.get('next')
     form = LoginForm(request.POST or None)
-    # logout(request)
+    logout(request)
     if form.is_valid():
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password')
@@ -339,6 +339,7 @@ class ProfileView(LoginRequiredMixin, ListView):
 
 
 def register_page(request):
+    logout(request)
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():

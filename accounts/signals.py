@@ -6,23 +6,45 @@ from django.utils import timezone
 from celery import shared_task
 import telegram
 import asyncio
+from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.contrib.auth.models import User
 from .bot import BOT_TOKEN,bot_telegram,Client, message_handler, update,run_userbot
 from .tasks import send_telegram_message,process_user_bot,add_chanel
 timezone_from_settings = timezone.get_current_timezone()
 from datetime import timedelta
-from pyrogram import Client
+
 # Use the timezone
-Bekzod = "531080457"
+@receiver(user_logged_in)
+def user_logged_in_handler(sender, request, user, **kwargs):
+    if hasattr(user, 'profile'):
+        user.profile.is_online = True
+        user.profile.last_visited = timezone.now()
+        user.profile.save()
+
+    if hasattr(user, 'profile_advertisers'):
+        user.profile_advertisers.is_online = True
+        user.profile_advertisers.last_visited = timezone.now()
+        user.profile_advertisers.save()
+
+@receiver(user_logged_out)
+def user_logged_out_handler(sender, request, user, **kwargs):
+    if hasattr(user, 'profile'):
+        user.profile.is_online = False
+        user.profile.save()
+
+    if hasattr(user, 'profile_advertisers'):
+        user.profile_advertisers.is_online = False
+        user.profile_advertisers.save()
 
 @receiver(post_save,sender=User)
 def create_profile_for_user(sender,instance,created,*args,**kwargs):
     if created:
-        order = instance.order
+        order = getattr(instance, 'order', 'reklama')  # Get 'order' attribute or default to 'reklama'
+
         if order == 'admin':
-            Profile.objects.create(username=instance,first_name=instance.username,last_name=instance.last_name)
+            Profile.objects.create(username=instance, first_name=instance.username, last_name=instance.last_name,email=instance.email,phone_number=instance.phone_number)
         elif order == 'reklama':
-            Profile_advertiser.objects.create(username=instance,first_name=instance.username,last_name=instance.last_name)
+            Profile_advertiser.objects.create(username=instance, first_name=instance.username, last_name=instance.last_name,email=instance.email,phone_number=instance.phone_number)
 @receiver(post_save,sender=Add_chanel)
 def create_chanel(sender,instance,created,*args,**kwargs):
     if created:

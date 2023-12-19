@@ -17,7 +17,7 @@
         </div><div class="basket__box-item"><p>На сумму</p>
         <p><span style="color: #008E8B">{{object.format.cost_per_format}}</span>UAH</p></div>
         <div class="basket__box-bottom">
-            <button class="btn-reset">Дать задание каналам</button> <span><img src="img/trash.png" alt=""> Очистить корзину</span></div></div><div class="basket__user"><div class="d-flex justify-content-between mb-5"><div class="d-flex align-items-center gap-3"><div><img src="/{{ object.chanel.pictures }}" width="100px" height="100px" alt=""></div>
+            <button class="btn-reset">Дать задание каналам</button> <span><img src="{% static 'img/trash.png' %}" alt=""> Очистить корзину</span></div></div><div class="basket__user"><div class="d-flex justify-content-between mb-5"><div class="d-flex align-items-center gap-3"><div><img src="/{{ object.chanel.pictures }}" width="100px" height="100px" alt=""></div>
         <div><p class="user__title">{{ object.chanel.name }}</p><span class="user__desc">Требования к публикации</span></div></div><div><img src="{% static 'img/close.png' %}" alt=""></div></div>
         <label>Укажите текст публикации {{form.text_ads}}{{form.media}} </label> <label>Название заказа
             {{form.name_ads}}
@@ -26,6 +26,40 @@
             {{form.comment}}
 
         </label><div class="basket__user-bottom">
-        <p class="bottom-text">Стоимость: <b>{{object.format.cost_per_format}} UAH</b></p><div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> <label class="form-check-label" for="flexRadioDefault1">Не заполнено</label></div></div><button class="btn-reset mt-5" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="img/Chat Message.png" alt=""> Перейти в чат с владельцем</button></div></div></div></main></div>
+        <p class="bottom-text">Стоимость: <b>{{object.format.cost_per_format}} UAH</b></p><div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> <label class="form-check-label" for="flexRadioDefault1">Не заполнено</label></div></div>
+        <button class="btn-reset mt-5" type="reset" data-bs-toggle="modal" data-bs-target="#chatModal">
+
+            <img src="{% static 'img/Chat Message.png' %}" alt=""> Перейти в чат с владельцем</button></div></div></div></main></div>
         </form>
+
+<!-- The Modal -->
+<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chatModalLabel">Chat with Owner</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Your modal content goes here -->
+                <!-- You can include a form, messages, or any other content for chatting -->
+                <!-- Example: -->
+                <form>
+                    <div class="mb-3">
+                        <h1>Hello</h1>
+                        <label for="messageInput" class="form-label">Your Message:</label>
+                        <textarea class="form-control" id="messageInput" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- You can include additional buttons or actions here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
     {% endblock %}

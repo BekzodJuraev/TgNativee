@@ -22,7 +22,7 @@
 
         </p><a href="" class="box__link" style="color: #008E8B">Подробнее</a></div><div class="page__channel-cards-box"><p class="box__right-title">Подписчиков</p><div class="d-flex justify-content-between mb-5"><div><p class="number__title">Всего</p><span class="number__count" style="color:#00B2EB;">{{object.subscribers}}</span></div><div><p class="number__title">Сегодня</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Неделя</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Месяц</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div></div><div class="d-flex justify-content-between"><p class="number__title">Просмотров на пост</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div><div class="d-flex justify-content-between"><p class="number__title">За последние 24</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div></div>
             {% if request.user.is_authenticated %}
-               {% if request.user.profile_advertisers.all %}
+               {% if request.user.profile_advertisers %}
 
 
                  <div class="page__channel-cards-box">

@@ -155,6 +155,8 @@ class RegistrationForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.order = self.cleaned_data.get('order')
+        user.phone_number=self.cleaned_data.get('phone_number')
+
         if commit:
             user.save()
         return user

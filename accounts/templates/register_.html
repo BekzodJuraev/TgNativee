@@ -63,7 +63,8 @@
             </form><p class="registration__desc">или продолжить с</p><div class="registration__buttons"><a class="registration__buttons-social" href="#">
 
 
-        <img src="{% static 'img/telegram.png' %}" alt=""> Telegram </a><a class="registration__buttons-social" href="#">
+        <img src="{% static 'img/telegram.png' %}" alt=""> Telegram </a>
+            <a class="registration__buttons-social" href="{%url 'social:begin' 'google-oauth2' %}">
         <img src="{% static 'img/google.png' %}" alt=""> Google</a></div></div></div></div></main></div></body></html>
 
 

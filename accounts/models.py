@@ -3,8 +3,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import AbstractUser, UserManager, Permission
 from phonenumber_field.modelfields import PhoneNumberField
+class Message(models.Model):
+    sender = models.OneToOneField(User, on_delete=models.CASCADE, related_name='sent_messages')
+    receiver = models.OneToOneField(User, on_delete=models.CASCADE, related_name='received_messages')
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.sender.username} to {self.receiver.username}: {self.content}"
+
+
 class Profile(models.Model):
-    username=models.ForeignKey(User,on_delete=models.CASCADE,related_name='profile')
+    username=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     phone_number = PhoneNumberField()
     first_name=models.CharField(max_length=150)
     last_name=models.CharField(max_length=150)
@@ -13,6 +23,14 @@ class Profile(models.Model):
     currency=models.CharField(max_length=10)
     created_at=models.DateTimeField(auto_now_add=True)
     photo=models.ImageField()
+    is_online = models.BooleanField(default=False)
+    last_visited = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        # Update the associated User's email before saving
+        self.username.email = self.email
+        self.username.save()
+        super().save(*args, **kwargs)
 
 
 
@@ -20,7 +38,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.username.username
 class Profile_advertiser(models.Model):
-    username=models.ForeignKey(User,on_delete=models.CASCADE,related_name='profile_advertisers')
+    username=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile_advertisers')
     phone_number = PhoneNumberField()
     first_name=models.CharField(max_length=150)
     last_name=models.CharField(max_length=150)
@@ -29,10 +47,18 @@ class Profile_advertiser(models.Model):
     currency=models.CharField(max_length=10)
     created_at=models.DateTimeField(auto_now_add=True)
     photo=models.ImageField()
+    is_online = models.BooleanField(default=False)
+    last_visited = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
         return self.username.username
+
+    def save(self, *args, **kwargs):
+        # Update the associated User's email before saving
+        self.username.email = self.email
+        self.username.save()
+        super().save(*args, **kwargs)
 
 
 class Add_chanel(models.Model):
