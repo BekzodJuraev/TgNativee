@@ -388,3 +388,25 @@ def ads_view(request):
     # If it's not a POST request, return an error message
     data = {'error': 'Invalid request method.'}
     return JsonResponse(data, status=400)
+
+
+
+def update_online_status(request):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'logout':
+            if hasattr(request.user, 'profile') and request.user.profile:
+                request.user.profile.is_online = False
+                request.user.profile.save()
+
+            if hasattr(request.user, 'profile_advertisers') and request.user.profile_advertisers:
+                request.user.profile_advertisers.is_online = False
+                request.user.profile_advertisers.save()
+
+            # Update the user's online status to False
+
+
+            return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'error'})

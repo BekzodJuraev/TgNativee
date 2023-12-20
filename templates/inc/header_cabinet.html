@@ -19,5 +19,18 @@
         <li class="header__dropdown-item"><a href="{% url 'category-list' %}" class="header__dropdown-link">Каталог каналов</a></li><li class="header__dropdown-item"><a href=" {% url url %} " class="header__dropdown-link">Отслеживание постов</a></li><li class="header__dropdown-item"><a href="" class="header__dropdown-link">Мои каналы</a></li><li class="header__dropdown-item"><a href="{% url 'faq' %}" class="header__dropdown-link">FAQ</a></li><li class="header__dropdown-item"><a href="{% url 'main' %}" class="header__dropdown-link">Вернуться на главную</a></li></ul></div></div></header>
 
 
-
+<script>
+    $(window).on('beforeunload', function() {
+    // Make an asynchronous request to update is_online status when the user closes the browser
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'update_online_status' %}',  // Replace with the actual URL to update online status
+        data: {
+            'action': 'logout',
+             csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        async: false,  // Make the request synchronous to ensure it completes before the browser closes
+    });
+});
+</script>
 

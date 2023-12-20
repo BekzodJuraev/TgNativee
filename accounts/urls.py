@@ -22,6 +22,7 @@ urlpatterns=[
      path('<int:pk>/telegram',views.UpdateTelegram.as_view(),name='cabinet_telegram'),
      path('balance/',views.BalancePage.as_view(),name='balance'),
      path('createads/',views.ads_view,name='createads'),
+     path('update_online_status/', views.update_online_status, name='update_online_status'),
 
      path('reklama/create/<int:pk>',views.CreateAds.as_view(),name="updateads"),
      path('<int:pk>/update',views.Updatestatus.as_view(),name='update'),
