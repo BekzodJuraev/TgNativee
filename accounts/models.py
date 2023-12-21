@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import AbstractUser, UserManager, Permission
 from phonenumber_field.modelfields import PhoneNumberField
+import pytz
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
@@ -25,6 +26,7 @@ class Profile(models.Model):
     photo=models.ImageField()
     is_online = models.BooleanField(default=False)
     last_visited = models.DateTimeField(auto_now=True)
+    timezone = models.CharField(max_length=63, choices=[(tz, tz) for tz in pytz.all_timezones], default='UTC')
 
     def save(self, *args, **kwargs):
         # Update the associated User's email before saving
@@ -49,6 +51,7 @@ class Profile_advertiser(models.Model):
     photo=models.ImageField()
     is_online = models.BooleanField(default=False)
     last_visited = models.DateTimeField(auto_now=True)
+    timezone = models.CharField(max_length=63, choices=[(tz, tz) for tz in pytz.all_timezones], default='UTC')
 
 
     def __str__(self):

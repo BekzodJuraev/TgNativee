@@ -87,6 +87,12 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
             return redirect('login')
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user)
+        context['count'] = Add_Reklama.objects.filter(user_order__username=self.request.user).count()
+        return context
+
 
 def logout_view(request):
     logout(request)

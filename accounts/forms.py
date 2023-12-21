@@ -5,6 +5,7 @@ from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import inlineformset_factory
 from phonenumber_field.formfields import PhoneNumberField
+import pytz
 
 
 class BaseUpdateForm(forms.ModelForm):
@@ -17,10 +18,14 @@ class BaseUpdateForm(forms.ModelForm):
         required=False,
         widget=forms.FileInput(attrs={'id': 'photoInput', 'style': 'display: none;'})
     )
+    timezone = forms.ChoiceField(
+        choices=[(tz, tz) for tz in pytz.all_timezones],
+        widget=forms.Select(attrs={'class': 'form-select', 'placeholder': 'Часовой пояс'})
+    )
 
 
     class Meta:
-        fields = ['email', 'phone_number', 'photo']
+        fields = ['email', 'phone_number', 'photo','timezone']
 
 
 class Update_Profile(BaseUpdateForm):
