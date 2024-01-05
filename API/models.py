@@ -9,7 +9,7 @@ class Chanel(models.Model):
     views=models.IntegerField()
     created_at=models.DateTimeField(auto_now_add=True)
     add_chanel =models.ForeignKey(Add_chanel, on_delete=models.CASCADE)
-    username=models.CharField(max_length=150)
+    username=models.CharField(max_length=140)
 
 
 
@@ -34,7 +34,7 @@ class Add_userbot(models.Model):
     session=models.TextField()
     created=models.DateTimeField(auto_now_add=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    confirmation_code = models.CharField(max_length=6, blank=True, null=True)
+
 
     def __str__(self):
         return self.name
