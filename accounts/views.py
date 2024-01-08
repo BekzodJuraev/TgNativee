@@ -168,8 +168,16 @@ class CategoryChanelPage(ListView):
         return context
 
 
-class ListChanelPage(TemplateView):
+class ListChanelPage(LoginRequiredMixin,TemplateView):
     template_name = 'listchanel.html'
+    login_url = reverse_lazy('login')
+
+
+
+
+
+
+
 
 
 class ContactPage(TemplateView):

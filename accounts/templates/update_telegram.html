@@ -14,7 +14,12 @@
         <div class="personal__cabinet"><div class="container-fluid"><div class="personal__cabinet-row"><div class="cards"><div class="d-flex gap-5 align-items-center">
             <div class="d-flex flex-column gap-3 align-items-center">
                 <div>
+             {% if user.photo %}
             <img src="/{{user.photo}}"  width="150px" height="150px" alt="">
+                    {% else %}
+                    <img src="{% static 'img/Test Account.png' %} " alt=""></a>
+                    {% endif %}
+
 
                 </div>
 

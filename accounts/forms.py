@@ -124,8 +124,7 @@ class RegistrationForm(UserCreationForm):
     )
     username = forms.CharField(max_length=63, label="Логин",
                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}))
-    last_name = forms.CharField(max_length=63, label="Логин",
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'}))
+
 
 
 
@@ -154,7 +153,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model=User
-        fields = ['order','last_name','username', 'email', 'password1', 'phone_number']
+        fields = ['order','username', 'email', 'password1', 'phone_number']
 
 
     def save(self, commit=True):
