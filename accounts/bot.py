@@ -161,7 +161,9 @@ async def run_userbots():
 #celery -A your_project flower --port=5555
 
 
-
+#STATIC_ROOT = '/var/www/html/static/'
+#sudo systemctl reload gunicorn
+#sudo service nginx reload
 async def run_userbot():
     await initialize_clients()
     await run_userbots()
