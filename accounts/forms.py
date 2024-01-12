@@ -133,7 +133,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=63,required=True, label="email",
                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваш email'}))
     phone_number = PhoneNumberField(max_length=63,required=True, label="email",
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+380'}))
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'id':'id_phone_number','placeholder': '+380'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
