@@ -59,5 +59,11 @@ class Feedback(models.Model):
         return self.company_name
 
 
+class FAQ(models.Model):
+    question = models.CharField(max_length=200, verbose_name='Вопрос')
+    created_at = models.DateTimeField(auto_now_add=True)
+    answers = models.TextField(verbose_name="Ответ")
 
+    def __str__(self):
+        return self.question
 

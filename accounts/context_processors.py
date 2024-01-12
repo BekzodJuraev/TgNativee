@@ -12,6 +12,7 @@ def user_authenticated(request):
             user_authenticated_data['url_cabinet']='cabinet_telegram'
             user_authenticated_data['pk'] = user_profile.pk
             user_authenticated_data['balance']=user_profile.balance
+            user_authenticated_data['pages']=user_profile
         except Profile.DoesNotExist:
             try:
                 advertiser_profile = Profile_advertiser.objects.get(username=request.user)

@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, \
     Update_Profile, Update_Reklama
-from API.models import Chanel, Feedback, Add_Sponsors
+from API.models import Chanel, Feedback, Add_Sponsors,FAQ
 from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format
 from django.contrib.auth import logout
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
@@ -184,8 +184,11 @@ class ContactPage(TemplateView):
     template_name = 'contact.html'
 
 
-class FaqPage(TemplateView):
+class FaqPage(ListView):
+    model = FAQ
+    context_object_name = 'items'
     template_name = 'faq.html'
+
 
 
 class AboutPage(TemplateView):

@@ -1,8 +1,13 @@
 from django.contrib import admin
-from .models import Chanel,Add_userbot,Add_Sponsors,Feedback
+from .models import Chanel,Add_userbot,Add_Sponsors,Feedback,FAQ
 from accounts.models import Add_chanel
 from django import forms
-# Register your models here.
+#
+
+@admin.register(FAQ)
+class ChanelAdmin(admin.ModelAdmin):
+    list_display = ['question','answers']
+
 @admin.register(Chanel)
 class ChanelAdmin(admin.ModelAdmin):
     list_display = ['username','subscribers','chanel_link','views']
@@ -19,6 +24,7 @@ class AddUserbotAdminForm(forms.ModelForm):
     class Meta:
         model = Add_userbot
         fields = '__all__'
+
 
 
 
