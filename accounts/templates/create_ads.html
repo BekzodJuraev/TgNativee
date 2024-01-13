@@ -6,7 +6,7 @@
 
 {% endblock %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
+    <form method="post"  enctype="multipart/form-data">
          {% csrf_token %}
 
 
@@ -17,7 +17,13 @@
         </div><div class="basket__box-item"><p>На сумму</p>
         <p><span style="color: #008E8B">{{object.format.cost_per_format}}</span>UAH</p></div>
         <div class="basket__box-bottom">
-            <button class="btn-reset">Дать задание каналам</button> <span><img src="{% static 'img/trash.png' %}" alt=""> Очистить корзину</span></div></div>
+            <button class="btn-reset">Дать задание каналам</button>
+
+
+
+            <span id="delete-trigger" ><img src="{% static 'img/trash.png' %}" alt=""> Очистить корзину</span>
+
+</div></div>
         <div class="basket__user"><div class="d-flex justify-content-between mb-5">
             <div class="d-flex align-items-center gap-3"><div><img src="/{{ object.chanel.pictures }}" width="100px" height="100px" alt=""></div>
         <div><p class="user__title">{{ object.chanel.name }}</p><span class="user__desc">Требования к публикации</span></div></div>
@@ -35,8 +41,8 @@
         <button class="btn-reset mt-5" type="reset" data-bs-toggle="modal" data-bs-target="#chatModal">
 
             <img src="{% static 'img/Chat Message.png' %}" alt=""> Перейти в чат с владельцем</button></div></div></div></main></div>
-        </form>
 
+          </form>
 <!-- The Modal -->
 <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -75,6 +81,25 @@
         </div>
     </div>
 </div>
-
-
+<script>
+  $(document).ready(function() {
+    $("#delete-trigger").on("click", function() {
+      // AJAX request to delete the item
+      $.ajax({
+        url: '{% url 'deleteads' item.pk %}',
+        method: 'DELETE',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        success: function(data) {
+          // Handle success response, e.g., redirect to a different page
+          window.location.replace(data.redirect_url);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    });
+  });
+</script>
     {% endblock %}

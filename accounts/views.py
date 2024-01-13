@@ -21,12 +21,14 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, T
 
 class BalancePage(LoginRequiredMixin, TemplateView):
     template_name = 'withdrawal-funds.html'
+    login_url = reverse_lazy('login')
 
 
 class UpdateReklama(LoginRequiredMixin, UpdateView):
     template_name = "update_reklama.html"
     model = Profile_advertiser
     form_class = Update_Reklama
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,6 +43,7 @@ class UpdateTelegram(LoginRequiredMixin, UpdateView):
     template_name = "update_telegram.html"
     model = Profile
     form_class = Update_Profile
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,6 +56,8 @@ class UpdateTelegram(LoginRequiredMixin, UpdateView):
 
 class Zayavka_Page(LoginRequiredMixin, TemplateView):
     template_name = 'zayavki.html'
+    login_url = reverse_lazy('login')
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,6 +83,7 @@ class Zayavka_Page(LoginRequiredMixin, TemplateView):
 
 class Reklama_Page(LoginRequiredMixin, TemplateView):
     template_name = 'reklama_cabinet.html'
+    login_url = reverse_lazy('login')
 
     def dispatch(self, request, *args, **kwargs):
         if not Profile_advertiser.objects.filter(username=request.user).exists():
@@ -101,6 +107,7 @@ def logout_view(request):
 
 class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
     template_name = 'telegram_cabinet.html'
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -120,6 +127,7 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
 class Page_List(DetailView):
     template_name = 'page.html'
     model = Chanel
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -138,6 +146,7 @@ class CategoryChanelPage(ListView):
     template_name = 'category.html'
     model = Chanel
     paginate_by = 6
+    login_url = reverse_lazy('login')
 
     def get_queryset(self):
         search_query = self.request.GET.get('chanel_link')
@@ -256,6 +265,31 @@ class CreateAds(LoginRequiredMixin, UpdateView):
     model = Add_Reklama
     success_url = reverse_lazy('login_reklama')
     login_url = reverse_lazy('login')
+    context_object_name = "item"
+
+class DeleteAds(LoginRequiredMixin,DeleteView):
+    model = Add_Reklama
+    login_url = reverse_lazy('login')
+    success_url = reverse_lazy('login_reklama')
+    context_object_name = "item"
+
+
+
+    def delete(self, request, *args, **kwargs):
+        # Delete the object
+        self.object = self.get_object()
+        self.object.delete()
+        data = {'message': 'Item deleted successfully', 'redirect_url': self.success_url}
+        return JsonResponse(data)
+
+
+
+
+            # If it's a regular HTTP request, perform the default behavior (302 redirect)
+
+
+
+
 
 
 class CreateChanel(LoginRequiredMixin, CreateView):
