@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
 import telegram
+from django.db.models import Count
+
 from .bot import BOT_TOKEN
 from django.utils import timezone
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -14,9 +16,9 @@ from django.urls import reverse_lazy
 from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, \
     Update_Profile, Update_Reklama
 from API.models import Chanel, Feedback, Add_Sponsors,FAQ
-from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format
+from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format,Like
 from django.contrib.auth import logout
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
+from django.views.generic import View,ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
 
 
 class BalancePage(LoginRequiredMixin, TemplateView):
@@ -181,6 +183,12 @@ class ListChanelPage(LoginRequiredMixin,TemplateView):
     template_name = 'listchanel.html'
     login_url = reverse_lazy('login')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['count'] = Like.objects.filter(username=self.request.user).count()
+        return context
+
+
 
 
 
@@ -339,6 +347,22 @@ class Updatestatus(LoginRequiredMixin,UpdateView):
         response = super().form_valid(form)
         return response
 
+class LikeToggleView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('login')  # Replace with your actual login URL
+
+    def post(self, request, *args, **kwargs):
+        chanel_name = request.POST.get('chanel_id')
+        user = self.request.user
+        # Check if the user already likes the channel
+        like, created = Like.objects.get_or_create(username=user, chanel_name_id=chanel_name)
+
+        if not created:
+            # If the like already exists, delete it (unlike)
+            like.delete()
+            return JsonResponse({'liked': False})
+
+        liked = True
+        return JsonResponse({'liked': liked})
 
 class AviatorView(LoginRequiredMixin, ListView):
     model = Chanel

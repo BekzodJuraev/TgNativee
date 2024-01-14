@@ -99,7 +99,12 @@
                     <div><img src="/{{ item.pictures }}" alt="" style="width: 75px; height: 75x;"></div>
                     <div><p class="box__title">{{item.name}}</p>
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{% static 'img/favorite.png' %}" alt="">
+                            <img  class="likeButton" data-chanel-id="{{ item.id }}" src="{% static 'img/favorite.png' %}" alt="">
+
+
+
+
+
                             <img src="{% static 'img/add-reminder.png' %}" alt=""></div></div></div>
                     <p class="desc">{{item.add_chanel.category}}</p><span class="green">{{item.subscribers}}</span><p class="bold">{{item.views}}</p>
                     <p class="bold">{{er|floatformat:2 }}%</p><p class="bold">{{last_cost_format.placement_format}}</p><a href="{% url 'page' item.pk %}" class="link">Подробнее</a>
@@ -143,6 +148,44 @@
     </div>
     </main>
 </div>
+<script>
+$(document).ready(function() {
+    $(".likeButton").click(function() {
+        var chanelId = $(this).data("chanel-id");
+        var csrfToken = "{{ csrf_token }}";  // Include your CSRF token here
+
+
+        // Toggle between favorite.png and love.png
+        var currentSrc = $(this).attr("src");
+        var newSrc = currentSrc.includes("favorite.png") ? "{% static 'img/love.png' %}" : "{% static 'img/favorite.png' %}";
+
+        // Update the image source
+        $(this).attr("src", newSrc);
+
+        // Send a POST request to the server to toggle the like status
+        $.ajax({
+            url: {% url 'like_toggle' %},
+            type: 'POST',
+            data: {
+                csrfmiddlewaretoken: csrfToken,
+                chanel_id:chanelId
+            },
+            success: function(response) {
+                if (response.liked) {
+                    // Logic for when the channel is liked
+                    console.log('Channel liked!');
+                } else {
+                    // Logic for when the like is removed (unliked)
+                    console.log('Like removed!');
+                }
+            },
+            error: function(error) {
+                console.error('Error toggling like:', error);
+            }
+        });
+    });
+});
+</script>
 
 
 

@@ -4,6 +4,11 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.models import AbstractUser, UserManager, Permission
 from phonenumber_field.modelfields import PhoneNumberField
 import pytz
+
+
+
+
+
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
@@ -126,6 +131,14 @@ class Category_chanels(models.Model):
         return self.name
 
 
+class Like(models.Model):
+    from API.models import Chanel
+    username=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    chanel_name=models.ForeignKey(Chanel,on_delete=models.CASCADE,null=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.username.username
 
 
 

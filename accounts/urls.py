@@ -23,6 +23,7 @@ urlpatterns=[
      path('balance/',views.BalancePage.as_view(),name='balance'),
      path('createads/',views.ads_view,name='createads'),
      path('deleteads/<int:pk>',views.DeleteAds.as_view(),name='deleteads'),
+     path('like-toggle/', views.LikeToggleView.as_view(), name='like_toggle'),
 
      path('update_online_status/', views.update_online_status, name='update_online_status'),
 
