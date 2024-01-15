@@ -199,7 +199,9 @@ class ListChanelPage(LoginRequiredMixin,TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['count'] = Like.objects.filter(username=self.request.user).count()
+        like=Like.objects.filter(username=self.request.user)
+        context['count'] = like.count()
+        context['last_update']=like.last()
         return context
 
 

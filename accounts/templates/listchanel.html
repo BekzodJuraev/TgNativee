@@ -6,7 +6,7 @@
 {% endblock %}
     {% block content %}
 
-    <main class="main"><div class="channel"><div class="container-fluid"><h4 class="channel__title title">Сохраненное</h4><div class="channel__tabs"><a href="" class="active">Мое</a> <a href="">Рекомендованное</a></div><div class="channel__search"><div class="channel__search-input"><input type="text" placeholder="Поиск" class="form-control"></div><div class="channel__search-btn"><button class="btn-reset">Найти</button></div></div><table class="table table-borderless"><thead><tr><th scope="col">Название <img src="img/sort-down.png" alt=""></th><th scope="col">Каналы</th><th scope="col">Дата обновления</th></tr></thead><tbody class="table-group-divider"><tr><td scope="row">Выбранное</td><td><span>{{count}}</span></td><td>11.03.2023 12:40</td></tr></tbody></table></div></div></main></div>
+    <main class="main"><div class="channel"><div class="container-fluid"><h4 class="channel__title title">Сохраненное</h4><div class="channel__tabs"><a href="" class="active">Мое</a> <a href="">Рекомендованное</a></div><div class="channel__search"><div class="channel__search-input"><input type="text" placeholder="Поиск" class="form-control"></div><div class="channel__search-btn"><button class="btn-reset">Найти</button></div></div><table class="table table-borderless"><thead><tr><th scope="col">Название <img src="img/sort-down.png" alt=""></th><th scope="col">Каналы</th><th scope="col">Дата обновления</th></tr></thead><tbody class="table-group-divider"><tr><td scope="row">Выбранное</td><td><span>{{count}}</span></td><td>{{ last_update.created_at}}</td></tr></tbody></table></div></div></main></div>
 
 
     {% endblock %}
