@@ -150,6 +150,27 @@
 </div>
 <script>
 $(document).ready(function() {
+
+    function setInitialLikeState(chanelId, liked) {
+        var currentSrc = liked ? "{% static 'img/love.png' %}" : "{% static 'img/favorite.png' %}";
+        $(".likeButton[data-chanel-id='" + chanelId + "']").attr("src", currentSrc);
+    }
+
+    // Fetch the initial state of liked channels on page load
+    $.ajax({
+        url: "{% url 'like_toggle' %}",
+        type: 'GET',
+        success: function(response) {
+            // Loop through the liked channels and set the initial state for each button
+            for (var i = 0; i < response.liked_channels.length; i++) {
+                setInitialLikeState(response.liked_channels[i], true);
+            }
+        },
+        error: function(error) {
+            console.error('Error fetching initial like state:', error);
+        }
+    });
+
     $(".likeButton").click(function() {
         var chanelId = $(this).data("chanel-id");
         var csrfToken = "{{ csrf_token }}";  // Include your CSRF token here

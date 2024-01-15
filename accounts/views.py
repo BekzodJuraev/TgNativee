@@ -75,11 +75,16 @@ class Zayavka_Page(LoginRequiredMixin, TemplateView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            # Redirect the user to the login page if they are not authenticated.
+            return redirect(self.login_url)
+
         if not Profile.objects.filter(username=request.user).exists():
             # Redirect the user to a different page or return an error message
             # if they don't have a profile.
             logout(request)
-            return redirect('login')
+            return redirect(self.login_url)
+
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -88,6 +93,11 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy('login')
 
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            # Redirect the user to the login page if they are not authenticated.
+            return redirect(self.login_url)
+
+
         if not Profile_advertiser.objects.filter(username=request.user).exists():
             # Redirect the user to a different page or return an error message
             # if they don't have a profile.
@@ -118,6 +128,10 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            # Redirect the user to the login page if they are not authenticated.
+            return redirect(self.login_url)
+
         if not Profile.objects.filter(username=request.user).exists():
             # Redirect the user to a different page or return an error message
             # if they don't have a profile.
@@ -364,53 +378,19 @@ class LikeToggleView(LoginRequiredMixin, View):
         liked = True
         return JsonResponse({'liked': liked})
 
-class AviatorView(LoginRequiredMixin, ListView):
-    model = Chanel
-    template_name = 'aviator.html'
-    login_url = reverse_lazy('login')
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Get all related CostFormat objects
-        # chanel_objects = Chanel.objects.select_related('add_chanel')
-        # print(chanel_objects)
-        # add_chanel_objects = Add_chanel.objects.prefetch_related('cost_formats')
-        # print(add_chanel_objects)
-
-        try:
-            chanel_instances = Chanel.objects.filter(username=self.request.user)
-            context['order'] = Add_Reklama.objects.filter(chanel__in=chanel_instances)
-            # Now you can use chanel_instance in your queries or operations.
-        except Chanel.DoesNotExist:
-            print("Netu")
-        context['reklama'] = Chanel.objects.all().filter(username=self.request.user)
-        context['lists'] = Chanel.objects.all().count()
-        context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
-        context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
-        context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
-        context['user'] = Profile.objects.get(username=self.request.user)
-        return context
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        # Retrieve the liked channels for the user
+        chanel_liked = Like.objects.filter(username=user).values_list('chanel_name_id', flat=True)
+        # Return the list of liked channel IDs as a JsonResponse
+        return JsonResponse({'liked_channels': list(chanel_liked)})
 
 
-class ProfileView(LoginRequiredMixin, ListView):
-    model = Chanel
-    template_name = 'Profile_reklama.html'
-    login_url = reverse_lazy('login')
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            chanel_instance = Profile_advertiser.objects.get(username=self.request.user)
-            context['order'] = Add_Reklama.objects.filter(user_order=chanel_instance)
-            # Now you can use chanel_instance in your queries or operations.
-        except Chanel.DoesNotExist:
-            print("Netu")
-        # context['lists']=Chanel.objects.all().count()
-        # context['count']=Chanel.objects.all()
-        # context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
-        # context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']
-        context['user'] = Profile_advertiser.objects.get(username=self.request.user)
-        return context
+
+
+
 
 
 def register_page(request):
