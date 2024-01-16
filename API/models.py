@@ -67,3 +67,11 @@ class FAQ(models.Model):
     def __str__(self):
         return self.question
 
+class Confirmation_code(models.Model):
+    phone_hash=models.CharField(max_length=200)
+    code=models.CharField(max_length=200)
+
+
+
+    def __str__(self):
+        return self.phone_hash

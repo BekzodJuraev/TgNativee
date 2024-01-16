@@ -1,5 +1,5 @@
 from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama
-from API.models import Chanel,Add_userbot
+from API.models import Chanel,Add_userbot,Confirmation_code
 from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
 from django.utils import timezone
@@ -75,11 +75,9 @@ def handle_new_userbot(sender, instance,created, **kwargs):
             phone=instance.phone_number
         )
 
+
     #process_user_bot.delay(name=instance.name,api_id=instance.api_id,api_hash=instance.api_hash,phone=instance.phone_number)
    # client = Client(name=instance.name,api_id=instance.api_id,api_hash=instance.api_hash,phone_number=instance.phone_number)
-
-
-
 
 
 
