@@ -1,5 +1,5 @@
 from .models import Profile,Profile_advertiser,Add_chanel,Add_Reklama
-from API.models import Chanel,Add_userbot,Confirmation_code
+from API.models import Chanel,Add_userbot
 from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
 from django.utils import timezone

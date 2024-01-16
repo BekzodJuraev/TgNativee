@@ -31,9 +31,10 @@ class Add_userbot(models.Model):
     name=models.CharField(max_length=100)
     api_id=models.IntegerField()
     api_hash=models.CharField(max_length=100)
-    session=models.TextField()
+    session=models.TextField(blank=True)
     created=models.DateTimeField(auto_now_add=True)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, null=True)
+    code = models.CharField(max_length=200,blank=True)
 
 
     def __str__(self):
@@ -67,11 +68,3 @@ class FAQ(models.Model):
     def __str__(self):
         return self.question
 
-class Confirmation_code(models.Model):
-    phone_hash=models.CharField(max_length=200)
-    code=models.CharField(max_length=200)
-
-
-
-    def __str__(self):
-        return self.phone_hash
