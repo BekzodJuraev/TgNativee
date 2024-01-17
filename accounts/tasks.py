@@ -7,6 +7,8 @@ from pyrogram import filters
 import logging
 from django.db import transaction
 import telegram
+from telegram import ParseMode
+from telegram import InputMediaPhoto
 import os
 logger = logging.getLogger(__name__)
 from API.models import Add_userbot
@@ -18,8 +20,14 @@ import requests
 @shared_task
 def send_telegram_message(ad_id):
     ad = Add_Reklama.objects.get(pk=ad_id)
+    text=ad.text_ads
+    channel_link = ad.chanel.chanel_link
+    channel_username = channel_link.split('/')[-1]
+    chat = "@" + channel_username
+    #sendphoto = send_media_group
     # Ваш код для выполнения, когда статус - PUBLISHED и order_data соответствует текущему времени
-    bot_telegram.sendMessage('@lsbnvVm9TmhjZDNi', ad.name_ads)
+    bot_telegram.send_photo(chat_id=chat, photo=ad.media,caption=text,parse_mode="HTML")
+
 
 
 @shared_task
@@ -41,7 +49,9 @@ def process_user_bot(name, api_id, api_hash, phone):
 
         # Update the Add_userbot instance
 
+
         userbot.session = session_data
+        userbot.is_active = True
         userbot.save()
 
     except Exception as e:
@@ -55,7 +65,7 @@ def process_user_bot(name, api_id, api_hash, phone):
 
 @shared_task
 def add_chanel(chanel_link):
-    userbots = Add_userbot.objects.all()
+    userbots = Add_userbot.objects.filter(is_active=True)
 
     for userbot in userbots:
         session_data = userbot.session

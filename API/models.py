@@ -35,6 +35,7 @@ class Add_userbot(models.Model):
     created=models.DateTimeField(auto_now_add=True)
     phone_number = models.CharField(max_length=15, null=True)
     code = models.CharField(max_length=200,blank=True)
+    is_active = models.BooleanField(default=False, help_text="Is this userbot active?")
 
 
     def __str__(self):

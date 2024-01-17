@@ -19,7 +19,7 @@ class ChanelAdmin(admin.ModelAdmin):
 
 
 class AddUserbotAdmin(admin.ModelAdmin):
-    list_display = ('name', 'api_id', 'api_hash', 'phone_number')
+    list_display = ('name', 'api_id', 'api_hash', 'phone_number','is_active')
 
 
 
