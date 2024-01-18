@@ -168,19 +168,37 @@ class CategoryChanelPage(ListView):
         search_query = self.request.GET.get('chanel_link')
         select_category = self.request.GET.get('selected_category')
         chanel_name = self.request.GET.get('chanel_name')
+        views_from=self.request.GET.get('views_from')
+        views_to=self.request.GET.get('views_to')
+        subscribers_from=self.request.GET.get('subscribers_from')
+        subscribers_to=self.request.GET.get('subscribers_to')
+        cost_from=self.request.GET.get('cost_from')
+        cost_to = self.request.GET.get('cost_to')
+        queryset = Chanel.objects.all()
+
 
         if search_query:
-            queryset = Chanel.objects.filter(chanel_link__icontains=search_query)
+            queryset = queryset.filter(chanel_link__icontains=search_query)
 
         if select_category:
-            queryset = Chanel.objects.filter(add_chanel__category__name=select_category)
+            queryset = queryset.filter(add_chanel__category__name=select_category)
 
         if chanel_name:
-            queryset = Chanel.objects.filter(name__icontains=chanel_name)
+            queryset = queryset.filter(name__icontains=chanel_name)
 
             # If no search parameters are provided, return all objects
-        if not (search_query or select_category or chanel_name):
-            queryset = Chanel.objects.all()
+
+        if views_from and views_to :
+            queryset=queryset.filter(views__range=[views_from, views_to])
+
+        if subscribers_from and subscribers_to :
+            queryset=queryset.filter(subscribers__range=[subscribers_from, subscribers_to])
+
+        if cost_from and cost_to :
+            queryset = queryset.filter(add_chanel__cost_formats__cost_per_format__range=[cost_from, cost_to])
+
+
+
 
         return queryset
 
