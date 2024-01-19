@@ -69,3 +69,11 @@ class FAQ(models.Model):
     def __str__(self):
         return self.question
 
+class Add_telegrambot(models.Model):
+    token=models.CharField(max_length=200,verbose_name="Токен")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.token
+
+

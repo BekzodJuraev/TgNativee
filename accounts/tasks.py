@@ -11,11 +11,12 @@ from telegram import ParseMode
 from telegram import InputMediaPhoto
 import os
 logger = logging.getLogger(__name__)
-from API.models import Add_userbot
+from API.models import Add_userbot,Add_telegrambot
 from celery import shared_task
-BOT_TOKEN="6782469164:AAG9NWxQZ2mPx5I9U7E3QX3HgbhU5MYr6Z4"
-bot_telegram = telegram.Bot(token=BOT_TOKEN)
+
 import requests
+telegrambot=Add_telegrambot.objects.last()
+bot_telegram = telegram.Bot(token=telegrambot.token)
 
 @shared_task
 def send_telegram_message(ad_id):

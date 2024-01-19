@@ -1,10 +1,13 @@
 from django.contrib import admin
-from .models import Chanel,Add_userbot,Add_Sponsors,Feedback,FAQ
+from .models import Chanel,Add_userbot,Add_Sponsors,Feedback,FAQ,Add_telegrambot
 from accounts.models import Add_chanel
 from django import forms
 #
 
 
+@admin.register(Add_telegrambot)
+class ChanelAdmin(admin.ModelAdmin):
+    list_display = ['token','created_at']
 @admin.register(FAQ)
 class ChanelAdmin(admin.ModelAdmin):
     list_display = ['question','answers']
