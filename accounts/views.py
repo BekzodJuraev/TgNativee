@@ -125,6 +125,14 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['chanel'] = Chanel.objects.filter(username=self.request.user)
         context['count'] = Chanel.objects.filter(username=self.request.user).count()
+        try:
+            chanel_instances = Chanel.objects.filter(username=self.request.user)
+            context['order'] = Add_Reklama.objects.filter(chanel__in=chanel_instances)
+            context['count'] = Add_Reklama.objects.filter(chanel__in=chanel_instances).count()
+            # Now you can use chanel_instance in your queries or operations.
+        except Chanel.DoesNotExist:
+            pass
+
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -136,7 +144,8 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
             # Redirect the user to a different page or return an error message
             # if they don't have a profile.
             logout(request)
-            return redirect('login')
+            return redirect(self.login_url)
+
         return super().dispatch(request, *args, **kwargs)
 
 
