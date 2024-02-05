@@ -1,89 +1,224 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load mathfilters %}
-{% block header %}
-<body class="page__body">
-<div class="registration-container">
-{% endblock %}
+
 {% block content %}
     {% with er=object.views|div:object.subscribers|mul:100 %}
 
 
-    <main class="main">
+   <main class="page">
+			<section class="channel">
+				<div class="channel__container">
+					<div class="channel__col channel__col_1">
+						<div class="channel__item item-channel-main squire">
+							<button id="like" class="icon-heart _active" type="button">
+								<img class="not-fill img-fluid" src="{% static 'img/catalog/like.svg' %}" alt="">
+								<img class="fill img-fluid" src="{% static 'img/catalog/like-fill.svg' %}" alt="">
+							</button>
+							<div class="item-channel-main__head">
+								<div class="item-channel-main__img">
+									<picture><source srcset="/{{object.pictures}}" type="image/webp"><img class="img-fluid" src="/{{object.pictures}}" alt=""></picture>
+								</div>
+								<div class="item-channel-main__content">
+									<h1 class="item-channel-main__title">{{object.name}}</h1>
+									<a href="{{object.chanel_link}}" class="item-channel-main__link hhv-green">
+										{{object.chanel_link}}
+									</a>
+									<div data-da=".item-channel-main__descr,480.98,first" class="item-channel-main__info">
+										<div class="item-channel-main__info-item">Категория: <span>{{object.add_chanel.category}}</span></div>
+										<div class="item-channel-main__info-item">Язык: <span>Язык</span></div>
+									</div>
+									<div data-da=".item-channel-main__descr,480.98,first" class="item-channel-main__stars">
+										<img src="img/channel/star.svg" alt="">
+										<img src="img/channel/star.svg" alt="">
+										<img src="img/channel/star.svg" alt="">
+										<img src="img/channel/star.svg" alt="">
+									</div>
+								</div>
+							</div>
+							<div class="item-channel-main__descr">
+								<p class="text text_s20 text_dark">
+                                {{object.add_chanel.description}}								</p>
+								<a href="#" class="item-channel-main__descr-link hhv-blue">Подробнее</a>
+							</div>
+						</div>
+                        {% if request.user.is_authenticated %}
+                        {% if request.user.profile_advertisers %}
+						<div data-da=".channel__col_2,992.98,first" class="channel__item item-channel-order squire">
+							<h3 class="item-channel-order__title">Заказать рекламу на этом канале</h3>
+
+								<div class="search-form__item item-channel-order__item search-form__item_select">
+									<label for="subjects" class="label-dark label-dark_s16">Формат:</label>
+
+                                    <select name="subjects"  id="id_format_select" data-class-modif="custom-select">
+
+                                        <option value="1">Open this</option>
+                                        {% for cost_format in object.add_chanel.cost_formats.all %}
+										<option value="{{ cost_format.id }}" id="id_format" >{{ cost_format.placement_format }}</option>
+                                        {% endfor %}
+
+									</select>
+
+									<p class="item-channel-order__text">8 часов в топе/24 часа в ленте</p>
+								</div>
+								<div class="item-channel-order__item">
+									<div class="label-black label-black_s16">Ближайшее время публикации : </div>
+									<div class="label-black label-black_s16 item-channel-order__nearest">
+										<span>26.05.2023</span>
+										<span>12:30</span>
+									</div>
+								</div>
+								<div class="item-channel-order__item">
+									<label for="date" class="label-underline item-channel-order__item-link hhv-green">Выбрать время</label>
+									<div class="item-channel-order__row">
+
+										<div class="item-channel-order__row-item">
+											 <input type="text" data-datepicker class="form__input" name="date" id="selected_date" placeholder="Select date">
+
+                                              <img src="{% static 'img/channel/calendar.svg' %}" alt="Calendar icon" class="calendar-icon">
+										</div>
+										<div class="item-channel-order__row-item">
+                                          <input type="time" class="form__input" name="time"  id="selected_time" placeholder="Выбрать Время">
 
 
-        <div class="page__channel"><div class="container-fluid"><div class="page__channel-cards">
+										</div>
+										<!-- <div class="item-channel-order__row-item">
+                        <input type="text" class="form__input" name="time" id="time" placeholder="Выбрать время">
+                        <img src="img/icons/arrow-down-pink.svg" alt="">
+                      </div> -->
+									</div>
+								</div>
+								<div class="item-channel-order__bottom">
+									<div class="label-dark label-dark_s20">
+                                        {% for cost_format in object.add_chanel.cost_formats.all %}
+										Стоимость: <span class="label-dark_fw700">{{cost_format.cost_per_format}} UAH</span>
+                                        {% endfor %}
+									</div>
+									<div class="item-channel-order__bottom-row">
+										<button class="button" type="submit" id="button">Заказать</button>
+										<button class="item-channel-order__icon" type="button">
+											<img src="{% static 'img/channel/add.svg' %}" alt="">
+										</button>
+									</div>
+								</div>
 
-            <div class="page__channel-cards-box"><div class="d-flex justify-content-end">
-            <img src="{% static 'img/love.png' %}" alt=""></div><div class="d-flex gap-3"><div class="box__image"><img src="/{{object.pictures}}" alt=""></div><div>
-            <h3 class="box__title">{{object.name}}</h3><a href="{{object.chanel_link}}" class="box__link">{{object.chanel_link}} <img src="{% static 'img/copy.png' %}" alt=""></a><p class="box__desc">Категория: <b>{{object.add_chanel.category}}</b></p><p class="box__desc">Язык: <b>Русский</b></p><div><span><img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""> <img src="img/star.svg" alt=""></span></div></div></div>
-            <p class="box__info">
-                {{object.add_chanel.description}}
-
-        </p><a href="" class="box__link" style="color: #008E8B">Подробнее</a></div><div class="page__channel-cards-box"><p class="box__right-title">Подписчиков</p><div class="d-flex justify-content-between mb-5"><div><p class="number__title">Всего</p><span class="number__count" style="color:#00B2EB;">{{object.subscribers}}</span></div><div><p class="number__title">Сегодня</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Неделя</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div><div><p class="number__title">Месяц</p><span class="number__count" style="color:#00EFA2;">+5'916</span></div></div><div class="d-flex justify-content-between"><p class="number__title">Просмотров на пост</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div><div class="d-flex justify-content-between"><p class="number__title">За последние 24</p><span class="number__count" style="color:#00B2EB;">{{object.views}}</span></div></div>
-            {% if request.user.is_authenticated %}
-               {% if request.user.profile_advertisers %}
-
-
-                 <div class="page__channel-cards-box">
-            <p class="box__right-title fw-bold" style="color: #00B2EB">Заказать рекламу на этом канале</p>
-            <label>Формат
-                <select class="form-select"  id="id_format_select" aria-label="Default select example">
-                <option selected="selected">Open this select menu</option>
-
-                 {% for cost_format in object.add_chanel.cost_formats.all %}
-                <option value="{{ cost_format.id }}" id="id_format">{{ cost_format.placement_format }}</option>
-                {% endfor %}
-
-
-
-            </select>
-            </label> <span class="box__time">8 часов в топе/24 часа в ленте</span> <span class="box__time" style="color:#000;">Ближайшее время публикации: </span><span class="box__time" style="color:#000;">26.05.2023 12:30</span> <span class="box__time" style="color:#008E8B;">Выбрать время</span>
-            <div class="d-flex gap-3 mt-3 time__wrapper">
-                <div>
-                    <input type="date"  id="selected_date" class="form-control" placeholder="Выбрать дату">
-                </div>
-                <div>
-               <input type="time"  id="selected_time" class="form-control" placeholder="Выбрать дату">
-
-            </div></div>
-            <div class="box__bottom">
-                {% for cost_format in object.add_chanel.cost_formats.all %}
-
-
-                <p class="box__bottom-text">Стоимость: {{cost_format.cost_per_format}} UAH</p>
-                {% endfor %}
-
-
-                <div class="d-flex align-items-center gap-3"><button class="btn-reset" id="button">Заказать</button>
-                    <img src="{% static 'img/add-shopping-cart.png' %}" alt=""></a></div></div></div>
-
-
-            {% endif %}
-            {% endif %}
+						</div>
 
 
 
-            <div class="page__channel-cards-box"><div class="d-flex flex-column"><div class="d-flex justify-content-between"><p class="number__title">ER</p><span class="number__count" style="color:#00B2EB;">{{er|floatformat:2}}</span></div><div class="d-flex justify-content-between"><p class="number__title">Суточный</p><span class="number__count" style="color:#00B2EB;">2387956</span></div><div class="d-flex justify-content-between"><p class="number__title">Упоминаний в ТГ</p><span class="number__count" style="color:#00B2EB;">2387956</span></div></div></div><div></div><div><p class="statistics__title">Статистика просмотров</p><img src="{% static 'img/stat.png' %}" alt=""></div></div><p class="page__channel-reviews">
-            Отзывы</p>
+                        {% endif %}
+                        {% endif %}
+                        <div data-da=".channel__col_2,992.98" class="channel__item item-channel-reviews">
+							<h3 class="label-blue label-blue_s24 label-blue_fw400">Отзывы</h3>
+							<div data-showmore="items" class="item-channel-reviews__showmore">
 
-            <div class="reviews-card-wrapper">
-                          {% for item in category %}
+								<ul data-showmore-content="3" class="item-channel-reviews__content">
+                                    {% for item in category %}
+									<li data-gap="10" class="item-channel-reviews__item squire">
+										<div class="item-channel-reviews__avatar">
+											<picture><source srcset="/{{item.user_order.photo}}" type="image/webp"><img class="img-fluid" src="/{{item.user_order.photo}}" alt=""></picture>
+										</div>
+										<div class="item-channel-reviews__item-content">
+											<div class="label-dark label-dark_s16"> {{item.user_order.first_name}}</div>
+											<div class="label-dark-green label-dark-green_s16">
+												Отзыв о
+												<span class="label-dark-green_fw700"> {{item.chanel.name}}</span>
+											</div>
+											<p class="text text_black">
+												{{item.comment}}
+											</p>
+										</div>
+										<div class="item-channel-reviews__info">
+											<div class="item-channel-main__stars">
+												<img src="{% static 'img/channel/star.svg' %}" alt="">
+												<img src="{% static 'img/channel/star.svg' %}" alt="">
+												<img src="{% static 'img/channel/star.svg' %}" alt="">
+												<img src="{% static 'img/channel/star.svg' %}" alt="">
+											</div>
+											<div class="item-channel-reviews__actions">
+												<div class="item-channel-reviews__action">
+													<img src="{% static 'img/channel/like.svg' %}" alt="">
+													<span>0</span>
+												</div>
+												<div class="item-channel-reviews__action">
+													<img src="{% static 'img/channel/dislike.svg' %}" alt="">
+													<span>0</span>
+												</div>
+											</div>
+										</div>
+									</li>
 
-
-
-
-
-
-                <div class="reviews-card"><div class="reviews-card-left"><div class="reviews-card-left-images"><img src="/{{item.user_order.photo}}" alt=""></div><div><p class="reviews-card-title">
-                    {{item.user_order.first_name}}</p><p class="reviews-card-subtitle">Отзыв о <b>{{item.chanel.name}} </b></p><p class="reviews-card-desc">
-                    {{item.comment}}</p></div></div><div class="reviews-card-right"><div><span><img src="{% static 'img/star2.png' %}" alt=""> </span><span><img src="{% static 'img/star2.png' %}" alt=""> </span><span><img src="{% static 'img/star2.png' %}" alt=""> </span><span><img src="{% static 'img/star2.png' %}" alt=""></span></div><div class="d-flex align-items-center gap-3"><div class="d-flex align-items-center"><img src="{% static 'img/like.png' %}" alt=""> 0</div><div class="d-flex align-items-center"><img src="{% static 'img/dislike.png' %}" alt=""> 0</div></div></div></div>
-                {% endfor %}
-
-                <div class="d-flex justify-content-center align-items-center"><a href="" class="reviews-card-wrapper-link">Посмотреть все</a></div></div></div></div></main></div>
+                                    {% endfor %}
+								</ul>
+								<div class="item-channel-reviews__bottom">
+									<button hidden data-showmore-button type="button" class="item-channel-reviews__more label-dark-green label-dark-green_s16 label-underline hhv-blue">
+										<span>Посмотреть все</span><span>Скыть</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="channel__col channel__col_2">
+						<div class="channel__item analitics-tabs__item item-subs-analitics squire">
+							<h4 class="label-dark label-dark_s24">Подписчиков</h4>
+							<div class="item-subs-analitics__row-col">
+								<div class="item-subs-analitics__row-col-item">
+									<div class="label-black label-black_s20">Всего</div>
+									<div class="label-blue label-blue_fw400 label-blue_s24">{{object.subscribers}}</div>
+								</div>
+								<div class="item-subs-analitics__row-col-item">
+									<div class="label-black label-black_s20">Сегодня</div>
+									<div class="label-green label-green_s24">+5'916</div>
+								</div>
+								<div class="item-subs-analitics__row-col-item">
+									<div class="label-black label-black_s20">Неделя </div>
+									<div class="label-green label-green_s24">+35'329</div>
+								</div>
+								<div class="item-subs-analitics__row-col-item">
+									<div class="label-black label-black_s20">Месяц</div>
+									<div class="label-green label-green_s24">+145'095</div>
+								</div>
+							</div>
+							<div class="item-subs-analitics__row-inline">
+								<div class="item-subs-analitics__row-inline-item">
+									<div class="label-dark label-dark_s20">Просмотров на пост</div>
+									<div class="label-blue label-blue_s20 label-blue_fw400">{{object.views}}</div>
+								</div>
+								<div class="item-subs-analitics__row-inline-item">
+									<div class="label-dark label-dark_s20">За последние 24ч</div>
+									<div class="label-blue label-blue_s20 label-blue_fw400">34500</div>
+								</div>
+							</div>
+						</div>
+						<div class="channel__item analitics-tabs__item item-subs-analitics squire">
+							<div class="item-subs-analitics__row-inline">
+								<div class="item-subs-analitics__row-inline-item">
+									<div class="label-dark label-dark_s20">ER</div>
+									<div class="label-blue label-blue_s24 label-blue_fw400">{{er }}%</div>
+								</div>
+								<div class="item-subs-analitics__row-inline-item">
+									<div class="label-dark label-dark_s20">Суточный</div>
+									<div class="label-blue label-blue_s24 label-blue_fw400">0%</div>
+								</div>
+								<div class="item-subs-analitics__row-inline-item">
+									<div class="label-dark label-dark_s20">Упоминаний в ТГ</div>
+									<div class="label-blue label-blue_s24 label-blue_fw400">177/62</div>
+								</div>
+							</div>
+						</div>
+						<div class="channel__item item-channel-chart">
+							<h3 class="label-white label-white_s20">Статистика просмотров</h3>
+							<div class="item-channel-chart__chart">
+								<canvas id="chart1"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
 
     {% endwith %}
-
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#button').click(function (event) {
@@ -96,13 +231,14 @@
             var selectedDate = $('#selected_date').val();
             var selectedTime = $('#selected_time').val();
             var combinedDateTime = selectedDate + ' ' + selectedTime;
+            var formattedDateTime = moment(combinedDateTime, 'DD.MM.YYYY HH:mm').format('YYYY-MM-DD HH:mm');
 
             // Create the data object
             var data = {
                 "chanel": "{{chanel}}",
                 "user_order":{{user}},
                 "format": formatValue,
-                "order_data":combinedDateTime,
+                "order_data":formattedDateTime,
                  csrfmiddlewaretoken: '{{ csrf_token }}'
                 // Add other fields as needed
             };

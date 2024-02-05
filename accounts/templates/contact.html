@@ -1,11 +1,66 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %}
-<body class="page__body">
-<div class="contact-container">
+
+{% block content %}
+<main class="page">
+			<section class="contacts">
+				<div class="contacts__container">
+					<div class="contacts__content">
+						<h1 class="title title_center">Как с нами связаться</h1>
+						<div class="contacts__list">
+							<div class="item-contacts">
+								<div class="item-contacts__img">
+									<picture><source srcset="{% static 'img/how-work/1.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/how-work/1.png' %}" alt="Позвоните нам"></picture>
+								</div>
+								<h4 class="label-white label-white_s20 label-white_fw700">Позвоните нам</h4>
+								<div class="text-wrap">
+									<p class="text">
+										Есть вопросы? Мы поможем!
+									</p>
+									<p class="text">
+										Номер для связи: <a class="label-light-blue label-light-blue_s20 hhv-blue" target="_blank" href="tel+380999232887:">+380999232887</a>
+									</p>
+									<p class="text">
+										Почта технической поддержки <a class="label-light-blue label-light-blue_s20 label-light-blue_fw700 hhv-blue" target="_blank" href="mailto:support@telegraph.ua">support@telegraph.ua</a>
+									</p>
+								</div>
+							</div>
+							<div class="item-contacts">
+								<div class="item-contacts__img">
+									<picture><source srcset="{% static 'img/how-work/3.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/how-work/3.png' %}" alt="Напишите нам"></picture>
+								</div>
+								<h4 class="label-white label-white_s20 label-white_fw700">Напишите нам</h4>
+								<div class="text-wrap">
+									<p class="text">
+										Мы в телеграме <a class="label-light-blue label-light-blue_s20 label-light-blue_fw700 hhv-blue" target="_blank" href="https://t.me/@TGnative">@TGnative</a>
+									</p>
+									<p class="text">
+										Наш аккаунт в инстаграме <a class="label-light-blue label-light-blue_s20 label-light-blue_fw700 hhv-blue" target="_blank" href="https://www.instagram.com/smm-novastar/telegraph_ua">tgnative_ua</a>
+									</p>
+								</div>
+							</div>
+							<div class="item-contacts">
+								<div class="item-contacts__img">
+									<picture><source srcset="{% static 'img/how-work/4.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/how-work/4.png' %}" alt="Обратная связь"></picture>
+								</div>
+								<h4 class="label-white label-white_s20 label-white_fw700">Обратная связь</h4>
+								<div class="text-wrap">
+									<p class="text">
+										Поделитесь мнением о нашей работе и помогите нам стать лучше!
+									</p>
+									<p class="text">
+										<a class="label-light-blue label-light-blue_s20 hhv-blue" target="_blank" href="#">Оставить отзыв</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contacts__img">
+						<picture><source srcset="{% static 'img/contacts/1.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/contacts/1.png' %}" alt=""></picture>
+					</div>
+				</div>
+			</section>
+		</main>
+
+
 {% endblock %}
-    {% block content %}
-
-    <main class="main"><div class="contact"><div class="container-fluid"><h4 class="contact__title title">Как с нами связаться</h4><div class="row"><div class="col-3 text-center"><img src="{% static 'img/contact-icon1.png' %}" alt=""><p class="card-title">Позвоните нам</p><p class="card-desc">Есть вопросы? Мы поможем!</p><a class="card-link mb-3" href="tel:+380999232887">Номер для связи: <span>+380999232887</span> </a><a class="card-link" href="mailto:support@telegraph.ua">Почта технической поддержки<br><span class="fw-bold text-decoration-none">support@telegraph.ua</span></a></div><div class="col-3 text-center"><img src="{% static 'img/contact-icon2.png' %}" alt=""><p class="card-title">Напишите нам</p><a class="card-link mb-3" href="tel:+380999232887">Мы в телеграме <span>@TGnative </span></a><a class="card-link mb-3" href="tel:+380999232887">Наш аккаунт в инстаграме <span>tgnative_ua</span></a></div><div class="col-3 text-center"><img src="{% static 'img/contact-icon3.png' %}" alt=""><p class="card-title">Обратная связь</p><p class="card-desc">Поделитесь мнением о нашей работе и помогите нам стать лучше!</p><a href="" class="card-info">Оставить отзыв</a></div><div class="col-3 text-center"><img src="{% static 'img/contact-us-animate.svg' %}" alt=""></div></div></div></div></main></div>
-
-    {% endblock %}

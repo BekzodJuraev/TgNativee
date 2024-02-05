@@ -1,11 +1,55 @@
 {% load static %}
-<div class="footer"><div class="container-fluid"><div class="footer__menu"><div class="footer__item"><h3 class="footer__title">Контакты</h3><a href="" class="footer__social"><div class="footer__social-item">
-    <img src="{% static 'img/footer-telegram.png' %}" alt=""></div><div class="footer__social-item"><p class="footer__social-title">@TGnative</p><p class="footer__social-desc">Мы в телеграме</p></div></a><a href="mailto:support@telegraph.ua" class="footer__social"><div class="footer__social-item">
-    <img src="{% static 'img/footer-mail.png' %}" alt=""></div><div class="footer__social-item"><p class="footer__social-title">support@telegraph.ua</p><p class="footer__social-desc">Почта технической поддержки</p></div></a>
+<footer class="footer">
+			<picture><source srcset="{% static 'img/footer/bg-1.webp' %}" type="image/webp"><img class="footer__bg footer__bg_left" src="{% static 'img/footer/bg-1.png' %}" alt=""></picture>
+			<picture><source srcset="{% static 'img/footer/bg-2.webp' %}" type="image/webp"><img class="footer__bg footer__bg_right" src="{% static 'img/footer/bg-2.png' %}" alt=""></picture>
+			<div class="footer__container">
+				<div class="footer__col">
+					<h2 class="title title_green title_sm">Контакты</h2>
+					<div class="footer__lists">
+						<div class="footer__sociable">
+							<ul class="footer__sociable-list">
+								<li class="sociable-item">
+									<div class="sociable-item__icon">
+										<img class="img-fluid" src="{% static 'img/icons/tg.svg' %}" alt="@TGnative">
+									</div>
+									<div class="sociable-item__content">
+										<a href="https://t.me/@TGnative" target="_blank" class="sociable-item__link hhv-green">@TGnative</a>
+										<div class="sociable-item__text">Мы в телеграме</div>
+									</div>
+								</li>
+								<li class="sociable-item">
+									<div class="sociable-item__icon">
+										<img class="img-fluid" src="{% static 'img/icons/mail.svg' %}" alt="support@telegraph.ua">
+									</div>
+									<div class="sociable-item__content">
+										<a href="mailto:support@telegraph.ua" target="_blank" class="sociable-item__link hhv-green">support@telegraph.ua</a>
+										<div class="sociable-item__text">Почта технической поддержки</div>
+									</div>
+								</li>
 
-    <div class="footer__payment"><a href="">
-    <img src="{% static 'img/visa.png' %}" alt=""> </a><a href="">
-    <img src="{% static 'img/mastercard.png' %}" alt=""></a></div></div><div class="footer__item"><ul class="list-reset footer__center"><li><a href="" class="footer__center-link">О нас</a></li><li><a href="{% url 'about' %}" class="footer__center-link">FAQ</a></li><li><a href="{% url 'faq' %}" class="footer__center-link">Каталог ТГ каналов</a></li></ul><div class="footer__center-info"><a href="https://telegra.ph/Pol%D1%96tika-vikoristannya-fajl%D1%96v-cookie-01-07" class="footer__center-info-link">Политика использования файлов cookie</a> <a href="https://telegra.ph/Pol%D1%96tika-konf%D1%96denc%D1%96jnost%D1%96-01-07" class="footer__center-info-link">Политика конфиденциальности</a></div></div><div class="footer__item">
 
-    <div class="footer__images">
-        <img src="{% static 'img/footer-img.png' %}" alt=""></div></div></div></div></div></body>
+						</div>
+						<div class="footer__navs">
+							<nav class="footer__nav">
+								<a href="{% url 'about' %}" class="footer__link hhv-blue">О нас</a>
+								<a href="{% url 'faq' %}" class="footer__link hhv-blue">FAQ</a>
+								<a href="{% url 'category-list' %}" class="footer__link hhv-blue">Каталог ТГ каналов</a>
+							</nav>
+							<nav data-da=".footer__pay,480.98" class="footer__nav footer__nav_gap-sm">
+								<a href="https://telegra.ph/Pol%D1%96tika-vikoristannya-fajl%D1%96v-cookie-01-07" class="footer__link footer__link_underline">Политика использования файлов cookie</a>
+								<a href="https://telegra.ph/Pol%D1%96tika-konf%D1%96denc%D1%96jnost%D1%96-01-07" class="footer__link footer__link_underline">Политика конфиденциальности</a>
+							</nav>
+						</div>
+					</div>
+					<div class="footer__pay">
+						<picture><source srcset="{% static 'img/footer/visa.webp' %}" type="image/webp"><img class="footer__sociable-pay-img" src="{% static 'img/footer/visa.png' %}" alt=""></picture>
+						<picture><source srcset="{% static 'img/footer/mc.webp' %}" type="image/webp"><img class="footer__sociable-pay-img" src="{% static 'img/footer/mc.png' %}" alt=""></picture>
+					</div>
+				</div>
+				<div class="footer__col">
+					<div class="footer__col-img">
+						<picture><source srcset="{% static 'img/footer/apps.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/footer/apps.png' %}" alt="Контакты"></picture>
+					</div>
+				</div>
+			</div>
+		</footer>

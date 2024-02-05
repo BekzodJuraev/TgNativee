@@ -10,9 +10,9 @@ import pytz
 
 class BaseUpdateForm(forms.ModelForm):
     email = forms.EmailField(max_length=63, label="Логин",
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'leonid.nsl@gmail.com'}))
+                               widget=forms.TextInput(attrs={'class': 'form__input', 'placeholder': 'leonid.nsl@gmail.com'}))
     phone_number = PhoneNumberField(max_length=63, required=True, label="email",
-                                    widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+380'}))
+                                    widget=forms.TextInput(attrs={'class': 'form__input', 'placeholder': '+380'}))
 
     photo = forms.ImageField(
         required=False,
@@ -20,7 +20,7 @@ class BaseUpdateForm(forms.ModelForm):
     )
     timezone = forms.ChoiceField(
         choices=[(tz, tz) for tz in pytz.all_timezones],
-        widget=forms.Select(attrs={'class': 'form-select', 'placeholder': 'Часовой пояс'})
+        widget=forms.Select(attrs={'placeholder': 'Часовой пояс', 'id': 'time', 'data-class-modif': 'custom-select'})
     )
 
 
@@ -38,9 +38,13 @@ class Update_Reklama(BaseUpdateForm):
 
 class BasketForm(forms.ModelForm):
 
-    text_ads=forms.CharField(max_length=63,label="Линк",widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Текст.....'}))
-    name_ads = forms.CharField(max_length=63, label="Линк",widget=forms.TextInput(attrs={'class': 'form-select', 'placeholder': 'Проект'}))
-    comment=forms.CharField(max_length=63,label="Линк",widget=forms.Textarea(attrs={'class': 'form-control'}))
+    text_ads=forms.CharField(max_length=63,label="Линк",widget=forms.Textarea(attrs={'class': 'item-cart-public__textarea', 'placeholder': 'Текст.....'}))
+    name_ads = forms.CharField(max_length=63, label="Линк",widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': 'Проект'}))
+    comment=forms.CharField(max_length=63,label="Линк",widget=forms.Textarea(attrs={'class': 'item-cart-public__textarea'}))
+    media = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(attrs={'id': 'photoInput', 'style': 'display: none;'})
+    )
     class Meta:
         model = Add_Reklama
         fields = ['name_ads', 'text_ads', 'media', 'comment']
@@ -101,13 +105,13 @@ class LoginForm(forms.Form):
         ('reklama', 'Я рекламодатель'),
     ]
     order = forms.ChoiceField(
-        widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
+        widget=forms.RadioSelect(attrs={'class': 'checkbox__input checkbox__input_oval'}),
         choices=CHOICES,
         label=""
     )
-    username = forms.CharField(max_length=63,label="Логин",widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}))
+    username = forms.CharField(max_length=63,label="Логин",widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': 'Логин'}))
 
-    password = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),label="Пароль")
+    password = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'auth-form__input', 'placeholder': 'Пароль'}),label="Пароль")
 
 
 
@@ -118,22 +122,22 @@ class RegistrationForm(UserCreationForm):
         ('reklama', 'Я рекламодатель'),
     ]
     order = forms.ChoiceField(
-        widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
+        widget=forms.RadioSelect(attrs={'class': 'checkbox__input checkbox__input_oval'}),
         choices=CHOICES,
         label=""
     )
     username = forms.CharField(max_length=63, label="Логин",
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}))
+                               widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': 'Имя'}))
 
 
 
 
-    password1 = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),label="Пароль")
+    password1 = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'auth-form__input', 'placeholder': 'Пароль'}),label="Пароль")
 
     email = forms.EmailField(max_length=63,required=True, label="email",
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваш email'}))
+                               widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': 'Ваш email'}))
     phone_number = PhoneNumberField(max_length=63,required=True, label="email",
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'id':'id_phone_number','placeholder': '+380'}))
+                               widget=forms.TextInput(attrs={'class': 'auth-form__input', 'id':'phone','placeholder': '+380'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

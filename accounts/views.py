@@ -295,7 +295,7 @@ def login_page(request):
             form.add_error(None, 'Логин или пароль неверны')
 
     context = {
-        'form': form,
+        'form': form
     }
 
     return render(request, "login_.html", context)

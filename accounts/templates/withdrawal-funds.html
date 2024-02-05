@@ -1,12 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %}
-<body class="page__body">
-<div class="withdrawal-funds-container">
-{% endblock %}
+
 
     {% block content %}
-    <main class="main"><div class="withdrawal__funds"><div class="container-fluid"><h3 class="title withdrawal__funds-title">Вывод средств</h3><div class="withdrawal__funds__tabs"><a href="" class="active">История платежей</a> <a href="">Пополнение</a> <a href="">Вывод</a> <a href="">Счета</a></div><p class="card__title">Быстрый</p><div class="button_wrapper"><button class="btn-reset btn_info"><img src="{% static 'img/image 104.png' %}" alt=""><p>Пластиковая карта</p><span>Комиссия 3%</span></button> <button class="btn-reset btn_info"><img src="{% static 'img/image 104.png' %}" alt=""><p>Пластиковая карта</p><span>Комиссия 3%</span></button> <button class="btn-reset btn_info"><img src="{% static 'img/Add New.png' %}" alt=""></button></div><p class="card__title mt-3">Безналичный</p><div class="button_wrapper"><button class="btn-reset btn_info"><img src="{% static 'img/User3.png' %}" alt=""><p>Безналичный платеж ФОП</p><span>Комиссия 0%</span></button></div></div></div></main></div>
-
+<main class="page">
+			<section class="get-money">
+				<div class="get-money__container container">
+					<h2 class="title">Вывод средств</h2>
+					<div data-tabs class="tabs">
+						<nav data-tabs-titles class="tabs-navigation">
+							<button type="button" class="tabs-navigation__title">История платежей</button>
+							<button type="button" class="tabs-navigation__title">Пополнение</button>
+							<button type="button" class="tabs-navigation__title _tab-active">Вывод</button>
+							<button type="button" class="tabs-navigation__title">Счета</button>
+						</nav>
+						<div data-tabs-body class="tabs__content">
+							<div class="tabs__body">
+								Содержимое первого таба
+							</div>
+							<div class="tabs__body">
+								Содержимое второго таба
+							</div>
+							<div class="tabs__body">
+								<div class="get-money__rows">
+									<div class="get-money__row">
+										<div class="label-white label-white_s20">Быстрый</div>
+										<div class="get-money__items">
+											<a href="#" class="get-money__item">
+												<div class="get-money__img">
+													<picture><source srcset="{% static 'img/get-money/privat.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/get-money/privat.png' %}" alt="Пластиковая картаw"></picture>
+												</div>
+												<div class="label-dark">Пластиковая карта</div>
+												<div class="get-money__text">Комиссия 3 %</div>
+											</a>
+											<a href="#" class="get-money__item">
+												<div class="get-money__img">
+													<picture><source srcset="{% static 'img/get-money/privat.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/get-money/privat.png' %}" alt="Пластиковая картаw"></picture>
+												</div>
+												<div class="label-dark">Пластиковая карта</div>
+												<div class="get-money__text">Комиссия 3 %</div>
+											</a>
+											<a href="#" class="get-money__item">
+												<div class="get-money__img get-money__img_full">
+													<picture><source srcset="{% static 'img/get-money/plus.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/get-money/plus.png' %}" alt="Пластиковая картаw"></picture>
+												</div>
+											</a>
+										</div>
+									</div>
+									<div class="get-money__row">
+										<div class="label-white label-white_s20">Безналичный</div>
+										<div class="get-money__items">
+											<a href="#" class="get-money__item">
+												<div class="get-money__img">
+													<picture><source srcset="{% static 'img/get-money/user.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/get-money/user.png' %}" alt="Безналичный платеж ФОП"></picture>
+												</div>
+												<div class="label-dark">Безналичный платеж ФОП</div>
+												<div class="get-money__text">Комиссия 0 %</div>
+											</a>
+										</div>
+									</div>
+								</div>
+								<form action="#" method="post" class="get-money__form form squire">
+									<div class="label-blue label-blue_s24">Вывод средств</div>
+									<div class="search-form__item">
+										<label for="money-num" class="label-dark label-dark_s16">Укажите сумму для вывода средств</label>
+										<input type="number" id="money-num" name="money-num" placeholder="" class="form__input">
+									</div>
+									<div class="get-money__text-wrap">
+										<div class="label-dark label-dark_s20">
+											Общая сумма вывода:
+											<span class="label-dark_fw700"> 1200 UAH</span>
+										</div>
+										<p class="get-money__form-text">С учетом комиссии с платформы 15% </p>
+									</div>
+									<div class="get-money__btn-wrap">
+										<button class="button" type="submit">Вывести</button>
+									</div>
+								</form>
+							</div>
+							<div class="tabs__body">
+								Содержимое четвертого таба
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
 
     {% endblock %}

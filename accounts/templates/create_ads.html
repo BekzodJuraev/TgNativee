@@ -1,87 +1,170 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %}
-<body class="page__body">
-<div class="basket-container">
 
-{% endblock %}
+
 {% block content %}
-    <form method="post"  enctype="multipart/form-data">
-         {% csrf_token %}
+   <main class="page">
+			<section class="cart">
+			 <form method="post"  enctype="multipart/form-data">
+       			 {% csrf_token %}
+				<div class="cart__container">
+					<h2 class="title">Корзина</h2>
+					<div class="cart__item item-cart squire">
+						<div class="cart__icon">
+							<img class="img-fluid" src="{% static 'img/channel/add.svg' %}" class="dont-fill" alt="">
+						</div>
+						<div class="item-cart__content">
+							<div class="item-cart__row">
+								<div class="label-black label-black_s24">Опубликованно</div>
+								<div class="label-black label-black_s24 item-cart__row-val">
+									<span class="label-dark-green label-dark-green_s24">0</span>
+									публикаций
+								</div>
+							</div>
+							<div class="item-cart__row">
+								<div class="label-black label-black_s24">На сумму</div>
+								<div class="label-black label-black_s24 label-black_s24 item-cart__row-val">
+									<span class="label-dark-green label-dark-green_s24">{{object.format.cost_per_format}}</span>
+									UAH
+								</div>
+							</div>
+						</div>
+						<div class="item-cart__bottom">
+							<button class="button" type="submit">Дать задание каналам</button>
+							<button class="item-cart__reset" type="button">
+								<img src="{% static 'img/icons/trash.svg' %}" class="dont-fill" alt="">
+								<span id="delete-trigger" class="hhv-green">Очистить корзину</span>
+							</button>
+						</div>
+					</div>
+					<div class="item-cart-public squire">
+						<div class="item-cart-public__head">
+							<div class="item-cart-public__avatar">
+								<picture><source srcset="/{{ object.chanel.pictures }}" type="image/webp"><img class="img-fluid" src="/{{ object.chanel.pictures }}" alt=""></picture>
+							</div>
+							<div class="item-cart-public__head-content">
+								<div class="item-cart-public__title">{{ object.chanel.name }}</div>
+								<div class="item-cart-public__head-text">Требования к публикации</div>
+							</div>
+							<button class="item-cart-public__exit" type="button">
+								<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" class="dont-fill" alt="">
+							</button>
+						</div>
+
+							<div class="item-cart-public__item">
+								<label for="text" class="label-black label-black_s16">Укажите текст публикации</label>
+								<div class="item-cart-public__textarea-wrap">
+									{{form.text_ads}}
+									<div class="item-cart-public__textarea-bottom">
+										<div class="item-cart-public__textarea-bottom-list">
+											<button class="textarea-btn" type="button">
+												<img src="{% static 'img/cart/1.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/1-fill.svg' %}" class="fill" alt="">
+											</button>
+											<button class="textarea-btn" type="button">
+												<img src="{% static 'img/cart/2.svg' %}" class="dont-fill" alt="">
+												<img src="img/cart/2-fill.svg" class="fill" alt="">
+											</button>
+											<button class="textarea-btn" type="button">
+												<img src="{% static 'img/cart/3.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/3-fill.svg' %}" class="fill" alt="">
+											</button>
+											<button class="textarea-btn textarea-btn_link" type="button">
+												<img src="{% static 'img/cart/4.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/4-fill.svg' %}" class="fill" alt="">
+											</button>
+											<button class="textarea-btn" type="button">
+												<img src="{% static 'img/cart/5.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/5-fill.svg' %}" class="fill" alt="">
+											</button>
+										</div>
+										{{form.media}}
+										<button data-da=".item-cart-public__textarea-bottom-list,767.98" id="changePhoto" title="Загрузить фото/видео" class="textarea-btn" type="button">
+											<img src="{% static 'img/cart/6.svg' %}" class="dont-fill" alt="">
+											<img src="{% static 'img/cart/6-fill.svg' %}" class="fill" alt="">
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="item-cart-public__item">
+								<label for="subjects" class="label-black label-black_s16">Название заказа:</label>
+                                 {{form.name_ads}}
+								<p class="item-cart-public__form-text">Это будет видно только вам</p>
+							</div>
+							<div class="item-cart-public__item">
+								<label for="text" class="label-black label-black_s16">Комментарии</label>
+								{{form.comment}}
+							</div>
+							<div class="item-cart-public__row">
+								<div class="label-dark label-dark_s20">
+									Стоимость:
+									<span class="label-dark_fw700">{{object.format.cost_per_format}} UAH</span>
+								</div>
+								<div class="checkbox checkbox_radio">
+									<input id="dont-checked" data-error="Ошибка" class="checkbox__input checkbox__input_oval" type="checkbox" value="1" name="dont-checked">
+									<label for="dont-checked" class="checkbox__label"><span class="checkbox__text">Не заполнено</span></label>
+								</div>
+							</div>
+							<button data-popup="#popup-chat" class="item-cart-public__btn" type="button">
+								<img src="img/cart/7.svg" class="dont-fill" alt="">
+								<img src="img/cart/7-fill.svg" class="fill" alt="">
+								<span>Перейти в чат с владельцем</span>
+							</button>
+						</form>
+					</div>
+				</div>
+			</section>
+		</main>
+		<div id="popup-chat" aria-hidden="true" class="popup popup-chat">
+		<div class="popup__wrapper">
+			<div class="popup__content">
+				<button data-close type="button" class="popup__close">
+					<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" alt="">
+				</button>
+				<div class="popup-chat__head">
+					<div class="popup-chat__avatar">
+						<picture><source srcset="/{{ object.chanel.add_chanel.username.photo }}" type="image/webp"><img class="img-fluid" src="/{{ object.chanel.add_chanel.username.photo }}" ></picture>
+					</div>
+					<div class="popup-chat__content">
+						<div class="label-black label-black_s24">{{ object.chanel.add_chanel.username.first_name }} {{ object.chanel.add_chanel.username.last_name }}</div>
+						{% if object.chanel.add_chanel.username.is_online %}
+						 <span class="user__desc" style="color: #20aa20;">Онлайн</span>
+						{% else %}
+						<div class="label-dark-blue label-dark-blue_s20 label-dark-blue_fw400">Заходил(а) {{ object.chanel.add_chanel.username.last_visited }}</div>
+						{% endif %}
+					</div>
+				</div>
+				<div class="popup-chat__body">
+
+				</div>
+				<form action="#" method="post" class="popup-chat__form form">
+					<input class="popup-chat__input" placeholder="Написать" name="message" type="text">
+					<div class="popup-chat__form-actions">
+						<button class="textarea-btn" type="button">
+							<img src="{% static 'img/cart/5.svg' %}" class="dont-fill" alt="">
+							<img src="{% static 'img/cart/5-fill.svg' %}" class="fill" alt="">
+						</button>
+						<button class="textarea-btn" type="button">
+							<img src="{% static 'img/cart/4.svg' %}" class="dont-fill" alt="">
+							<img src="{% static 'img/cart/4-fill.svg' %}" class="fill" alt="">
+						</button>
+						<button class="textarea-btn textarea-btn_send" type="submit">
+							<img src="{% static 'img/cart/send.svg' %}" alt="">
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 
-    <main class="main"><div class="basket"><div class="container-fluid"><h4 class="basket__title title">Корзина</h4><div class="basket__box">
-        <img src="{% static 'img/add-shopping-cart.png' %}" alt="">
-        <div class="basket__box-item"><p>Опубликованно</p>
-            <p><span style="color: #008E8B">0</span>публикаций</p>
-        </div><div class="basket__box-item"><p>На сумму</p>
-        <p><span style="color: #008E8B">{{object.format.cost_per_format}}</span>UAH</p></div>
-        <div class="basket__box-bottom">
-            <button class="btn-reset">Дать задание каналам</button>
-
-
-
-            <span id="delete-trigger" ><img src="{% static 'img/trash.png' %}" alt=""> Очистить корзину</span>
-
-</div></div>
-        <div class="basket__user"><div class="d-flex justify-content-between mb-5">
-            <div class="d-flex align-items-center gap-3"><div><img src="/{{ object.chanel.pictures }}" width="100px" height="100px" alt=""></div>
-        <div><p class="user__title">{{ object.chanel.name }}</p><span class="user__desc">Требования к публикации</span></div></div>
-
-
-            <div><img src="{% static 'img/close.png' %}" alt=""></div></div>
-        <label>Укажите текст публикации {{form.text_ads}}{{form.media}} </label> <label>Название заказа
-            {{form.name_ads}}
-
-            <span class="info__basket">Это будет видно только вам</span></label> <label>Комментарии
-            {{form.comment}}
-
-        </label><div class="basket__user-bottom">
-        <p class="bottom-text">Стоимость: <b>{{object.format.cost_per_format}} UAH</b></p><div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> <label class="form-check-label" for="flexRadioDefault1">Не заполнено</label></div></div>
-        <button class="btn-reset mt-5" type="reset" data-bs-toggle="modal" data-bs-target="#chatModal">
-
-            <img src="{% static 'img/Chat Message.png' %}" alt=""> Перейти в чат с владельцем</button></div></div></div></main></div>
-
-          </form>
-<!-- The Modal -->
-<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="d-flex align-items-center gap-3"><div><img src="/{{ object.chanel.add_chanel.username.photo }}" width="100px" height="100px" alt=""></div>
-        <div><p class="user__title">{{ object.chanel.add_chanel.username.first_name }} {{ object.chanel.add_chanel.username.last_name }}</p>
-            {% if object.chanel.add_chanel.username.is_online %}
-            <span class="user__desc">Онлайн</span>
-            {% else %}
-            <span class="user__desc">Заходил(а) {{ object.chanel.add_chanel.username.last_visited }}</span>
-            {% endif %}
-
-
-
-        </div></div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Your modal content goes here -->
-                <!-- You can include a form, messages, or any other content for chatting -->
-                <!-- Example: -->
-                <form>
-                    <div class="mb-3">
-                        <h1>Hello</h1>
-                        <label for="messageInput" class="form-label">Your Message:</label>
-                        <textarea class="form-control" id="messageInput" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!-- You can include additional buttons or actions here -->
-            </div>
-        </div>
-    </div>
-</div>
 <script>
+document.getElementById('changePhoto').addEventListener('click', function() {
+    // Trigger the click event of the hidden file input
+    document.getElementById('photoInput').click();
+});
+
+
   $(document).ready(function() {
     $("#delete-trigger").on("click", function() {
       // AJAX request to delete the item
@@ -102,4 +185,4 @@
     });
   });
 </script>
-    {% endblock %}
+{% endblock %}

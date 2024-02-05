@@ -1,51 +1,108 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %}
-<body class="page__body">
-<div class="cabinet-container">
-{% endblock %}
+
     {% block content %}
-    <main class="main">
-        <form method="post" enctype="multipart/form-data">
-               {% csrf_token %}
+    <main class="page">
+			<section class="account-mainscreen">
+				<div class="account-mainscreen__container">
 
 
+					<div class="info-account">
+						<div class="info-account__item">
+							<div class="info-account__head">
+								<div class="info-account__img-wrap">
+									<div class="info-account__img">
+                                        {% if user.photo %}
+                                        <picture><source srcset="/{{user.photo}}" type="image/webp"><img class="img-fluid" src="/{{user.photo}}" alt=""></picture>
 
-        <div class="personal__cabinet"><div class="container-fluid"><div class="personal__cabinet-row"><div class="cards"><div class="d-flex gap-5 align-items-center">
-            <div class="d-flex flex-column gap-3 align-items-center">
-                <div>
-             {% if user.photo %}
-            <img src="/{{user.photo}}"  width="150px" height="150px" alt="">
-                    {% else %}
-                    <img src="{% static 'img/Test Account.png' %} " alt=""></a>
-                    {% endif %}
+                                        {% else %}
+
+										<picture><source srcset="{% static 'img/channel/avatar-not-found.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/channel/avatar-not-found.png' %}" alt=""></picture>
+									    {% endif %}
+                                    </div>
+									<button class="info-account__label hhv-blue" id="changePhoto" type="button">Сменить фото</button>
+
+								</div>
+								<div class="info-account__head-content">
+									<div class="label-dark label-dark_s24">{{user.first_name}} {{user.last_name}}</div>
+									<div class="info-account__row">
+										<div class="info-account__row-item">
+											<div class="info-account__icon">
+												<img class="img-fluid" src="{% static 'img/icons/pig.svg' %}" alt="">
+											</div>
+											<div class="info-account__row-content">
+												<div class="label-black label-black_s16">Баланс</div>
+												<div class="label-blue label-blue_s16">{{user.email}}</div>
+											</div>
+										</div>
+										<a class="button button_sm button_no-bg" href="get-money.html">Вывод средств</a>
+									</div>
+									<div data-da=".info-account__content,480.98,first" class="info-account__head-email">
+										<span class="label-black label-black_s16">Email:</span>
+										<a href="mailto:{{user.email}}">{{user.email}}</a>
+									</div>
+									<div data-da=".info-account__content,480.98,first" class="info-account__head-email">
+										<span class="label-black label-black_s16">Номер телефона:</span>
+										<a href="tel:+380503315146"> {{user.phone_number}}</a>
+									</div>
+								</div>
+							</div>
+							<div class="info-account__content">
+								<textarea class="info-account__textarea" placeholder="О вас, как о владельце площадок" name="about" id="about"></textarea>
+							</div>
+						</div>
+					</div>
+					<form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                         {{form.photo}}
+						<h2 class="label-white label-white_s24">Настройки</h2>
+						<div class="account-mainscreen__form-content">
+
+							<div class="settings-account account-mainscreen__item">
+								<div class="settings-account__content">
+									<div class="settings-account__item">
+										<div class="label-white">Telegram:</div>
+										<button class="button button_sm button_no-bg" type="button">Прикрепить</button>
+									</div>
+									<div class="settings-account__item">
+										<div class="form">
+											<div class="search-form__item">
+												<label for="qiwi" class="label-white">Email:</label>
+												{{form.email}}
+											</div>
+										</div>
+									</div>
+									<div class="settings-account__item">
+										<div class="form">
+											<div class="search-form__item">
+												<label for="qiwi" class="label-white">Номер телефона:</label>
+                                                 {{form.phone_number}}
+
+											</div>
+										</div>
+									</div>
+									<div data-da=".account-mainscreen__form,767.98" class="settings-account__item settings-account__item_btn">
+										<button class="button" type="submit">Сохранить</button>
+									</div>
+								</div>
+							</div>
+							<div class="change-pass account-mainscreen__item">
+								<div class="form form-pass">
+
+									<div class="search-form__item">
+										<label for="subjects" class="label-white">Часовой пояс:</label>
+                                        {{form.timezone}}
 
 
-                </div>
+									</div>
+								</div>
 
-                <p class="p-photo-title" id="changePhoto" style="cursor: pointer;">Сменить фото</p>
-                {{form.photo}}
+							</div>
+						</div>
 
-
-
-            </div>
-
-
-            <div><h3 class="p-title">{{user.first_name}} {{user.last_name}}</h3><div class="d-flex gap-3"><div>
-                <img src="{%static 'img/Money_Box.png' %}" alt="">
-            </div><div class="d-flex flex-column"><p class="p-balance">Баланс</p><p class="p-price">
-
-            {{user.balance}} UAH</p></div></div><p class="p-email">Email: <a href="mailto:leonid.nsl@gmail.com">{{user.email}}</a></p><p class="p-phone">Номер телефона: <a href="mailto:{{user.email}}">{{user.phone_number}}</a></p></div><div><button class="btn-reset">Вывод средств</button>
-        </div></div>
-            <textarea class="form-control" placeholder="О себе" rows="4">О вас, как о владельце площадок</textarea></div><div class="inputs"><div><p class="p-setting">Настройки</p><label class="input-label">Telegram: <button class="btn-reset">Прикрепить</button></label>
-            <label class="input-label">Email:
-                {{form.email}}
-            </label> <label class="input-label">Номер телефона:
-                {{form.phone_number}}
-            </label> <button class="btn-pay">Сохранить</button></div><div>
-            <label class="input-label">Часовой пояс: {{form.timezone}}
-        </div></div></div></div></div></main></div>
-             </form>
+				</div>
+			</section>
+		</main>
 
 
 <script>

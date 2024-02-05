@@ -1,29 +1,78 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %}
-<body class="page__body">
-<div class="faq-container">
-{% endblock %}
+
 {% block content%}
 
-    <main class="main"><div class="faq"><div class="container-fluid">
-        <h4 class="faq__title title">Чем мы можем вам помочь?</h4><div class="row"><div class="col-6"><label class="faq__search"><input type="text" class="form-control" placeholder="Найти ответы"> <img class="faq__search-icon" src="{% static 'img/search.png' %}" alt=""></label></div><div class="col-6 d-flex justify-content-end"><div class="faq__img"><img src="{% static 'img/internship-animate.svg' %}" alt=""></div></div></div>
-        <div class="faq__accordion">
-            <div class="accordion" id="accordionExample">
-                {% for item in items %}
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="heading{{ item.id }}">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ item.id }}" aria-expanded="true" aria-controls="collapse{{ item.id }}">
-                {{ item.question }}
-            </button>
-        </h2>
-        <div id="collapse{{ item.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ item.id }}" data-bs-parent="#accordionExample">
-            <div class="accordion-body">{{ item.answers|linebreaksbr }}</div>
-        </div>
-    </div>
-{% endfor %}
+   <main class="page">
+			<section class="faq-mainscreen">
+				<div class="faq-mainscreen__container">
+					<div class="faq-mainscreen__content container">
+						<h1 class="title title_center">Чем мы можем вам помочь?</h1>
 
-            </div></div><h4 class="faq__info">Не нашли то что искали? Задайте вопрос</h4><div class="faq__form"><form action=""><textarea class="form-control" placeholder="Вопрос" rows="10"></textarea><div class="d-flex justify-content-between align-items-center faq__form-bottom"><button class="btn-reset">Отправить</button><div class="d-flex flex-column"><p class="bottom__title">Позвоните нам:</p><span class="bottom__desc">Тех.поддержка</span> <a href="tel:+380999232887" class="bottom__link">+380999232887</a></div></div></form></div></div></div></main></div>
+					</div>
+					<div class="faq-mainscreen__img">
+						<picture><source srcset="{% static 'img/faq/1.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/faq/1.png' %}" alt=""></picture>
+					</div>
+				</div>
+			</section>
+			<section class="faq-spollers">
+				<div class="faq-spollers__container">
+					<div data-tabs class="tabs">
+						<nav data-tabs-titles class="tabs-navigation">
+							<button type="button" class="tabs-navigation__title _tab-active">Общие</button>
+							<button type="button" class="tabs-navigation__title">Самые популярные</button>
+							<button type="button" class="tabs-navigation__title">Реклама</button>
+							<button type="button" class="tabs-navigation__title">Финансы</button>
+							<button type="button" class="tabs-navigation__title">Обратная связь</button>
+						</nav>
+						<div data-tabs-body class="tabs__content">
+							<div class="tabs__body">
+								<div data-spollers class="spollers">
+                                    {% for item in items %}
+
+									<div class="spollers__item">
+										<button type="button" data-spoller class="spollers__title label-black label-black_s20">
+											<span>{{ item.question }}</span>
+											<img class="arrow" src="{% static 'img/icons/arrow-down-pink.svg' %}" alt="">
+										</button>
+										<div class="spollers__body">
+											{{ item.answers|linebreaksbr }}
+										</div>
+									</div>
+
+                                    {% endfor %}
+
+                                </div>
+							</div>
+							<div class="tabs__body">
+								Содержимое второго таба
+							</div>
+							<div class="tabs__body">
+								Содержимое третьего таба
+							</div>
+							<div class="tabs__body">
+								Содержимое четвертого таба
+							</div>
+							<div class="tabs__body">
+								Содержимое пятого таба
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="faq-form">
+				<div class="faq-form__container container">
+					<h2 class="label-white label-white_s36">Не нашли то что искали? Задайте вопрос</h2>
+					<form action="#" method="post" class="form-faq squire">
+						<textarea class="form-faq__textarea" id="question" name="question" placeholder="Вопрос"></textarea>
+						<div class="form-faq__actions">
+							<button class="button button_sm" type="submit">Отправить</button>
+
+						</div>
+					</form>
+				</div>
+			</section>
+		</main>
 
 
     {% endblock %}

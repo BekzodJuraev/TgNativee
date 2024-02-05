@@ -1,30 +1,113 @@
 {% load static %}
 
 
-    <header class="header"><div class="container-fluid header__menu"><div class="header__left"><a class="header__logo" href="{% url 'main' %}"><img src="{% static 'img/logo.png' %} "alt=""></a><!--      <div class="dropdown">--><!--        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">--><!--          Eng--><!--        </button>--><!--        <ul class="dropdown-menu">--><!--          <li><a class="dropdown-item" href="#">Eng</a></li>--><!--          <li><a class="dropdown-item" href="#">Ru</a></li>--><!--        </ul>--><!--      </div>--></div><div class="header__right"><ul class="header__navbar list-reset" data-menu><li class="header__nav"><a class="header__nav_link" href="{% url 'about' %}">О платформе</a></li><!--        <li class="header__nav">--><!--          <a class="header__nav_link" href="list-channel.html">Списки каналов</a>--><!--        </li>--><li class="header__nav"><a class="header__nav_link" href="{% url 'faq' %}">FAQ</a></li><li class="header__nav"><a class="header__nav_link" href="{% url 'category-list' %}">Каталог каналов</a></li>
-            <li class="header__nav"><div class="dropdown"><button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Баланс</button><div class="dropdown-menu">
-                <a href="{% url 'balance' %}"><button class="btn-reset">Пополнить баланс</button></a>
-                <p class="title__price">Вывести деньги</p><p class="title__price">История платежа</p><p class="d-flex justify-content-between" style="border-top: 1px solid #B6B6B6; padding: 0.5rem 0"><span class="title__price" style="color: #B6B6B6">Баланс:</span> <span class="title__price">{{balance}} UAH</span></p></div></div></li>
+<header class="header header_account">
+			<div class="header__container">
+				<div class="header__column">
+					<a href="{% url 'main' %}" class="header__logo">
+						<picture><source srcset="{% static 'img/logo.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/logo.png' %}" alt=""></picture>
+					</a>
+				</div>
+				<div class="header__column">
+					<div class="header__menu">
+						<a href="{% url 'about' %}" class="header__link hhv-green ">О платформе</a>
+						<a href="{% url 'category-list' %}" class="header__link hhv-green ">Каталог каналов</a>
+						<a href="{% url 'faq' %}" class="header__link hhv-green ">FAQ</a>
+					</div>
+					<div data-dropdown class="header__dropdown dropdown-header dropdown-header_sm">
+						<button data-dropdown-btn class="dropdown-header__btn" type="button">
+							<span>Баланс</span>
+							<img src="{% static 'img/icons/triangle.svg' %}" class="arrow" alt="">
+						</button>
+						<div class="dropdown-header__list dropdown-header__list_sm">
+							<a href="{% url 'balance' %}" class="button">Пополнить баланс</a>
+							<a href="{% url 'balance' %}" class="dropdown-header__link hhv-green">Вывести деньги</a>
+							<a href="{% url 'balance' %}" class="dropdown-header__link hhv-green">История платежа</a>
+							<div class="dropdown-header__row">
+								<div class="dropdown-header__text">Заморожено</div>
+								<div class="dropdown-header__price">0.00 UAH</div>
+							</div>
+						</div>
+					</div>
+					{% if cart %}
+					<a href="cart.html" class="header__cart">
+						<img class="img-fluid" src="{% static 'img/icons/cart.svg' %}" alt="">
+						<span>0</span>
+					</a>
+					{% endif %}
 
-        <li class="header__nav"><button type="button" class="btn-reset position-relative"><img src="{% static 'img/Bell.png' %}" alt=""> <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill" style="background-color: #0283AC">99+ <span class="visually-hidden">unread messages</span></span></button></li><li class="header__nav"><div class="header__right-user">
-        {% if user_photo %}
-        <a href="{% url url_cabinet pk %}">
-            <img src="/{{ user_photo }}" alt=""></a>
-         {% else %}
-            <a href="{% url url_cabinet pk %}">
-            <img src="{% static 'img/Test Account.png' %} " alt=""></a>
-         {% endif %}
+					{% if bell %}
+					<a href="cart.html" class="header__cart">
+						<img class="img-fluid" src="{% static 'img/icons/bell.svg' %}" alt="">
+						<span>0</span>
+					</a>
+					{% endif %}
 
-    </div></li></ul><!--      <div class="header__buttons">--><!--        <a href="registration.html" class="btn-reset header__registration">--><!--          Регистрация--><!--        </a>--><!--        <a href="login.html" class="btn-reset header__login">--><!--          Войти--><!--          <img src="img/header-icon-btn.png" alt="">--><!--        </a>--><!--      </div>--><div class="header__burger"><button class="btn-reset burger__icon"><svg class="burger" width="51" height="33" viewBox="0 0 51 33" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Group 4"><line id="Line 28" x1="3" y1="3" x2="48" y2="3" stroke="#23242F" stroke-width="6" stroke-linecap="round"/><line id="Line 29" x1="3" y1="17" x2="48" y2="17" stroke="#23242F" stroke-width="6" stroke-linecap="round"/><line id="Line 30" x1="3" y1="30" x2="48" y2="30" stroke="#23242F" stroke-width="6" stroke-linecap="round"/></g></svg></button></div></div><!--  Menu Burger   --><div class="header__dropdown"><ul class="list-reset"><li class="header__dropdown-item"><a href="{% url 'logout' %}" class="header__dropdown-login">Выйти <img src="{% static 'img/icon-mobile-login.svg' %}" alt=""> </a><img src="{% static 'img/arrow-mobile.svg' %}" alt=""></li>
-        <li class="header__dropdown-item"><a href="{% url 'category-list' %}" class="header__dropdown-link">Каталог каналов</a></li>
-        <li class="header__dropdown-item"><a href="{% url 'list-chanel' %}" class="header__dropdown-link">Избранные каналы</a></li>
-        <li class="header__dropdown-item"><a href=" {% url url %} " class="header__dropdown-link">Отслеживание постов</a></li>
-        {% if pages %}
-         <li class="header__dropdown-item">
-            <a href="{% url 'logging' %}" class="header__dropdown-link">Мои каналы</a></li>
-        {% endif %}
-        <li class="header__dropdown-item"><a href="{% url 'faq' %}" class="header__dropdown-link">FAQ</a></li><li class="header__dropdown-item"><a href="{% url 'main' %}" class="header__dropdown-link">Вернуться на главную</a></li></ul></div></div></header>
+					{% if user_photo %}
+					<a href="{% url url_cabinet pk %}" class="header__avatar">
 
+						<picture><source srcset="/{{ user_photo }}" type="image/webp"><img class="img-fluid" src="/{{ user_photo }}" alt=""></picture>
+						</a>
+						{% else %}
+					 <a href="{% url url_cabinet pk %}" class="header__avatar">
+						<picture><source srcset="{% static 'img/channel/avatar-not-found.webp' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/channel/avatar-not-found.png' %}" alt=""></picture>
+					 </a>
+					{% endif %}
+					<div data-dropdown class="header__dropdown dropdown-header">
+						<button data-dropdown-btn class="dropdown-header__btn icon-menu" type="button">
+							<span></span>
+						</button>
+						<div class="dropdown-header__list dropdown-header__list_main">
+							<a href="{% url 'logout' %}" class="dropdown-header__item dropdown-header">
+								<span>
+									Выйти
+								</span>
+							</a>
+							<a href="{% url 'about' %}" class="dropdown-header__item {% if request.path == '/about/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
+								<span>
+									О платформе
+								</span>
+							</a>
+						  	<a href="{% url 'category-list' %}" class="dropdown-header__item {% if request.path == '/category-list/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
+
+								<span>
+									Каталог каналов
+								</span>
+							</a>
+							<a href="{% url 'list-chanel' %}" class="dropdown-header__item {% if request.path == '/list-chanel/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
+								<span>
+									Избранные каналы
+								</span>
+							</a>
+							   {% if pages %}
+							<a href="{% url 'logging' %}" class="dropdown-header__item {% if request.path == '/logging/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
+								<span>
+									Мои каналы
+								</span>
+							</a>
+							{% else %}
+							<a href="{% url 'login_reklama' %}" class="dropdown-header__item {% if request.path == '/login_advitiser/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
+								<span>
+									Отслеживание постов
+								</span>
+							</a>
+
+							{% endif %}
+							<a href="{% url 'faq'%}" class="dropdown-header__item {% if request.path == '/faq/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
+								<span>
+									FAQ
+								</span>
+							</a>
+							<a href="{% url 'main' %}}" class="dropdown-header__item">
+								<span>
+									Вернуться на главную
+								</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
 
 <script>
     $(window).on('beforeunload', function() {

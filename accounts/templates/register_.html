@@ -1,74 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %}
-<body class="page__body">
-<div class="registration-container">
 
-{% endblock %}
  {% block content %}
 
-    <main class="main"><div class="registration">
-        <div class="container-fluid"><div class="registration__form">
-            <form   id="registrationForm"  method="post" action="{% url 'register' %}">
-                <h3 class="registration__form-title">Регистрация</h3>
-                <div class="registration__form-radio">
-                      {% for radio in form.order %}
-        <label>
-            {{ radio.tag }}
-            <span>{{ radio.choice_label }}</span>
-        </label>
-    {% endfor %}
-
-                </div>
-
-                <div class="registration__form-input">
-
-                    {% csrf_token %}
-                    {{ form.username}}
-                    {{ form.email}}
-                    {{ form.phone_number}}
-                    {{ form.password1}}
+   <main class="page">
+			<section class="auth-form">
+				<div class="auth-form__container">
+					<form action="{% url 'register' %}" method="post" class="auth-form__form">
+						    {% csrf_token %}
+						<h1 class="title title_center">Регистрация</h1>
 
 
 
 
+						<div class="auth-form__radios">
+                            {% for radio in form.order %}
+							<div class="auth-form__radios-item">
+								<div class="checkbox checkbox_radio">
+									{{ radio.tag }}
+									<label for="{{ radio.id_for_label }}" class="checkbox__label">
+										<span class="auth-form__label">{{ radio.choice_label }}</span>
+									</label>
+								</div>
+							</div>
+						{% endfor %}
+
+						</div>
+
+						<div class="auth-form__item">
+							{{ form.username}}
+						</div>
+						<div class="auth-form__item">
+							{{ form.email}}
+						</div>
+						<div class="auth-form__item">
+							  {{ form.phone_number}}
+						</div>
+						<div class="auth-form__item">
+							{{ form.password1}}
+						  {% if form.errors %}
+				 <div class="alert alert-danger" style="
+   									 color: red;">
+
+					{% for field, errors in form.errors.items %}
+
+						<ul>
+							{% for error in errors %}
+								<li>{{ error }}</li>
+							{% endfor %}
+						</ul>
+					{% endfor %}
+				</div>
+			{% endif %}
+
+							<a href="https://collaborator.pro/ua/privacy-policy" class="auth-form__policy hhv-blue">
+								Соглашение об использовании персональных данных
+							</a>
+						</div>
+
+						<div class="auth-form__form-bottom">
+							<button class="button" type="submit">Завершить регистрацию</button>
+							<div class="auth-form__text">
+								Уже есть аккаунт? <a href="sing-in.html" class="hhv-green">Войти</a>
+							</div>
+						</div>
+                        <div class="auth-form__bottom">
+						<div class="label-white label-white_s16 label-white_fw700" style="color: #008e8b;">или продолжить с</div>
+						<div class="place-ad__btns">
+							<button class="button button_sm button_no-bg" type="button">
+								<picture><source srcset="{% static 'img/place-ad/tg.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/tg.png' %}" alt=""></picture>
+								Telegram
+							</button>
+							<button class="button button_sm button_no-bg" type="button">
+								<picture><source srcset="{% static 'img/place-ad/google.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/google.png' %}" alt=""></picture>
+								Google
+							</button>
+						</div>
+					</div>
+					</form>
+
+				</div>
+			</section>
+		</main>
 
 
 
-                </div>
-                <br>
-                {% if form.errors %}
-    <div class="alert alert-danger">
 
-        {% for field, errors in form.errors.items %}
-
-            <ul>
-                {% for error in errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </div>
-{% endif %}
-
-
-
-
-
-                <a href="" class="registration__form-link">Соглашение об использовании персональных данных</a>
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="registration__form-btn btn-reset">Завершить регистрацию</button></div>
-                <p class="registration__form-info">Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
-            </form><p class="registration__desc">или продолжить с</p><div class="registration__buttons"><a class="registration__buttons-social" href="#">
-
-
-        <img src="{% static 'img/telegram.png' %}" alt=""> Telegram </a>
-            <a class="registration__buttons-social" href="{%url 'social:begin' 'google-oauth2' %}">
-        <img src="{% static 'img/google.png' %}" alt=""> Google</a></div></div></div></div></main></div></body></html>
-
-
-
-
-
-
-    {% endblock %}
+{% endblock %}

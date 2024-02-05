@@ -1,40 +1,74 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %}
-<body class="page__body">
-<div class="login-container">
-{% endblock %}
+
  {% block content %}
+ <main class="page">
+			<section class="auth-form">
+				<div class="auth-form__container">
+					<form method="post" class="auth-form__form">
+                        {% csrf_token %}
+						<input type="hidden" name="next" value="{{ request.GET.next }}">
+						<h1 class="title title_center">Вход</h1>
+						<div class="auth-form__radios">
+                            {% for radio in form.order %}
+							<div class="auth-form__radios-item">
+								<div class="checkbox checkbox_radio">
+									{{ radio.tag }}
+									<label for="{{ radio.id_for_label }}" class="checkbox__label">
+										<span class="auth-form__label">{{ radio.choice_label }}</span>
+									</label>
+								</div>
+							</div>
+						{% endfor %}
 
-    <main class="main"><div class="login"><div class="container-fluid"><div class="login__form">
-        <form  method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <h3 class="login__form-title">Вход</h3>
-            <div class="login__form-radio">
-                 {% for radio in form.order %}
-        <label>
-            {{ radio.tag }}
-            <span>{{ radio.choice_label }}</span>
-        </label>
-    {% endfor %}
-            </div>
+						</div>
+						<div class="auth-form__item">
+							 {{form.username}}
+						</div>
+						<div class="auth-form__item">
+							{{ form.password}}
+                              {% if form.non_field_errors %}
+                            <div class="alert alert-danger" style="
+   									 color: red;">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+							<a href="https://collaborator.pro/ua/privacy-policy" class="auth-form__policy hhv-blue">
+								Соглашение об использовании персональных данных
+							</a>
+							<div class="checkbox">
+								<input id="remember" checked data-error="Ошибка" class="checkbox__input" type="checkbox" value="1" name="remember">
+								<label for="remember" class="checkbox__label">
+									<span class="checkbox__text">Запомнить меня</span>
+								</label>
+							</div>
+						</div>
+						<div class="auth-form__form-bottom">
+							<button class="button button_sm button_no-bg" type="submit">Войти на сайт</button>
+							<div class="auth-form__actions">
+								<a href="{% url 'register' %}" class="auth-form__action hhv-blue">Зарегистрироваться</a>
+								<a href="#" class="auth-form__action hhv-blue">Забыли пароль?</a>
+							</div>
+						</div>
+						<div class="auth-form__bottom">
+						<div class="label-white label-white_s16 label-white_fw700" style="color: #008e8b;">или продолжить с</div>
+						<div class="place-ad__btns">
+							<button class="button button_sm button_no-bg" type="button">
+								<picture><source srcset="{% static 'img/place-ad/tg.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/tg.png' %}" alt=""></picture>
+								Telegram
+							</button>
+							<button class="button button_sm button_no-bg" type="button">
+								<picture><source srcset="{% static 'img/place-ad/google.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/google.png' %}" alt=""></picture>
+								Google
+							</button>
+						</div>
+					</div>
 
 
-            <div class="login__form-input">
-                {{form.username}}
-                {{ form.password}}
-            </div>
-            <br>
-                {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ form.non_field_errors }}
-        </div>
-    {% endif %}
+					</form>
 
-            <a href="" class="registration__form-link">Соглашение об использовании персональных данных</a>
-            <div class="form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1"> <label class="form-check-label" for="exampleCheck1">Запомнить меня</label></div><div class="d-flex justify-content-center">
-            <button type="submit" class="registration__form-btn btn-reset">Войти на сайт</button>
-            <input type="hidden" name="next" value="{{ next }}" />
-        </div><div class="login__form-bottom"><a href="{% url 'register' %}">Зарегистрироваться</a> <a href="">Забыли пароль?</a></div>
-        </form></div></div></div></main></div></body></html>
+				</div>
+			</section>
+		</main>
  {% endblock %}
+
