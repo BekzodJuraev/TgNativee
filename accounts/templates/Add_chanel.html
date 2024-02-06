@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+
 {% load static %}
 {% block header %}
 <body class="page__body">
@@ -14,7 +14,9 @@
                     <form method="post" action="{% url 'create' %}">
                         {% csrf_token %}
                         {{form.chanel_link}}
+                           <br>
                         {{form.description}}
+                           <br>
                         {{form.category}}
                           {{ cost_format_formset.management_form }}
                          {% for form in cost_format_formset %}

@@ -124,7 +124,7 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['chanel'] = Chanel.objects.filter(username=self.request.user)
-        context['count'] = Chanel.objects.filter(username=self.request.user).count()
+        context['number'] = Chanel.objects.filter(username=self.request.user).count()
         try:
             chanel_instances = Chanel.objects.filter(username=self.request.user)
             context['order'] = Add_Reklama.objects.filter(chanel__in=chanel_instances)

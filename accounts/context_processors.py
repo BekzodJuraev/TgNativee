@@ -1,4 +1,4 @@
-from .models import Profile, Profile_advertiser
+from .models import Profile, Profile_advertiser,Add_Reklama
 
 def user_authenticated(request):
     user_authenticated_data = {'user_authenticated': request.user.is_authenticated}
@@ -14,7 +14,7 @@ def user_authenticated(request):
             user_authenticated_data['balance']=user_profile.balance
             user_authenticated_data['pages']=user_profile
             user_authenticated_data['bell'] = user_profile
-
+            user_authenticated_data['number_count']=Add_Reklama.objects.filter(chanel__username=request.user).count()
         except Profile.DoesNotExist:
             try:
                 advertiser_profile = Profile_advertiser.objects.get(username=request.user)
@@ -24,6 +24,7 @@ def user_authenticated(request):
                 user_authenticated_data['pk'] = advertiser_profile.pk
                 user_authenticated_data['balance'] = advertiser_profile.balance
                 user_authenticated_data['cart'] = advertiser_profile.balance
+                user_authenticated_data['number_count']=Add_Reklama.objects.filter(user_order=advertiser_profile).count()
 
             except Profile_advertiser.DoesNotExist:
                 pass

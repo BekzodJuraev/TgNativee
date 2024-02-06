@@ -35,7 +35,7 @@
 											</div>
 											Все
 										</button>
-										<div class="owner-cabinet__nav-count">{{count}}</div>
+										<div class="owner-cabinet__nav-count">{{number}}</div>
 									</div>
 									<div class="owner-cabinet__nav-item">
 										<button type="button" id="like" class="owner-cabinet__nav-title">
@@ -72,13 +72,13 @@
 									<div class="not-found-channels__img">
 										<picture><source srcset="{% static 'img/owner-cabinet/bg.webp' %}" type="image/webp"><img class="img-flud" src="{% static 'img/owner-cabinet/bg.png' %}" alt=""></picture>
 									</div>
-                                    {% if count == 0 %}
+                                    {% if number == 0 %}
 									<div class="not-found-channels__title">Каналов нет</div>
 									<p class="not-found-channels__text text text_s20">
 										Вы еще не добавили ни одного канала
 									</p>
                                     {% endif %}
-									<button class="button button_gradient" type="button">Добавить канал</button>
+									<a href="{% url 'create' %}"><button class="button button_gradient" type="button">Добавить канал</button></a>
 								</div>
 							</div>
                             <div class="tabs__body">
@@ -159,7 +159,7 @@
 													</div>
 												</td>
 												<td class="table-row">
-													<button type="button" data-popup="#{{item.comment}}" class="label-dark label-dark_s16 label-underline hhv-green">Cмотреть</button>
+													<button type="button" data-popup="#comment{{item.id}}" class="label-dark label-dark_s16 label-underline hhv-green">Cмотреть</button>
 												</td>
 												<td class="table-row">
 													<a href="{{item.chanel.chanel_link}}" target="_blank" class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel.chanel_link}}</a>
@@ -407,7 +407,7 @@
 		</main>
 
 {% for item in order %}
-<div id="{{item.comment}}" aria-hidden="true" class="popup popup-chat popup-comment">
+<div id="comment{{item.id}}" aria-hidden="true" class="popup popup-chat popup-comment">
 		<div class="popup__wrapper">
 			<div class="popup__content">
 				<button data-close type="button" class="popup__close">

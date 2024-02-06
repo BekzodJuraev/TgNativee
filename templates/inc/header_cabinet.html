@@ -32,14 +32,14 @@
 					{% if cart %}
 					<a href="cart.html" class="header__cart">
 						<img class="img-fluid" src="{% static 'img/icons/cart.svg' %}" alt="">
-						<span>0</span>
+						<span>{{number_count}}</span>
 					</a>
 					{% endif %}
 
 					{% if bell %}
-					<a href="cart.html" class="header__cart">
+					<a href="{% url 'logging' %}" class="header__cart">
 						<img class="img-fluid" src="{% static 'img/icons/bell.svg' %}" alt="">
-						<span>0</span>
+						<span>{{number_count}}</span>
 					</a>
 					{% endif %}
 
