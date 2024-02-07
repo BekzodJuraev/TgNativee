@@ -56,36 +56,7 @@ class UpdateTelegram(LoginRequiredMixin, UpdateView):
         return self.request.path
 
 
-class Zayavka_Page(LoginRequiredMixin, TemplateView):
-    template_name = 'zayavki.html'
-    login_url = reverse_lazy('login')
 
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        try:
-            chanel_instances = Chanel.objects.filter(username=self.request.user)
-            context['order'] = Add_Reklama.objects.filter(chanel__in=chanel_instances)
-            context['count'] = Add_Reklama.objects.filter(chanel__in=chanel_instances).count()
-            # Now you can use chanel_instance in your queries or operations.
-        except Chanel.DoesNotExist:
-            pass
-
-        return context
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            # Redirect the user to the login page if they are not authenticated.
-            return redirect(self.login_url)
-
-        if not Profile.objects.filter(username=request.user).exists():
-            # Redirect the user to a different page or return an error message
-            # if they don't have a profile.
-            logout(request)
-            return redirect(self.login_url)
-
-        return super().dispatch(request, *args, **kwargs)
 
 
 class Reklama_Page(LoginRequiredMixin, TemplateView):
@@ -127,8 +98,10 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
         context['number'] = Chanel.objects.filter(username=self.request.user).count()
         try:
             chanel_instances = Chanel.objects.filter(username=self.request.user)
-            context['order'] = Add_Reklama.objects.filter(chanel__in=chanel_instances)
+            context['order'] = Add_Reklama.objects.filter(chanel__in=chanel_instances,aprove=True)
             context['count'] = Add_Reklama.objects.filter(chanel__in=chanel_instances).count()
+            context['aprove_owner']=Add_Reklama.objects.filter(chanel__in=chanel_instances,aprove=False).count()
+            context['aprove_admin']=Add_Reklama.objects.filter(chanel__in=chanel_instances,aprove=True,status="DN").count()
             # Now you can use chanel_instance in your queries or operations.
         except Chanel.DoesNotExist:
             pass

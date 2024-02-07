@@ -111,6 +111,7 @@ class Add_Reklama(models.Model):
     name_ads = models.CharField(max_length=150,null=True)
     comment=models.TextField(null=True)
     order_data=models.DateTimeField(null=True)
+    aprove = models.BooleanField(default=False)
     status = models.CharField(max_length=2, choices=Status.choices,
                               default=Status.DRAFT)
 

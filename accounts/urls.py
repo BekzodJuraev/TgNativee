@@ -12,7 +12,6 @@ urlpatterns=[
      path('login/', views.login_page, name='login'),
      path('post/',views.CreateChanel.as_view(),name='create'),
      path('logging/', views.Cabinet_telegramPage.as_view(), name='logging'),
-     path('zayavki/',views.Zayavka_Page.as_view(),name='zayavka'),
      path('login_advitiser/', views.Reklama_Page.as_view(),name='login_reklama'),
      path('logout/',views.logout_view,name='logout'),
      path('register/', views.register_page, name='register'),

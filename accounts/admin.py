@@ -10,7 +10,7 @@ class Category_chanelsAdmin(admin.ModelAdmin):
 
 @admin.register(Add_Reklama)
 class ChanelAdmin(admin.ModelAdmin):
-    list_display = ['chanel']
+    list_display = ['chanel','aprove']
 
 
 @admin.register(Profile)
