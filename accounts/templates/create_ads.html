@@ -106,8 +106,8 @@
 								</div>
 							</div>
 							<button data-popup="#popup-chat" class="item-cart-public__btn" type="button">
-								<img src="img/cart/7.svg" class="dont-fill" alt="">
-								<img src="img/cart/7-fill.svg" class="fill" alt="">
+								<img src="{% static 'img/cart/7.svg' %}" class="dont-fill" alt="">
+								<img src="{% static 'img/cart/7-fill.svg' %}" class="fill" alt="">
 								<span>Перейти в чат с владельцем</span>
 							</button>
 						</form>
@@ -136,9 +136,13 @@
 				</div>
 				<div class="popup-chat__body">
 
+
+
 				</div>
-				<form action="#" method="post" class="popup-chat__form form">
-					<input class="popup-chat__input" placeholder="Написать" name="message" type="text">
+				<form method="post" class="popup-chat__form form" id="messageForm">
+					{% csrf_token %}
+					<input type="hidden" name="get_receiver" id="getReceiver" value="{{object.chanel.add_chanel.username.username}}">
+					<input class="popup-chat__input" placeholder="Написать" name="get_content" type="text">
 					<div class="popup-chat__form-actions">
 						<button class="textarea-btn" type="button">
 							<img src="{% static 'img/cart/5.svg' %}" class="dont-fill" alt="">
@@ -159,6 +163,54 @@
 
 
 <script>
+ $(document).ready(function () {
+        // AJAX for submitting the form
+        $('#messageForm').submit(function (e) {
+            e.preventDefault();  // Prevent the form from submitting the traditional way
+
+            // Serialize the form data
+            var formData = $(this).serialize();
+
+            // Send an AJAX POST request
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'message' %}',  // Replace with your actual endpoint
+                data: formData,
+                success: function (data) {
+                    // Handle success, update UI if necessary
+                    console.log(data.message);
+                },
+                error: function (error) {
+                    // Handle error, show error message or log it
+                    console.error('Error sending message:', error.responseText);
+                }
+            });
+        });
+
+        // AJAX for getting messages
+        function getMessages() {
+            // Send an AJAX GET request
+            $.ajax({
+                type: 'GET',
+                url: '{% url 'message' %}',  // Replace with your actual endpoint
+                success: function (data) {
+                    // Handle success, update UI with received messages
+                    console.log('Messages received:', data.messages_content);
+                },
+                error: function (error) {
+                    // Handle error, show error message or log it
+                    console.error('Error getting messages:', error.responseText);
+                }
+            });
+        }
+
+        // Call the function to get messages on document ready
+        getMessages();
+
+        // You may want to set an interval to periodically update the messages
+        // setInterval(getMessages, 5000);  // Update every 5 seconds (adjust as needed)
+    });
+
 document.getElementById('changePhoto').addEventListener('click', function() {
     // Trigger the click event of the hidden file input
     document.getElementById('photoInput').click();

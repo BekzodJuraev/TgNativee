@@ -24,6 +24,8 @@
 							</div>
 						</div>
 						<div data-tabs-body class="tabs__content">
+
+
 							<div class="tabs__body">
 								<div class="owner-cabinet__nav">
 									<div class="owner-cabinet__nav-item">
@@ -79,7 +81,60 @@
                                     {% endif %}
 									<a href="{% url 'create' %}"><button class="button button_gradient" type="button">Добавить канал</button></a>
 								</div>
+								<div class="table-wrap">
+									<table class="table table_w">
+										<thead>
+											<tr>
+												<th scope="col"></th>
+												<th scope="col">
+													<div class="label-white label-white_s16">ПОДПИСЧИКИ</div>
+												</th>
+												<th>
+													<div class="label-white label-white_s16">ЛИНК</div>
+												</th>
+												<th>
+													<div class="label-white label-white_s16">ОХВАТ</div>
+												</th>
+												<th>
+
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+                                       {% for item in chanel %}
+											<tr>
+												<td class="table-row" scope="row">
+													<div class="table-row__head table-row__head_center">
+														<a href="#" target="_blank" class="table-row__img">
+															<picture><source srcset="/{{item.pictures}}" type="image/webp"><img class="img-fluid" src="/{{item.pictures}}" alt=""></picture>
+														</a>
+														<div class="table-row__content">
+															<div class="table-row__content">
+																<a href="#" target="_blank" class="label-dark-blue label-dark-blue_s20 hhv-green"> {{item.name}}</a>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class="table-row">
+													<button type="button"  class="label-dark label-dark_s16 label-underline hhv-green">
+														{{item.subscribers}}</button>
+												</td>
+												<td class="table-row">
+													<a href="{{item.chanel_link}}" target="_blank" class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel_link}}</a>
+												</td>
+												<td class="table-row">
+													<div class="label-dark-green label-dark-green_fw700 label-dark_s20">
+														{{item.views}} </div>
+												</td>
+
+											</tr>
+
+                                        {% endfor %}
+										</tbody>
+									</table>
+								</div>
 							</div>
+
                             <div class="tabs__body">
 								<div class="owner-cabinet__nav">
 									<div class="owner-cabinet__nav-item">

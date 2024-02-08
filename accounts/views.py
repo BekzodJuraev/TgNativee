@@ -13,13 +13,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, \
-    Update_Profile, Update_Reklama
+from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, Update_Profile, Update_Reklama
 from API.models import Chanel, Feedback, Add_Sponsors,FAQ
-from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format,Like
+from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format,Like,Message
 from django.contrib.auth import logout
 from django.views.generic import View,ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
-
+from .models import Message
 
 class BalancePage(LoginRequiredMixin, TemplateView):
     template_name = 'withdrawal-funds.html'
@@ -388,6 +387,44 @@ class LikeToggleView(LoginRequiredMixin, View):
         # Return the list of liked channel IDs as a JsonResponse
         return JsonResponse({'liked_channels': list(chanel_liked)})
 
+class Chat(LoginRequiredMixin,View):
+    login_url = reverse_lazy('login')
+
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        get_receiver=request.POST.get('get_receiver')
+        get_content=request.POST.get('get_content')
+
+
+
+
+
+
+        try:
+            user_receiver = User.objects.get(username=get_receiver)
+        except User.DoesNotExist:
+            return JsonResponse({'message': 'Not sending - Receiver user does not exist'})
+
+        try:
+            if not get_content:
+                raise ValueError('Content cannot be empty')
+            message = Message.objects.create(sender=user, receiver=user_receiver, content=get_content)
+            return JsonResponse({'message': 'Sending'})
+        except ValueError as ve:
+            print(ve)
+            return JsonResponse({'message': 'Not sending - Error: {}'.format(str(ve))})
+        except Exception as e:
+            print(e)
+            return JsonResponse({'message': 'Not sending - Error: {}'.format(str(e))})
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        messages_content = Message.objects.filter(sender=user).values_list('content', flat=True)
+        return JsonResponse({'messages_content': list(messages_content)})
+
+
+
 
 
 
@@ -467,3 +504,4 @@ def update_online_status(request):
             return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error'})
+
