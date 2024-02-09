@@ -142,6 +142,7 @@
 				<form method="post" class="popup-chat__form form" id="messageForm">
 					{% csrf_token %}
 					<input type="hidden" name="get_receiver" id="getReceiver" value="{{object.chanel.add_chanel.username.username}}">
+					<input type="hidden" name="get_message" id="getMessage" value="{{object.id}}">
 					<input class="popup-chat__input" placeholder="Написать" name="get_content" type="text">
 					<div class="popup-chat__form-actions">
 						<button class="textarea-btn" type="button">
@@ -179,6 +180,11 @@
                 success: function (data) {
                     // Handle success, update UI if necessary
                     console.log(data.message);
+                     $('#messageForm input[name="get_content"]').val('');
+                       var sentMessage = $('<div class="message sent">').text(data.message).css('color', '#12599a');
+                	   $('.popup-chat__body').append(sentMessage);
+
+
                 },
                 error: function (error) {
                     // Handle error, show error message or log it
@@ -188,14 +194,20 @@
         });
 
         // AJAX for getting messages
-        function getMessages() {
+        function getMessages(messageId) {
             // Send an AJAX GET request
             $.ajax({
                 type: 'GET',
-                url: '{% url 'message' %}',  // Replace with your actual endpoint
+                url: '{% url 'message' %}?message_id=' + messageId,  // Replace with your actual endpoint
                 success: function (data) {
                     // Handle success, update UI with received messages
                     console.log('Messages received:', data.messages_content);
+
+
+                	 for (var i = 0; i < data.messages_content.length; i++) {
+                    var receivedMessage = $('<div class="message received">').text(data.messages_content[i]).css('color', '#12599a');
+                    $('.popup-chat__body').append(receivedMessage);
+                }
                 },
                 error: function (error) {
                     // Handle error, show error message or log it
@@ -205,10 +217,10 @@
         }
 
         // Call the function to get messages on document ready
-        getMessages();
+        getMessages({{object.id}});
 
         // You may want to set an interval to periodically update the messages
-        // setInterval(getMessages, 5000);  // Update every 5 seconds (adjust as needed)
+        //setInterval(getMessages, 5000); // Update every 5 seconds (adjust as needed)
     });
 
 document.getElementById('changePhoto').addEventListener('click', function() {

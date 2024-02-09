@@ -395,6 +395,7 @@ class Chat(LoginRequiredMixin,View):
         user = self.request.user
         get_receiver=request.POST.get('get_receiver')
         get_content=request.POST.get('get_content')
+        get_message=request.POST.get('get_message')
 
 
 
@@ -409,8 +410,9 @@ class Chat(LoginRequiredMixin,View):
         try:
             if not get_content:
                 raise ValueError('Content cannot be empty')
-            message = Message.objects.create(sender=user, receiver=user_receiver, content=get_content)
-            return JsonResponse({'message': 'Sending'})
+            add_reklama_instance = Add_Reklama.objects.get(id=get_message)
+            message = Message.objects.create(sender=user, receiver=user_receiver, content=get_content,message=add_reklama_instance)
+            return JsonResponse({'message': get_content})
         except ValueError as ve:
             print(ve)
             return JsonResponse({'message': 'Not sending - Error: {}'.format(str(ve))})
@@ -420,8 +422,13 @@ class Chat(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        messages_content = Message.objects.filter(sender=user).values_list('content', flat=True)
-        return JsonResponse({'messages_content': list(messages_content)})
+        message_id = request.GET.get('message_id', None)
+        if message_id:
+            messages_content = Message.objects.filter(sender=user, message_id=message_id).values_list('content',
+                                                                                                      flat=True)
+            return JsonResponse({'messages_content': list(messages_content)})
+        else:
+            return JsonResponse({'error': 'No message_id provided'})
 
 
 

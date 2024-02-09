@@ -26,7 +26,7 @@ class ChanelAdvertiser(admin.ModelAdmin):
 
 @admin.register(Message)
 class ChanelAdvertiser(admin.ModelAdmin):
-    list_display = ['sender','receiver']
+    list_display = ['sender','receiver','message','timestamp']
 
 
 
