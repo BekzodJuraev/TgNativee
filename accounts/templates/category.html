@@ -9,20 +9,7 @@
 			<section class="catalog-mainscreen">
 				<div class="catalog-mainscreen__container container">
 					<h1 class="title title_center">Каталог Telegram - каналов</h1>
-					<div data-spollers class="spollers">
-						<div class="spollers__item">
-							<button type="button" data-spoller class="spollers__title">
-								<span class="label-white label-white_s24">
-									Фильтр
-								</span>
-								<span class="label-white label-white_s20">
-									Свернуть
-									<img class="arrow" src="img/icons/arrow-down.svg" alt="">
-								</span>
-							</button>
-							<div class="spollers__body">
-								<form action="{% url 'category-list' %}" method="get" class="catalog-mainscreen__form">
-									<div class="catalog-mainscreen__cat">
+					<div class="catalog-mainscreen__cat">
 										<div class="label-white">Категории</div>
 										<div class="catalog-mainscreen__cat-lists">
                                                     {% for item in category %}
@@ -51,6 +38,20 @@
 
 										</div>
 									</div>
+					<div data-spollers class="spollers">
+						<div class="spollers__item">
+							<button type="button" data-spoller class="spollers__title">
+								<span class="label-white label-white_s24">
+									Фильтр
+								</span>
+								<span class="label-white label-white_s20">
+									Свернуть
+									<img class="arrow" src="{% static 'img/icons/arrow-down.svg' %}" alt="">
+								</span>
+							</button>
+							<div class="spollers__body">
+								<form action="{% url 'category-list' %}" method="get" class="catalog-mainscreen__form">
+
 									<div class="search-form form">
 										<div class="search-form__column">
 
