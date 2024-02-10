@@ -52,7 +52,7 @@
 
                                     <select name="subjects"  id="id_format_select" data-class-modif="custom-select">
 
-                                        <option value="1">Open this</option>
+
                                         {% for cost_format in object.add_chanel.cost_formats.all %}
 										<option value="{{ cost_format.id }}" id="id_format" >{{ cost_format.placement_format }}</option>
                                         {% endfor %}
@@ -91,7 +91,8 @@
 								<div class="item-channel-order__bottom">
 									<div class="label-dark label-dark_s20">
                                         {% for cost_format in object.add_chanel.cost_formats.all %}
-										Стоимость: <span class="label-dark_fw700">{{cost_format.cost_per_format}} UAH</span>
+										Стоимость: <span class="label-dark_fw700">{{cost_format.cost_per_format}} UAH ----> {{cost_format.placement_format}} </span>
+										<br>
                                         {% endfor %}
 									</div>
 									<div class="item-channel-order__bottom-row">
