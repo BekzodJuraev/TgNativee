@@ -2,11 +2,9 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
 import telegram
-from django.db.models import Count
-
-from .bot import BOT_TOKEN
 from django.utils import timezone
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from datetime import date
 from django.db.models import Sum
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -129,13 +127,14 @@ class Page_List(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         channel_name = self.object.name  # Assuming 'name' is the field in Chanel model
-
-        # Retrieve all comments related to the channel
         comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(comment__isnull=True)
 
         context['user'] = self.request.user.id
         context['chanel'] = channel_name
         context['category'] = comments
+
+
+
         return context
 
 

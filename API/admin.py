@@ -14,7 +14,7 @@ class ChanelAdmin(admin.ModelAdmin):
 
 @admin.register(Chanel)
 class ChanelAdmin(admin.ModelAdmin):
-    list_display = ['username','subscribers','chanel_link','views']
+    list_display = ['username','subscribers','chanel_link','views','last_update']
 
     list_display_links = ['chanel_link']
 

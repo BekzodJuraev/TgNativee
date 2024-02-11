@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import Add_chanel
-
+from datetime import date
 class Chanel(models.Model):
     chanel_link=models.CharField(max_length=150)
     name=models.CharField(max_length=150,verbose_name="Называние канала")
@@ -8,8 +8,36 @@ class Chanel(models.Model):
     subscribers=models.IntegerField()
     views=models.IntegerField()
     created_at=models.DateTimeField(auto_now_add=True)
+    last_update=models.DateTimeField(auto_now=True)
     add_chanel =models.ForeignKey(Add_chanel, on_delete=models.CASCADE)
     username=models.CharField(max_length=140)
+    daily_subscribers=models.IntegerField()
+    weekly_subscribers=models.IntegerField()
+    weekly_monthy = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        if self.last_update.date() == date.today():
+
+            self.daily_subscribers=self.subscribers-self.daily_subscribers
+            print(self.daily_subscribers)
+
+
+
+
+
+        else:
+            self.daily_subscribers=0
+
+
+
+
+        super().save(*args, **kwargs)
+
+
+
+
+
+
 
 
 

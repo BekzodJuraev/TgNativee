@@ -29,17 +29,17 @@
 										<div class="item-channel-main__info-item">Язык: <span>Язык</span></div>
 									</div>
 									<div data-da=".item-channel-main__descr,480.98,first" class="item-channel-main__stars">
-										<img src="img/channel/star.svg" alt="">
-										<img src="img/channel/star.svg" alt="">
-										<img src="img/channel/star.svg" alt="">
-										<img src="img/channel/star.svg" alt="">
+										<img src="{% static 'img/channel/star.svg' %}" alt="">
+										<img src="{% static 'img/channel/star.svg' %}" alt="">
+										<img src="{% static 'img/channel/star.svg' %}" alt="">
+										<img src="{% static 'img/channel/star.svg' %}" alt="">
 									</div>
 								</div>
 							</div>
 							<div class="item-channel-main__descr">
 								<p class="text text_s20 text_dark">
-                                {{object.add_chanel.description}}								</p>
-								<a href="#" class="item-channel-main__descr-link hhv-blue">Подробнее</a>
+                                {{object.add_chanel.description}}</p>
+
 							</div>
 						</div>
                         {% if request.user.is_authenticated %}
@@ -153,7 +153,7 @@
 								</ul>
 								<div class="item-channel-reviews__bottom">
 									<button hidden data-showmore-button type="button" class="item-channel-reviews__more label-dark-green label-dark-green_s16 label-underline hhv-blue">
-										<span>Посмотреть все</span><span>Скыть</span>
+
 									</button>
 								</div>
 							</div>
@@ -216,11 +216,13 @@
 					</div>
 				</div>
 			</section>
+
 		</main>
 
     {% endwith %}
 <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script>
+
     $(document).ready(function () {
         $('#button').click(function (event) {
             event.preventDefault();
