@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import Add_chanel
-from datetime import date
+from datetime import date,timedelta
 class Chanel(models.Model):
     chanel_link=models.CharField(max_length=150)
     name=models.CharField(max_length=150,verbose_name="Называние канала")
@@ -11,22 +11,44 @@ class Chanel(models.Model):
     last_update=models.DateTimeField(auto_now=True)
     add_chanel =models.ForeignKey(Add_chanel, on_delete=models.CASCADE)
     username=models.CharField(max_length=140)
-    daily_subscribers=models.IntegerField()
-    weekly_subscribers=models.IntegerField()
-    weekly_monthy = models.IntegerField()
+    daily_subscribers=models.IntegerField(default=0, blank=True, null=True)
+    weekly_subscribers=models.IntegerField(default=0, blank=True, null=True)
+    weekly_monthy = models.IntegerField(default=0, blank=True, null=True)
+
+
+
 
     def save(self, *args, **kwargs):
-        if self.last_update.date() == date.today():
+        if self.pk is not None:
+            old_instance = Chanel.objects.get(pk=self.pk)
+            old_subscribers = old_instance.subscribers
+            if old_subscribers != 0:
+                difference = self.subscribers - old_subscribers
+                if self.last_update.date() == date.today():
+                    self.daily_subscribers += difference
+                else:
+                    self.daily_subscribers = 0
 
-            self.daily_subscribers=self.subscribers-self.daily_subscribers
-            print(self.daily_subscribers)
+                if self.last_update.date() >= (date.today() - timedelta(days=date.today().weekday())):
+                    self.weekly_subscribers += difference
+                else:
+                    self.weekly_subscribers = 0
+
+                if self.last_update.date().month == date.today().month:
+                    self.weekly_monthy += difference
+
+                else:
+                    self.weekly_monthy = 0
 
 
 
 
 
-        else:
-            self.daily_subscribers=0
+
+
+
+
+
 
 
 

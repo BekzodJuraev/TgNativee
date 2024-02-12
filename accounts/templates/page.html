@@ -3,7 +3,7 @@
 {% load mathfilters %}
 
 {% block content %}
-    {% with er=object.views|div:object.subscribers|mul:100 %}
+
 
 
    <main class="page">
@@ -169,15 +169,29 @@
 								</div>
 								<div class="item-subs-analitics__row-col-item">
 									<div class="label-black label-black_s20">Сегодня</div>
-									<div class="label-green label-green_s24">+5'916</div>
+									{% if day < 0 %}
+									<div class="label-green label-green_s24" style="color:red">{{day}}</div>
+									{% else %}
+									<div class="label-green label-green_s24">+{{day}}</div>
+									{% endif %}
 								</div>
 								<div class="item-subs-analitics__row-col-item">
 									<div class="label-black label-black_s20">Неделя </div>
-									<div class="label-green label-green_s24">+35'329</div>
+
+									{% if week < 0 %}
+									<div class="label-green label-green_s24" style="color:red">{{week}}</div>
+									{% else %}
+									<div class="label-green label-green_s24">+{{week}}</div>
+									{% endif %}
 								</div>
 								<div class="item-subs-analitics__row-col-item">
 									<div class="label-black label-black_s20">Месяц</div>
-									<div class="label-green label-green_s24">+145'095</div>
+									{% if month < 0 %}
+									<div class="label-green label-green_s24" style="color:red">{{month}}</div>
+									{% else %}
+
+									<div class="label-green label-green_s24">+{{month}}</div>
+									{% endif %}
 								</div>
 							</div>
 							<div class="item-subs-analitics__row-inline">
@@ -195,7 +209,7 @@
 							<div class="item-subs-analitics__row-inline">
 								<div class="item-subs-analitics__row-inline-item">
 									<div class="label-dark label-dark_s20">ER</div>
-									<div class="label-blue label-blue_s24 label-blue_fw400">{{er }}%</div>
+									<div class="label-blue label-blue_s24 label-blue_fw400">{{er}}%</div>
 								</div>
 								<div class="item-subs-analitics__row-inline-item">
 									<div class="label-dark label-dark_s20">Суточный</div>
@@ -219,7 +233,7 @@
 
 		</main>
 
-    {% endwith %}
+
 <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script>
 

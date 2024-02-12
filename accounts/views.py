@@ -128,6 +128,17 @@ class Page_List(DetailView):
         context = super().get_context_data(**kwargs)
         channel_name = self.object.name  # Assuming 'name' is the field in Chanel model
         comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(comment__isnull=True)
+        er=(self.object.subscribers/self.object.views)*10
+
+        context['er']=round(er,1)
+
+
+
+
+
+        context['day']=self.object.daily_subscribers
+        context['week'] = self.object.weekly_subscribers
+        context['month'] = self.object.weekly_monthy
 
         context['user'] = self.request.user.id
         context['chanel'] = channel_name
