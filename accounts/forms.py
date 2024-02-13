@@ -60,9 +60,13 @@ class BasketForm(forms.ModelForm):
 
 
 class Add_ReklamaStatus(forms.ModelForm):
+    status=forms.ChoiceField(
+        choices=Add_Reklama.Status.choices,
+        widget=forms.Select(attrs={'class': 'auth-form__input', 'placeholder': 'Статус'})
+    )
     class Meta:
         model = Add_Reklama
-        fields = ['chanel', 'text_ads', 'media', 'name_ads', 'comment', 'order_data','status']
+        fields = ['status']
 
 
 class AddChanelForm(forms.ModelForm):

@@ -85,7 +85,7 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
         context['aprove_admin'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
                                                              status="DN").count()
         current_time = timezone.now()
-        print(current_time)
+
         context['completed'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
                                                              status="DN",order_data__lt=current_time).count()
 
@@ -118,6 +118,7 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
             context['count'] = Add_Reklama.objects.filter(chanel__in=chanel_instances).count()
             context['aprove_owner']=Add_Reklama.objects.filter(chanel__in=chanel_instances,aprove=False).count()
             context['aprove_admin']=Add_Reklama.objects.filter(chanel__in=chanel_instances,aprove=True,status="DN").count()
+            context['form']=Add_ReklamaStatus
             # Now you can use chanel_instance in your queries or operations.
         except Chanel.DoesNotExist:
             pass
@@ -384,13 +385,11 @@ class CreateChanel(LoginRequiredMixin, CreateView):
 class Updatestatus(LoginRequiredMixin,UpdateView):
     model = Add_Reklama
     form_class = Add_ReklamaStatus
-    template_name = 'updated_status.html'
-    success_url = reverse_lazy('zayavka')
+    success_url = reverse_lazy('logging')
     login_url = reverse_lazy('login')
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        return response
+        return super().form_valid(form)
 
 class LikeToggleView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')  # Replace with your actual login URL

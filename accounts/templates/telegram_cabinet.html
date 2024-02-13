@@ -224,9 +224,10 @@
 												</td>
 												<td class="table-row">
 													 {% if item.status == "WT" %}
-													<a href="{% url 'update' item.pk %}" target="_blank" class="button button_sm button_no-bg" type="button">Одобрить</a>
+
+													<button class="button button_sm button_no-bg" data-popup="#aprove{{item.id}}"  type="button">Одобрить</button>
 													 {% else %}
-													<a href="{% url 'update' item.pk %}" target="_blank" class="button button_sm button_no-bg" type="button">Одобрено</a>
+													<button  class="button button_sm button_no-bg" data-popup="#aprove{{item.id}}"  type="button">Одобрено</button>
 													{% endif %}
 
 												</td>
@@ -379,5 +380,74 @@
 		</div>
 	</div>
 {% endfor %}
+
+
+
+{% for item in order %}
+<div id="comment{{item.id}}" aria-hidden="true" class="popup popup-chat popup-comment">
+		<div class="popup__wrapper">
+			<div class="popup__content">
+				<button data-close type="button" class="popup__close">
+					<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" alt="">
+				</button>
+				<div class="popup-chat__head popup-chat__head_border-none">
+					<div class="popup-chat__avatar">
+						<picture><source srcset="/{{item.user_order.photo}}" type="image/webp"><img class="img-fluid" src="/{{item.user_order.photo}}" ></picture>
+					</div>
+					<div class="popup-chat__content">
+						<div class="label-black label-black_s24">{{item.user_order.username}}</div>
+						<div class="label-dark-blue label-dark-blue_s20 label-dark-blue_fw400">Заходил(а) в {{item.user_order.last_visited}}</div>
+					</div>
+				</div>
+				<div class="popup-comment__body">
+					<p class="text text_black">
+						{{item.comment }}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+
+{% for item in order %}
+<div id="aprove{{item.id}}" aria-hidden="true" class="popup popup-chat popup-comment">
+		<div class="popup__wrapper">
+			<div class="popup__content">
+				<button data-close type="button" class="popup__close">
+					<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" alt="">
+				</button>
+                 <div class="auth-form__container">
+				 <form action="{% url 'update' item.pk %}"  method="post" class="auth-form__form">
+					  {% csrf_token %}
+
+					<img src="/{{item.media}}" alt="">
+
+					<textarea class="auth-form__input">Текст:{{item.text_ads}}</textarea>
+					<p class="auth-form__input">Время:{{item.order_data}}</p>
+					<p class="auth-form__input">Формат:{{item.format.placement_format}}</p>
+					<p class="auth-form__input">Цена:{{item.format.cost_per_format}}UAH</p>
+
+
+					 {{form.status}}
+					   <div class="auth-form__form-bottom">
+                        <button class="button" type="submit">Одобрить</button>
+                    </div>
+
+
+
+				</form>
+				 </div>
+
+
+				
+        
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+
+
 
     {% endblock %}
