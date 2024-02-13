@@ -18,6 +18,10 @@ from django.contrib.auth import logout
 from django.views.generic import View,ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
 from .models import Message
 
+
+
+
+
 class BalancePage(LoginRequiredMixin, TemplateView):
     template_name = 'withdrawal-funds.html'
     login_url = reverse_lazy('login')
@@ -77,6 +81,21 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user)
         context['count'] = Add_Reklama.objects.filter(user_order__username=self.request.user).count()
+        context['aprove_owner'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=False).count()
+        context['aprove_admin'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
+                                                             status="DN").count()
+        current_time = timezone.now()
+        print(current_time)
+        context['completed'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
+                                                             status="DN",order_data__lt=current_time).count()
+
+
+
+        # Convert to the local timezone
+
+
+
+
         return context
 
 
@@ -195,6 +214,7 @@ class CategoryChanelPage(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['lists'] = self.get_queryset().count()
         context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
         context['category'] = Category_chanels.objects.all()

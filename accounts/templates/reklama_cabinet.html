@@ -2,411 +2,463 @@
 {% load static %}
 
 {% block content %}
-    <main class="page">
-			<section class="owner-cabinet">
-				<div class="owner-cabinet__container">
-					<div data-tabs class="tabs">
-						<div class="tabs-row">
-							<nav data-tabs-titles class="tabs-navigation">
-								<button type="button" class="tabs-navigation__title _tab-active">Мои каналы</button>
-								<button type="button" class="tabs-navigation__title">Заявки на размещение</button>
-								<button type="button" class="tabs-navigation__title">Мои боты</button>
-								<button type="button" class="tabs-navigation__title">Мои спецпредложения</button>
-								<button type="button" class="tabs-navigation__title">Финансы</button>
-								<button type="button" class="tabs-navigation__title">Помощь</button>
-							</nav>
-							<div class="tabs-row__item">
-								<select name="currency" id="currency" data-class-modif="custom-select">
-									<option value="1" selected>По кол-ву заявок:</option>
-									<option value="2">По кол-ву заявок</option>
-									<option value="3">По кол-ву заявок</option>
-									<option value="4">По кол-ву заявок</option>
-								</select>
-							</div>
-						</div>
-						<div data-tabs-body class="tabs__content">
-							<div class="tabs__body">
-								<div class="owner-cabinet__nav">
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title _active">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/1.svg' %}" alt="">
-												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/1-fill.svg' %}" alt="">
-											</div>
-											Все
-										</button>
-										<div class="owner-cabinet__nav-count">{{number}}</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/2.svg' %}" alt="">
-												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/2-fill.svg' %}" alt="">
-											</div>
-											Активные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/3.svg' %}" alt="">
-												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/3-fill.svg' %}" alt="">
-											</div>
-											Неактивные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/4.svg' %}" alt="">
-												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/4-fill.svg' %}" alt="">
-											</div>
-											На модерации
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-								</div>
-								<div class="not-found-channels">
-									<div class="not-found-channels__img">
-										<picture><source srcset="{% static 'img/owner-cabinet/bg.webp' %}" type="image/webp"><img class="img-flud" src="{% static 'img/owner-cabinet/bg.png' %}" alt=""></picture>
-									</div>
-                                    {% if number == 0 %}
-									<div class="not-found-channels__title">Каналов нет</div>
-									<p class="not-found-channels__text text text_s20">
-										Вы еще не добавили ни одного канала
-									</p>
-                                    {% endif %}
-									<a href="{% url 'create' %}"><button class="button button_gradient" type="button">Добавить канал</button></a>
-								</div>
-							</div>
-                            <div class="tabs__body">
-								<div class="owner-cabinet__nav">
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title _active">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/1.svg' %}" alt="">
-												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/1-fill.svg' %}" alt="">
-											</div>
-											Все
-										</button>
-										<div class="owner-cabinet__nav-count">{{count}}</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/2.svg' %}" alt="">
-												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/2-fill.svg' %}" alt="">
-											</div>
-											Активные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/3.svg' %}" alt="">
-												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/3-fill.svg' %}" alt="">
-											</div>
-											Неактивные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/4.svg' %}" alt="">
-												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/4-fill.svg' %}" alt="">
-											</div>
-											На модерации
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-								</div>
-								<div class="table-wrap">
-									<table class="table table_w">
-										<thead>
-											<tr>
-												<th scope="col"></th>
-												<th scope="col">
-													<div class="label-white label-white_s16">Комментарий</div>
-												</th>
-												<th>
-													<div class="label-white label-white_s16">Публикация</div>
-												</th>
-												<th>
-													<div class="label-white label-white_s16">Цена</div>
-												</th>
-												<th>
+      <main class="page">
+        <section class="owner-cabinet">
+            <div class="owner-cabinet__container">
+                <div data-tabs class="tabs">
+                    <div class="tabs-row">
+                        <nav data-tabs-titles class="tabs-navigation">
+                            <button type="button" class="tabs-navigation__title _tab-active">Мои заказы</button>
+                            <button type="button" class="tabs-navigation__title">Партнерская программа</button>
+                            <button type="button" class="tabs-navigation__title">Настройка сделок</button>
+                            <button type="button" class="tabs-navigation__title">Платежные данные</button>
+                            <button type="button" class="tabs-navigation__title">История заказов</button>
+                            <button type="button" class="tabs-navigation__title">Помощь</button>
+                        </nav>
+                        <div class="tabs-row__item">
+                            <select name="currency" id="currency" data-class-modif="custom-select">
+                                <option value="1" selected>По дате</option>
+                                <option value="2">По кол-ву заявок</option>
+                                <option value="3">По кол-ву заявок</option>
+                                <option value="4">По кол-ву заявок</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div data-tabs-body class="tabs__content">
+                        <div class="tabs__body">
+                            <div class="owner-cabinet__nav">
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title _active">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/1.svg' %}" alt="">
+                                            <img class="fill img-fluid" src="{% static 'img/owner-cabinet/1-fill.svg' %}" alt="">
+                                        </div>
+                                        Все
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">{{count }}</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="{% static 'img/cabinet-rek/clock.svg' %}" alt="">
+                                            <img class="fill img-fluid" src="{% static 'img/cabinet-rek/clock.svg' %}" alt="">
+                                        </div>
+                                        Ожидает
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">{{aprove_owner}}</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="{% static 'img/cabinet-rek/time-machine.svg' %}"
+                                                 alt="">
+                                            <img class="fill img-fluid" src="{% static 'img/cabinet-rek/time-machine.svg' %}" alt="">
+                                        </div>
+                                        В работе
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">{{aprove_admin}}</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="{% static 'img/cabinet-rek/ok.svg' %}" alt="">
+                                            <img class="fill img-fluid" src="{% static 'img/cabinet-rek/ok.svg' %}" alt="">
+                                        </div>
+                                        Завершен
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">{{completed}}</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="{% static 'img/cabinet-rek/archive-folder.svg' %}"
+                                                 alt="">
+                                            <img class="fill img-fluid" src="{% static 'img/cabinet-rek/archive-folder2.svg' %}"
+                                                 alt="">
+                                        </div>
+                                        Черновики
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="{% static 'img/cabinet-rek/cancel.svg' %}" alt="">
+                                            <img class="fill img-fluid" src="{% static 'img/cabinet-rek/cancel.svg' %}" alt="">
+                                        </div>
+                                        Отменен
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                            </div>
+                            <div class="table-wrap">
+                                <table class="table table_w">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">
+                                            <div class="label-white label-white_s16">Размещено</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="label-white label-white_s16">Задание</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="label-white label-white_s16">Публикация</div>
+                                        </th>
+                                        <th>
+                                            <div class="label-white label-white_s16">Просмотры</div>
+                                        </th>
+                                        <th>
+                                            <div class="label-white label-white_s16">Цена</div>
+                                        </th>
+                                        <th>
 
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-                                       {% for item in order %}
-											<tr>
-												<td class="table-row" scope="row">
-													<div class="table-row__head table-row__head_center">
-														<a href="#" target="_blank" class="table-row__img">
-															<picture><source srcset="/{{item.chanel.pictures}}" type="image/webp"><img class="img-fluid" src="/{{item.chanel.pictures}}" alt=""></picture>
-														</a>
-														<div class="table-row__content">
-															<div class="table-row__content">
-																<a href="#" target="_blank" class="label-dark-blue label-dark-blue_s20 hhv-green"> {{item.chanel.name}}</a>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="table-row">
-													<button type="button" data-popup="#comment{{item.id}}" class="label-dark label-dark_s16 label-underline hhv-green">Cмотреть</button>
-												</td>
-												<td class="table-row">
-													<a href="{{item.chanel.chanel_link}}" target="_blank" class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel.chanel_link}}</a>
-												</td>
-												<td class="table-row">
-													<div class="label-dark-green label-dark-green_fw700 label-dark_s20">
-                                                         {{item.format.cost_per_format}} UAH</div>
-												</td>
-												<td class="table-row">
-													 {% if item.status == "WT" %}
-													<a href="{% url 'update' item.pk %}" target="_blank" class="button button_sm button_no-bg" type="button">Одобрить</a>
-													 {% else %}
-													<a href="{% url 'update' item.pk %}" target="_blank" class="button button_sm button_no-bg" type="button">Одобрено</a>
-													{% endif %}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in chanel %}
+                                    <tr>
+                                        <td class="table-row" scope="row">
+                                            <div class="table-row__head table-row__head_center">
+                                                <a href="#" target="_blank" class="table-row__img">
+                                                    <picture>
+                                                        <source srcset="/{{item.chanel.pictures}}" type="image/webp">
+                                                        <img class="img-fluid" src="/{{item.chanel.pictures}}" alt=""></picture>
+                                                </a>
+                                                <div class="table-row__content">
+                                                    <div class="table-row__content">
+                                                        <a href="#" target="_blank"
+                                                           class="label-dark-blue label-dark-blue_s20 hhv-green">{{item.chanel.name}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="table-row">
+                                            <p
+                                                    class="label-dark label-dark_s16 label-underline hhv-green">{{item.order_data}}
+                                            </p>
+                                        </td>
+                                        <td class="table-row">
+                                            <button type="button" data-popup="#comment{{item.id}}"
+                                                    class="label-dark label-dark_s16 label-underline hhv-green">Cмотреть
+                                            </button>
+                                        </td>
+                                        <td class="table-row">
+                                            <a href="https://telegra.ph/TZ...." target="_blank"
+                                               class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel.chanel_link }}</a>
+                                        </td>
+                                        <td class="table-row">
+                                            <div class="label-dark-green label-dark-green_fw700 label-dark_s20">0
+                                            </div>
+                                        </td>
+                                        <td class="table-row">
+                                            <div class="label-dark-green label-dark-green_fw700 label-dark_s20">{{item.format.cost_per_format}}
+                                                UAH
+                                            </div>
+                                        </td>
+                                        <td class="table-row">
+                                            <a href="{% url 'updateads' item.pk %}" target="_blank" class="button button_sm button_no-bg"
+                                               type="button">Оставить отзыв</a>
+                                            <p class="label-dark label-dark_s16 label-underline hhv-green" style="margin-top: 0.5rem">
+                                                Повторить
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
 
-												</td>
-											</tr>
+                                    </tbody>
 
-                                        {% endfor %}
-										</tbody>
-									</table>
-								</div>
-							</div>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tabs__body">
+                            <div class="owner-cabinet__nav">
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title _active">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
+                                        </div>
+                                        Все
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
+                                        </div>
+                                        Активные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
+                                        </div>
+                                        Неактивные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
+                                        </div>
+                                        На модерации
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                            </div>
+                            <div class="not-found-channels">
+                                <div class="not-found-channels__img">
+                                    <picture>
+                                        <source srcset="img/owner-cabinet/bg.webp" type="image/webp">
+                                        <img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
+                                </div>
+                                <div class="not-found-channels__title">Каналов нет</div>
+                                <p class="not-found-channels__text text text_s20">
+                                    Вы еще не добавили ни одного канала
+                                </p>
+                                <button class="button button_gradient" type="button">Добавить канал</button>
+                            </div>
+                        </div>
+                        <div class="tabs__body">
+                            <div class="owner-cabinet__nav">
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title _active">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
+                                        </div>
+                                        Все
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
+                                        </div>
+                                        Активные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
+                                        </div>
+                                        Неактивные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
+                                        </div>
+                                        На модерации
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                            </div>
+                            <div class="not-found-channels">
+                                <div class="not-found-channels__img">
+                                    <picture>
+                                        <source srcset="img/owner-cabinet/bg.webp" type="image/webp">
+                                        <img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
+                                </div>
+                                <div class="not-found-channels__title">Каналов нет</div>
+                                <p class="not-found-channels__text text text_s20">
+                                    Вы еще не добавили ни одного канала
+                                </p>
+                                <button class="button button_gradient" type="button">Добавить канал</button>
+                            </div>
+                        </div>
+                        <div class="tabs__body">
+                            <div class="owner-cabinet__nav">
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title _active">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
+                                        </div>
+                                        Все
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
+                                        </div>
+                                        Активные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
+                                        </div>
+                                        Неактивные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
+                                        </div>
+                                        На модерации
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                            </div>
+                            <div class="not-found-channels">
+                                <div class="not-found-channels__img">
+                                    <picture>
+                                        <source srcset="img/owner-cabinet/bg.webp" type="image/webp">
+                                        <img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
+                                </div>
+                                <div class="not-found-channels__title">Каналов нет</div>
+                                <p class="not-found-channels__text text text_s20">
+                                    Вы еще не добавили ни одного канала
+                                </p>
+                                <button class="button button_gradient" type="button">Добавить канал</button>
+                            </div>
+                        </div>
+                        <div class="tabs__body">
+                            <div class="owner-cabinet__nav">
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title _active">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
+                                        </div>
+                                        Все
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
+                                        </div>
+                                        Активные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
+                                        </div>
+                                        Неактивные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
+                                        </div>
+                                        На модерации
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                            </div>
+                            <div class="not-found-channels">
+                                <div class="not-found-channels__img">
+                                    <picture>
+                                        <source srcset="img/owner-cabinet/bg.webp" type="image/webp">
+                                        <img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
+                                </div>
+                                <div class="not-found-channels__title">Каналов нет</div>
+                                <p class="not-found-channels__text text text_s20">
+                                    Вы еще не добавили ни одного канала
+                                </p>
+                                <button class="button button_gradient" type="button">Добавить канал</button>
+                            </div>
+                        </div>
+                        <div class="tabs__body">
+                            <div class="owner-cabinet__nav">
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title _active">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
+                                        </div>
+                                        Все
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
+                                        </div>
+                                        Активные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
+                                        </div>
+                                        Неактивные
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                                <div class="owner-cabinet__nav-item">
+                                    <button type="button" id="like" class="owner-cabinet__nav-title">
+                                        <div class="table-row__btn" type="button">
+                                            <img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
+                                            <img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
+                                        </div>
+                                        На модерации
+                                    </button>
+                                    <div class="owner-cabinet__nav-count">0</div>
+                                </div>
+                            </div>
+                            <div class="not-found-channels">
+                                <div class="not-found-channels__img">
+                                    <picture>
+                                        <source srcset="img/owner-cabinet/bg.webp" type="image/webp">
+                                        <img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
+                                </div>
+                                <div class="not-found-channels__title">Каналов нет</div>
+                                <p class="not-found-channels__text text text_s20">
+                                    Вы еще не добавили ни одного канала
+                                </p>
+                                <button class="button button_gradient" type="button">Добавить канал</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-							<div class="tabs__body">
-								<div class="owner-cabinet__nav">
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title _active">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
-											</div>
-											Все
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
-											</div>
-											Активные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
-											</div>
-											Неактивные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
-											</div>
-											На модерации
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-								</div>
-								<div class="not-found-channels">
-									<div class="not-found-channels__img">
-										<picture><source srcset="img/owner-cabinet/bg.webp" type="image/webp"><img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
-									</div>
-									<div class="not-found-channels__title">Каналов нет</div>
-									<p class="not-found-channels__text text text_s20">
-										Вы еще не добавили ни одного канала
-									</p>
-									<button class="button button_gradient" type="button">Добавить канал</button>
-								</div>
-							</div>
-							<div class="tabs__body">
-								<div class="owner-cabinet__nav">
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title _active">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
-											</div>
-											Все
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
-											</div>
-											Активные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
-											</div>
-											Неактивные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
-											</div>
-											На модерации
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-								</div>
-								<div class="not-found-channels">
-									<div class="not-found-channels__img">
-										<picture><source srcset="img/owner-cabinet/bg.webp" type="image/webp"><img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
-									</div>
-									<div class="not-found-channels__title">Каналов нет</div>
-									<p class="not-found-channels__text text text_s20">
-										Вы еще не добавили ни одного канала
-									</p>
-									<button class="button button_gradient" type="button">Добавить канал</button>
-								</div>
-							</div>
-							<div class="tabs__body">
-								<div class="owner-cabinet__nav">
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title _active">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
-											</div>
-											Все
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
-											</div>
-											Активные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
-											</div>
-											Неактивные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
-											</div>
-											На модерации
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-								</div>
-								<div class="not-found-channels">
-									<div class="not-found-channels__img">
-										<picture><source srcset="img/owner-cabinet/bg.webp" type="image/webp"><img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
-									</div>
-									<div class="not-found-channels__title">Каналов нет</div>
-									<p class="not-found-channels__text text text_s20">
-										Вы еще не добавили ни одного канала
-									</p>
-									<button class="button button_gradient" type="button">Добавить канал</button>
-								</div>
-							</div>
-							<div class="tabs__body">
-								<div class="owner-cabinet__nav">
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title _active">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/1.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/1-fill.svg" alt="">
-											</div>
-											Все
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/2.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/2-fill.svg" alt="">
-											</div>
-											Активные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
-											</div>
-											Неактивные
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-									<div class="owner-cabinet__nav-item">
-										<button type="button" id="like" class="owner-cabinet__nav-title">
-											<div class="table-row__btn" type="button">
-												<img class="not-fill img-fluid" src="img/owner-cabinet/4.svg" alt="">
-												<img class="fill img-fluid" src="img/owner-cabinet/4-fill.svg" alt="">
-											</div>
-											На модерации
-										</button>
-										<div class="owner-cabinet__nav-count">0</div>
-									</div>
-								</div>
-								<div class="not-found-channels">
-									<div class="not-found-channels__img">
-										<picture><source srcset="img/owner-cabinet/bg.webp" type="image/webp"><img class="img-flud" src="img/owner-cabinet/bg.png" alt=""></picture>
-									</div>
-									<div class="not-found-channels__title">Каналов нет</div>
-									<p class="not-found-channels__text text text_s20">
-										Вы еще не добавили ни одного канала
-									</p>
-									<button class="button button_gradient" type="button">Добавить канал</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		</main>
-
-{% for item in order %}
+{% for item in chanel %}
 <div id="comment{{item.id}}" aria-hidden="true" class="popup popup-chat popup-comment">
 		<div class="popup__wrapper">
 			<div class="popup__content">
