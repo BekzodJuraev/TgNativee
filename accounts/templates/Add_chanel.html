@@ -1,31 +1,40 @@
-
+{% extends 'base.html' %}
 {% load static %}
-{% block header %}
-<body class="page__body">
-<div class="add-container">
 
-{% endblock %}
 {% block content %}
-    <main class="main">
-        <div class="add">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                    <form method="post" action="{% url 'create' %}">
-                        {% csrf_token %}
+   <main class="page">
+        <section class="auth-form">
+            <div class="auth-form__container">
+                <form  method="post" class="auth-form__form">
+                    {% csrf_token %}
+                    <h1 class="title title_center">Добавить</h1>
+                    {{ cost_format_formset.management_form }}
+                    <div class="auth-form__item">
                         {{form.chanel_link}}
-                           <br>
+                    </div>
+                    <div class="auth-form__item">
                         {{form.description}}
-                           <br>
+                    </div>
+
+                    <div class="auth-form__item">
                         {{form.category}}
-                          {{ cost_format_formset.management_form }}
+                    </div>
+
+                     <div class="auth-form__item">
+                         {{ cost_format_formset.management_form }}
                          {% for form in cost_format_formset %}
                              {{ form.as_p }}
                           {% endfor %}
 
-                        <button class="btn-reset button__custom">Добавить</button>
-                    </form>
-                    </div></div></div></div></main></div>
+                    </div>
+
+                    <div class="auth-form__form-bottom">
+                        <button class="button" type="submit">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
 
 
     {% endblock %}
