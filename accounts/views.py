@@ -113,11 +113,12 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
         context['chanel'] = Chanel.objects.filter(username=self.request.user)
         context['number'] = Chanel.objects.filter(username=self.request.user).count()
         try:
-            chanel_instances = Chanel.objects.filter(username=self.request.user)
-            context['order'] = Add_Reklama.objects.filter(chanel__in=chanel_instances,aprove=True)
-            context['count'] = Add_Reklama.objects.filter(chanel__in=chanel_instances).count()
-            context['aprove_owner']=Add_Reklama.objects.filter(chanel__in=chanel_instances,aprove=False).count()
-            context['aprove_admin']=Add_Reklama.objects.filter(chanel__in=chanel_instances,aprove=True,status="DN").count()
+            context['order'] = Add_Reklama.objects.filter(chanel__username=self.request.user,aprove=True)
+            context['count'] = Add_Reklama.objects.filter(chanel__username=self.request.user).count()
+            context['aprove_owner']=Add_Reklama.objects.filter(chanel__username=self.request.user,aprove=False).count()
+            context['aprove_admin']=Add_Reklama.objects.filter(chanel__username=self.request.user,aprove=True,status="DN").count()
+
+
             context['form']=Add_ReklamaStatus
             # Now you can use chanel_instance in your queries or operations.
         except Chanel.DoesNotExist:

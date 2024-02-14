@@ -69,6 +69,8 @@ class Add_ReklamaStatus(forms.ModelForm):
         fields = ['status']
 
 
+
+
 class AddChanelForm(forms.ModelForm):
     chanel_link=forms.CharField(max_length=63,label="Линк",widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': 'Добавить ссылку'}))
     category = forms.ModelChoiceField(
