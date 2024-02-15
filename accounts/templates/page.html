@@ -201,7 +201,7 @@
 								</div>
 								<div class="item-subs-analitics__row-inline-item">
 									<div class="label-dark label-dark_s20">За последние 24ч</div>
-									<div class="label-blue label-blue_s20 label-blue_fw400">34500</div>
+									<div class="label-blue label-blue_s20 label-blue_fw400">{{object.views}}</div>
 								</div>
 							</div>
 						</div>
@@ -224,7 +224,7 @@
 						<div class="channel__item item-channel-chart">
 							<h3 class="label-white label-white_s20">Статистика просмотров</h3>
 							<div class="item-channel-chart__chart">
-								<canvas id="chart1"></canvas>
+								<canvas id="chart2"></canvas>
 							</div>
 						</div>
 					</div>
@@ -236,8 +236,28 @@
 
 <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script>
+$(document).ready(function() {
+    if ($("#chart2").length) {
+        var ctx = $("#chart2")[0].getContext("2d");
+        var views={{object.views}};
+
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["Views", "Views", "Views", "Views", "Views"],
+                datasets: [{
+                    label: "",
+                    data: [0,views],
+                    fill: true,
+                    backgroundColor: ["#00EFA2"]
+                }]
+            }
+        });
+    }
+});
 
     $(document).ready(function () {
+
         $('#button').click(function (event) {
             event.preventDefault();
 
