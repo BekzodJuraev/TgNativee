@@ -79,7 +79,13 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user)
+        order_data = self.request.GET.get('order_data')
+        print(order_data)
+        if order_data == 'order_data':
+            context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user).order_by(
+                'order_data')
+        else:
+            context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user)
         context['count'] = Add_Reklama.objects.filter(user_order__username=self.request.user).count()
         context['aprove_owner'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=False).count()
         context['aprove_admin'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
@@ -110,10 +116,16 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        order_data=self.request.GET.get('order_data')
+
         context['chanel'] = Chanel.objects.filter(username=self.request.user)
         context['number'] = Chanel.objects.filter(username=self.request.user).count()
         try:
-            context['order'] = Add_Reklama.objects.filter(chanel__username=self.request.user,aprove=True)
+            if order_data == 'order_data':
+                context['order'] = Add_Reklama.objects.filter(chanel__username=self.request.user, aprove=True).order_by(
+                    'order_data')
+            else:
+                context['order'] = Add_Reklama.objects.filter(chanel__username=self.request.user, aprove=True)
             context['count'] = Add_Reklama.objects.filter(chanel__username=self.request.user).count()
             context['aprove_owner']=Add_Reklama.objects.filter(chanel__username=self.request.user,aprove=False).count()
             context['aprove_admin']=Add_Reklama.objects.filter(chanel__username=self.request.user,aprove=True,status="DN").count()

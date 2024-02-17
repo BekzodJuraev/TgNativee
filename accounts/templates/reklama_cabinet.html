@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+
       <main class="page">
         <section class="owner-cabinet">
             <div class="owner-cabinet__container">
@@ -16,12 +17,10 @@
                             <button type="button" class="tabs-navigation__title">Помощь</button>
                         </nav>
                         <div class="tabs-row__item">
-                            <select name="currency" id="currency" data-class-modif="custom-select">
-                                <option value="1" selected>По дате</option>
-                                <option value="2">По кол-ву заявок</option>
-                                <option value="3">По кол-ву заявок</option>
-                                <option value="4">По кол-ву заявок</option>
-                            </select>
+                          <select name="order_data" id="date_select" data-class-modif="custom-select">
+                            <option value="alpha" selected>По алфавиту</option>
+                            <option value="order_data">По дате</option>
+                        </select>
                         </div>
                     </div>
                     <div data-tabs-body class="tabs__content">
@@ -197,8 +196,8 @@
                                 <div class="owner-cabinet__nav-item">
                                     <button type="button" id="like" class="owner-cabinet__nav-title">
                                         <div class="table-row__btn" type="button">
-                                            <img class="not-fill img-fluid" src="img/owner-cabinet/3.svg" alt="">
-                                            <img class="fill img-fluid" src="img/owner-cabinet/3-fill.svg" alt="">
+                                            <img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/3.svg' %}" alt="">
+                                            <img class="fill img-fluid" src="{% static 'img/owner-cabinet/3-fill.svg' %}" alt="">
                                         </div>
                                         Неактивные
                                     </button>
@@ -483,5 +482,21 @@
 		</div>
 	</div>
 {% endfor %}
+<script>
+    $(document).ready(function() {
+        // Listen for the change event on the select element
+        $('#date_select').on('change', function() {
+            // Get the selected value
+            var selectedValue = $(this).val();
 
-    {% endblock %}
+            // Update the URL with the selected value
+            if (selectedValue === 'order_data') {
+                var currentUrl = window.location.href.split('?')[0];
+                var newUrl = currentUrl + '?order_data=order_data';
+                window.location.href = newUrl;
+            }
+        });
+    });
+</script>
+
+{% endblock %}
