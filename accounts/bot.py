@@ -82,7 +82,7 @@ async def update(client):
     session=aiohttp.ClientSession()
     while True:
         print("Enter")
-        async with session.get('https://f6c3-94-141-68-116.ngrok-free.app/api/') as resp:
+        async with session.get('https://ebc7-84-54-70-98.ngrok-free.app/api/') as resp:
             data = await resp.json()
             #print(data)
             for i in data:
@@ -101,7 +101,7 @@ async def update(client):
                     'views': send_view
                 }
 
-                await session.post('https://f6c3-94-141-68-116.ngrok-free.app/api/', data=payload)
+                await session.post('https://ebc7-84-54-70-98.ngrok-free.app/api/', data=payload)
                 print(payload)
             await asyncio.sleep(60)
 

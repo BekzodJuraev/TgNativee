@@ -15,9 +15,20 @@
 								<button type="button" class="tabs-navigation__title">Помощь</button>
 							</nav>
 							<div class="tabs-row__item">
-								 <select name="order_data" id="date_select" data-class-modif="custom-select">
+								  {% if request.GET.order_data == 'order_data' %}
+                             <select  id="date_select" name="order_data" data-class-modif="custom-select">
+
+                                 <option value="order_data" selected>По дате</option>
+
+                                 <option value="alpha" >По алфавиту</option>
+
+                        </select>
+                          {% else %}
+                            <select  id="date_select" name="order_data" data-class-modif="custom-select">
                             <option value="alpha" selected>По алфавиту</option>
                             <option value="order_data">По дате</option>
+                        </select>
+                            {% endif %}
                         </select>
 							</div>
 						</div>
@@ -79,6 +90,8 @@
                                     {% endif %}
 									<a href="{% url 'create' %}"><button class="button button_gradient" type="button">Добавить канал</button></a>
 								</div>
+
+								{% if number != 0 %}
 								<div class="table-wrap">
 									<table class="table table_w">
 										<thead>
@@ -131,6 +144,7 @@
 										</tbody>
 									</table>
 								</div>
+							   {% endif %}
 							</div>
 
                             <div class="tabs__body">
@@ -176,6 +190,7 @@
 										<div class="owner-cabinet__nav-count">{{aprove_owner}}</div>
 									</div>
 								</div>
+								{% if count != 0 %}
 								<div class="table-wrap">
 									<table class="table table_w">
 										<thead>
@@ -235,6 +250,7 @@
 										</tbody>
 									</table>
 								</div>
+								{% endif %}
 							</div>
 
 
@@ -446,6 +462,31 @@
 	</div>
 {% endfor %}
 
+<script>
 
+
+    $(document).ready(function() {
+
+
+      var imgElement = document.getElementById("img");
+      imgElement.src = "{% static 'img/icons/arrow-down-pink.svg' %}";
+
+        // Listen for the change event on the select element
+             $('select[name="order_data"]').on('change', function() {
+            // Get the selected value
+            var selectedValue = $(this).val();
+
+            // Update the URL with the selected value
+            if (selectedValue === 'order_data') {
+                alert('hello');
+
+                // Example: Redirect to a new URL
+                var currentUrl = window.location.href.split('?')[0];
+                var newUrl = currentUrl + '?order_data=order_data';
+                window.location.href = newUrl;
+            }
+        });
+    });
+</script>
 
     {% endblock %}
