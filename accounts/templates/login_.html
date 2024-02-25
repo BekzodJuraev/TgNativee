@@ -8,7 +8,7 @@
 					<form method="post" class="auth-form__form">
                         {% csrf_token %}
 						<input type="hidden" name="next" value="{{ request.GET.next }}">
-						<h1 class="title title_center">Вход</h1>
+						<h1 class="title title_center">Входу</h1>
 						<div class="auth-form__radios">
                             {% for radio in form.order %}
 							<div class="auth-form__radios-item">
@@ -34,24 +34,24 @@
                             </div>
                         {% endif %}
 							<a href="https://collaborator.pro/ua/privacy-policy" class="auth-form__policy hhv-blue">
-								Соглашение об использовании персональных данных
+								Угода про використання персональних даних
 							</a>
 							<div class="checkbox">
 								<input id="remember" checked data-error="Ошибка" class="checkbox__input" type="checkbox" value="1" name="remember">
 								<label for="remember" class="checkbox__label">
-									<span class="checkbox__text">Запомнить меня</span>
+									<span class="checkbox__text">Запам'ятати мене</span>
 								</label>
 							</div>
 						</div>
 						<div class="auth-form__form-bottom">
-							<button class="button button_sm button_no-bg" type="submit">Войти на сайт</button>
+							<button class="button button_sm button_no-bg" type="submit">Увійти на сайт</button>
 							<div class="auth-form__actions">
-								<a href="{% url 'register' %}" class="auth-form__action hhv-blue">Зарегистрироваться</a>
-								<a href="{% url 'password_reset' %}" class="auth-form__action hhv-blue">Забыли пароль?</a>
+								<a href="{% url 'register' %}" class="auth-form__action hhv-blue">Зареєструватися</a>
+								<a href="{% url 'password_reset' %}" class="auth-form__action hhv-blue">Забули пароль?</a>
 							</div>
 						</div>
 						<div class="auth-form__bottom">
-						<div class="label-white label-white_s16 label-white_fw700" style="color: #008e8b;">или продолжить с</div>
+						<div class="label-white label-white_s16 label-white_fw700" style="color: #008e8b;">або продовжити з</div>
 						<div class="place-ad__btns">
 							<button class="button button_sm button_no-bg" type="button">
 								<picture><source srcset="{% static 'img/place-ad/tg.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/tg.png' %}" alt=""></picture>

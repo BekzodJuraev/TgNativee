@@ -2,34 +2,33 @@
 {% load static %}
 
 {% block content %}
-
       <main class="page">
         <section class="owner-cabinet">
             <div class="owner-cabinet__container">
                 <div data-tabs class="tabs">
                     <div class="tabs-row">
                         <nav data-tabs-titles class="tabs-navigation">
-                            <button type="button" class="tabs-navigation__title _tab-active">Мои заказы</button>
-                            <button type="button" class="tabs-navigation__title">Партнерская программа</button>
-                            <button type="button" class="tabs-navigation__title">Настройка сделок</button>
-                            <button type="button" class="tabs-navigation__title">Платежные данные</button>
-                            <button type="button" class="tabs-navigation__title">История заказов</button>
-                            <button type="button" class="tabs-navigation__title">Помощь</button>
+                            <button type="button" class="tabs-navigation__title _tab-active">Мої замовлення</button>
+                            <button type="button" class="tabs-navigation__title">Партнерська програма</button>
+                            <button type="button" class="tabs-navigation__title">Налаштування угод</button>
+                            <button type="button" class="tabs-navigation__title">Платіжні дані</button>
+                            <button type="button" class="tabs-navigation__title">Історія замовлень</button>
+                            <button type="button" class="tabs-navigation__title">Допомога</button>
                         </nav>
 
                         <div class="tabs-row__item">
                             {% if request.GET.order_data == 'order_data' %}
                              <select  id="date_select" name="order_data" data-class-modif="custom-select">
 
-                                 <option value="order_data" selected>По дате</option>
+                                 <option value="order_data" selected>За датою</option>
 
-                                 <option value="alpha" >По алфавиту</option>
+                                 <option value="alpha" >За алфавітом</option>
 
                         </select>
                           {% else %}
                             <select  id="date_select" name="order_data" data-class-modif="custom-select">
-                            <option value="alpha" selected>По алфавиту</option>
-                            <option value="order_data">По дате</option>
+                            <option value="alpha" selected>За алфавітом</option>
+                            <option value="order_data">За датою</option>
                         </select>
                             {% endif %}
 
@@ -55,7 +54,7 @@
                                             <img class="not-fill img-fluid" src="{% static 'img/cabinet-rek/clock.svg' %}" alt="">
                                             <img class="fill img-fluid" src="{% static 'img/cabinet-rek/clock.svg' %}" alt="">
                                         </div>
-                                        Ожидает
+                                        Очікувавши
                                     </button>
                                     <div class="owner-cabinet__nav-count">{{aprove_owner}}</div>
                                 </div>
@@ -66,7 +65,7 @@
                                                  alt="">
                                             <img class="fill img-fluid" src="{% static 'img/cabinet-rek/time-machine.svg' %}" alt="">
                                         </div>
-                                        В работе
+                                       В роботі
                                     </button>
                                     <div class="owner-cabinet__nav-count">{{aprove_admin}}</div>
                                 </div>
@@ -76,7 +75,7 @@
                                             <img class="not-fill img-fluid" src="{% static 'img/cabinet-rek/ok.svg' %}" alt="">
                                             <img class="fill img-fluid" src="{% static 'img/cabinet-rek/ok.svg' %}" alt="">
                                         </div>
-                                        Завершен
+                                        Завершений
                                     </button>
                                     <div class="owner-cabinet__nav-count">{{completed}}</div>
                                 </div>
@@ -88,7 +87,7 @@
                                             <img class="fill img-fluid" src="{% static 'img/cabinet-rek/archive-folder2.svg' %}"
                                                  alt="">
                                         </div>
-                                        Черновики
+                                        Чернетка
                                     </button>
                                     <div class="owner-cabinet__nav-count">0</div>
                                 </div>
@@ -98,7 +97,7 @@
                                             <img class="not-fill img-fluid" src="{% static 'img/cabinet-rek/cancel.svg' %}" alt="">
                                             <img class="fill img-fluid" src="{% static 'img/cabinet-rek/cancel.svg' %}" alt="">
                                         </div>
-                                        Отменен
+                                        Відмінний
                                     </button>
                                     <div class="owner-cabinet__nav-count">0</div>
                                 </div>
@@ -110,9 +109,9 @@
 										<picture><source srcset="{% static 'img/owner-cabinet/bg.webp' %}" type="image/webp"><img class="img-flud" src="{% static 'img/owner-cabinet/bg.png' %}" alt=""></picture>
 									</div>
 
-									<div class="not-found-channels__title">Заявок нет</div>
+									<div class="not-found-channels__title">Заявок немає</div>
 									<p class="not-found-channels__text text">
-                                        У вас еще нет ни одной заявки на размещение
+                                       У вас ще немає жодної заявки на розміщення
 									</p>
                                    <a href="{% url 'category-list' %}"><button class="button button_gradient" type="button">Разместить рекламу</button></a>
 								</div>
@@ -140,19 +139,19 @@
                                     <tr>
                                         <th scope="col"></th>
                                         <th scope="col">
-                                            <div class="label-white label-white_s16">Размещено</div>
+                                            <div class="label-white label-white_s16">Розміщений</div>
                                         </th>
                                         <th scope="col">
-                                            <div class="label-white label-white_s16">Задание</div>
+                                            <div class="label-white label-white_s16">Завдання</div>
                                         </th>
                                         <th scope="col">
-                                            <div class="label-white label-white_s16">Публикация</div>
+                                            <div class="label-white label-white_s16">Публікація</div>
                                         </th>
                                         <th>
-                                            <div class="label-white label-white_s16">Просмотры</div>
+                                            <div class="label-white label-white_s16">Перегляд</div>
                                         </th>
                                         <th>
-                                            <div class="label-white label-white_s16">Цена</div>
+                                            <div class="label-white label-white_s16">Ціна</div>
                                         </th>
                                         <th>
 
@@ -202,9 +201,9 @@
                                         </td>
                                         <td class="table-row">
                                             <a href="{% url 'updateads' item.pk %}" target="_blank" class="button button_sm button_no-bg"
-                                               type="button">Дополнить пост</a>
+                                               type="button">Доповнити пост</a>
                                             <p class="label-dark label-dark_s16 label-underline hhv-green" style="margin-top: 0.5rem">
-                                                Повторить
+                                                Повторивши
                                             </p>
                                         </td>
                                     </tr>

@@ -8,7 +8,7 @@ import telegram
 import asyncio
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.contrib.auth.models import User
-from .bot import BOT_TOKEN,bot_telegram,Client, message_handler, update,run_userbot
+
 from .tasks import send_telegram_message,process_user_bot,add_chanel
 timezone_from_settings = timezone.get_current_timezone()
 from datetime import timedelta

@@ -8,7 +8,7 @@
 				<div class="auth-form__container">
 					<form action="{% url 'register' %}" method="post" class="auth-form__form">
 						    {% csrf_token %}
-						<h1 class="title title_center">Регистрация</h1>
+						<h1 class="title title_center">Реєстрація</h1>
 
 
 
@@ -59,13 +59,13 @@
 						</div>
 
 						<div class="auth-form__form-bottom">
-							<button class="button" type="submit">Завершить регистрацию</button>
+							<button class="button" type="submit">Завершити реєстрацію</button>
 							<div class="auth-form__text">
-								Уже есть аккаунт? <a href="sing-in.html" class="hhv-green">Войти</a>
+								Вже є рахунок? <a href="sing-in.html" class="hhv-green">Увійти</a>
 							</div>
 						</div>
                         <div class="auth-form__bottom">
-						<div class="label-white label-white_s16 label-white_fw700" style="color: #008e8b;">или продолжить с</div>
+						<div class="label-white label-white_s16 label-white_fw700" style="color: #008e8b;">або продовжити з</div>
 						<div class="place-ad__btns">
 							<button class="button button_sm button_no-bg" type="button">
 								<picture><source srcset="{% static 'img/place-ad/tg.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/tg.png' %}" alt=""></picture>

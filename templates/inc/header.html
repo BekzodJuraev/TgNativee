@@ -11,17 +11,17 @@
 				</div>
 				<div class="header__column">
 					<div class="header__menu">
-						<a href="{% url 'about' %}" class="header__link hhv-green ">О платформе</a>
-						<a href="{% url 'category-list' %}" class="header__link hhv-green ">Каталог каналов</a>
+						<a href="{% url 'about' %}" class="header__link hhv-green ">Про платформу</a>
+						<a href="{% url 'category-list' %}" class="header__link hhv-green ">Каталог каналів</a>
 					</div>
 					<div class="header__btns">
 						{% url 'register' as register %}
                 		{% if request.path == register %}
 						{% else %}
-						<a href="{% url 'register' %}" class="header__btn button button_no-bg button_sm">Регистрация</a>
+						<a href="{% url 'register' %}" class="header__btn button button_no-bg button_sm">Реєстрація</a>
 						{% endif %}
 						<a href="{% url 'login' %}" class="button button_sm">
-							Войти
+							Увійти
 							<img src="{% static 'img/icons/login.svg' %}" alt="">
 						</a>
 					</div>
@@ -33,24 +33,24 @@
 							<div class="dropdown-header__item">
 								<span>
 									<a href="{% url 'login' %}" data-da=".dropdown-header__item span,767.98" type="button">
-										Войти
+										Увійти
 										<img src="{% static 'img/icons/login-blue.svg' %}" alt="">
 									</a>
 								</span>
 								<img src="{% static 'img/icons/arrow-right.svg' %}" class="arrow" alt="">
 							</div>
 							<a href="{% url 'register' %}" class="dropdown-header__item {% if request.path == '/register/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
-								<span>Регистрация</span>
+								<span>Реєстрація</span>
 								<img src="{% static 'img/icons/arrow-right.svg' %}" class="arrow" alt="">
 							</a>
 							<a href="{% url 'about' %}" class="dropdown-header__item {% if request.path == '/about/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
 								<span>
-									О платформе
+									Про платформу
 								</span>
 							</a>
 							<a href="{% url 'category-list' %}" class="dropdown-header__item {% if request.path == '/category-list/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
 								<span>
-									Каталог каналов
+									Каталог каналів
 								</span>
 							</a>
 							<a href="{% url 'login' %}" class="dropdown-header__item">
@@ -60,7 +60,7 @@
 							</a>
 							<a href="{% url 'login' %}" class="dropdown-header__item">
 								<span>
-									Мои каналы
+									Мої канали
 								</span>
 							</a>
 							<a href="{% url 'faq'%}" class="dropdown-header__item {% if request.path == '/faq/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
@@ -70,7 +70,7 @@
 							</a>
 							<a href="{% url 'main' %}" class="dropdown-header__item">
 								<span>
-									Вернуться на главную
+									Повернутися на головну
 								</span>
 							</a>
 						</div>

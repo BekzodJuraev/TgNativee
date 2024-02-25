@@ -8,9 +8,9 @@
     <main class="page">
 			<section class="catalog-mainscreen">
 				<div class="catalog-mainscreen__container container">
-					<h1 class="title title_center">Каталог Telegram - каналов</h1>
+					<h1 class="title title_center">Каталог Telegram-каналів</h1>
 					<div class="catalog-mainscreen__cat">
-										<div class="label-white">Категории</div>
+										<div class="label-white">Категорія</div>
 										<div class="catalog-mainscreen__cat-lists">
                                                     {% for item in category %}
                                             {% if forloop.counter0|divisibleby:8 %}
@@ -42,10 +42,10 @@
 						<div class="spollers__item">
 							<button type="button" data-spoller class="spollers__title">
 								<span class="label-white label-white_s24">
-									Фильтр
+									Фільтр
 								</span>
 								<span class="label-white label-white_s20">
-									Свернуть
+									Згорнути
 									<img class="arrow" src="{% static 'img/icons/arrow-down.svg' %}" alt="">
 								</span>
 							</button>
@@ -200,7 +200,7 @@
 
 							</div>
 							<div class="search-channels__head-text">
-								Найдено <span>{{ lists }}</span> каналов
+								Знайдено <span>{{ lists }}</span> каналiв
 							</div>
 						</div>
 					</div>
@@ -209,18 +209,18 @@
 							<thead>
 								<tr>
 									<th scope="col">
-										<div class="label-white label-white_s16">Название</div>
+										<div class="label-white label-white_s16">Назва</div>
 									</th>
 									<th scope="col">
 										<div class="label-white label-white_s16">Тематика</div>
 									</th>
 									<th>
-										<div class="label-white label-white_s16">Подписчики</div>
+										<div class="label-white label-white_s16">Передплатники</div>
 									</th>
 									<th>
 										<div class="d-flex">
 											<img src="img/icons/eye.svg" alt="">
-											<div class="label-white label-white_s16">Просмотры</div>
+											<div class="label-white label-white_s16">Перегляди</div>
 										</div>
 									</th>
 									<th>

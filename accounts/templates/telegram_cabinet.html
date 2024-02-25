@@ -8,25 +8,25 @@
 					<div data-tabs class="tabs">
 						<div class="tabs-row">
 							<nav data-tabs-titles class="tabs-navigation">
-								<button type="button" class="tabs-navigation__title _tab-active">Мои каналы</button>
-								<button type="button" class="tabs-navigation__title">Заявки на размещение</button>
+								<button type="button" class="tabs-navigation__title _tab-active">Мої канали</button>
+								<button type="button" class="tabs-navigation__title">Заявки на розміщення</button>
 
-								<button type="button" class="tabs-navigation__title">Финансы</button>
-								<button type="button" class="tabs-navigation__title">Помощь</button>
+								<button type="button" class="tabs-navigation__title">Фінанси</button>
+								<button type="button" class="tabs-navigation__title">Допомога</button>
 							</nav>
 							<div class="tabs-row__item">
 								  {% if request.GET.order_data == 'order_data' %}
                              <select  id="date_select" name="order_data" data-class-modif="custom-select">
 
-                                 <option value="order_data" selected>По дате</option>
+                                 <option value="order_data" selected>За датою</option>
 
-                                 <option value="alpha" >По алфавиту</option>
+                                 <option value="alpha" >За алфавітом</option>
 
                         </select>
                           {% else %}
                             <select  id="date_select" name="order_data" data-class-modif="custom-select">
-                            <option value="alpha" selected>По алфавиту</option>
-                            <option value="order_data">По дате</option>
+                            <option value="alpha" selected>За алфавітом</option>
+                            <option value="order_data">За датою</option>
                         </select>
                             {% endif %}
                         </select>
@@ -53,7 +53,7 @@
 												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/2.svg' %}" alt="">
 												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/2-fill.svg' %}" alt="">
 											</div>
-											Активные
+											Активні
 										</button>
 										<div class="owner-cabinet__nav-count">0</div>
 									</div>
@@ -63,7 +63,7 @@
 												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/3.svg' %}" alt="">
 												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/3-fill.svg' %}" alt="">
 											</div>
-											Неактивные
+											Неактивні
 										</button>
 										<div class="owner-cabinet__nav-count">0</div>
 									</div>
@@ -73,7 +73,7 @@
 												<img class="not-fill img-fluid" src="{% static 'img/owner-cabinet/4.svg' %}" alt="">
 												<img class="fill img-fluid" src="{% static 'img/owner-cabinet/4-fill.svg' %}" alt="">
 											</div>
-											На модерации
+											На модерації
 										</button>
 										<div class="owner-cabinet__nav-count">0</div>
 									</div>
@@ -83,12 +83,12 @@
 										<picture><source srcset="{% static 'img/owner-cabinet/bg.webp' %}" type="image/webp"><img class="img-flud" src="{% static 'img/owner-cabinet/bg.png' %}" alt=""></picture>
 									</div>
                                     {% if number == 0 %}
-									<div class="not-found-channels__title">Каналов нет</div>
+									<div class="not-found-channels__title">Каналів немає</div>
 									<p class="not-found-channels__text text text_s20">
-										Вы еще не добавили ни одного канала
+										Ви ще не додали жодного каналу
 									</p>
                                     {% endif %}
-									<a href="{% url 'create' %}"><button class="button button_gradient" type="button">Добавить канал</button></a>
+									<a href="{% url 'create' %}"><button class="button button_gradient" type="button">Додати канал</button></a>
 								</div>
 
 								{% if number != 0 %}
@@ -98,13 +98,13 @@
 											<tr>
 												<th scope="col"></th>
 												<th scope="col">
-													<div class="label-white label-white_s16">ПОДПИСЧИКИ</div>
+													<div class="label-white label-white_s16">Передплатники</div>
 												</th>
 												<th>
-													<div class="label-white label-white_s16">ЛИНК</div>
+													<div class="label-white label-white_s16">Посилання</div>
 												</th>
 												<th>
-													<div class="label-white label-white_s16">ОХВАТ</div>
+													<div class="label-white label-white_s16">Охоплення</div>
 												</th>
 												<th>
 

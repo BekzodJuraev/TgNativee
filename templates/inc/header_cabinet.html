@@ -10,8 +10,8 @@
 				</div>
 				<div class="header__column">
 					<div class="header__menu">
-						<a href="{% url 'about' %}" class="header__link hhv-green ">О платформе</a>
-						<a href="{% url 'category-list' %}" class="header__link hhv-green ">Каталог каналов</a>
+						<a href="{% url 'about' %}" class="header__link hhv-green ">Про платформу</a>
+						<a href="{% url 'category-list' %}" class="header__link hhv-green ">Каталог каналів</a>
 						<a href="{% url 'faq' %}" class="header__link hhv-green ">FAQ</a>
 					</div>
 					<div data-dropdown class="header__dropdown dropdown-header dropdown-header_sm">
@@ -20,11 +20,11 @@
 							<img src="{% static 'img/icons/triangle.svg' %}" class="arrow" alt="">
 						</button>
 						<div class="dropdown-header__list dropdown-header__list_sm">
-							<a href="{% url 'balance' %}" class="button">Пополнить баланс</a>
-							<a href="{% url 'balance' %}" class="dropdown-header__link hhv-green">Вывести деньги</a>
-							<a href="{% url 'balance' %}" class="dropdown-header__link hhv-green">История платежа</a>
+							<a href="{% url 'balance' %}" class="button">Поповнити баланс</a>
+							<a href="{% url 'balance' %}" class="dropdown-header__link hhv-green">Вивести гроші/a>
+							<a href="{% url 'balance' %}" class="dropdown-header__link hhv-green">Історія платежу</a>
 							<div class="dropdown-header__row">
-								<div class="dropdown-header__text">Заморожено</div>
+								<div class="dropdown-header__text">Заморожений</div>
 								<div class="dropdown-header__price">0.00 UAH</div>
 							</div>
 						</div>
@@ -60,29 +60,29 @@
 						<div class="dropdown-header__list dropdown-header__list_main">
 							<a href="{% url 'logout' %}" class="dropdown-header__item dropdown-header">
 								<span>
-									Выйти
+									Вийти
 								</span>
 							</a>
 							<a href="{% url 'about' %}" class="dropdown-header__item {% if request.path == '/about/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
 								<span>
-									О платформе
+									Про платформу
 								</span>
 							</a>
 						  	<a href="{% url 'category-list' %}" class="dropdown-header__item {% if request.path == '/category-list/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
 
 								<span>
-									Каталог каналов
+									Каталог каналів
 								</span>
 							</a>
 							<a href="{% url 'list-chanel' %}" class="dropdown-header__item {% if request.path == '/list-chanel/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
 								<span>
-									Избранные каналы
+									Вибрані канали
 								</span>
 							</a>
 							   {% if pages %}
 							<a href="{% url 'logging' %}" class="dropdown-header__item {% if request.path == '/logging/' %}dropdown-header__item dropdown-header__item_active{% endif %}">
 								<span>
-									Мои каналы
+									Мої канали
 								</span>
 							</a>
 							{% else %}
@@ -100,7 +100,7 @@
 							</a>
 							<a href="{% url 'main' %}}" class="dropdown-header__item">
 								<span>
-									Вернуться на главную
+									Повернутися на головну
 								</span>
 							</a>
 						</div>

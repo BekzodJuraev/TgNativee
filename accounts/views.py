@@ -80,7 +80,6 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         order_data = self.request.GET.get('order_data')
-        print(order_data)
         if order_data == 'order_data':
             context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user).order_by(
                 'order_data')
@@ -333,6 +332,17 @@ class CreateAds(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('login_reklama')
     login_url = reverse_lazy('login')
     context_object_name = "item"
+
+    def dispatch(self, request, *args, **kwargs):
+        # Get the instance of Add_Reklama
+        instance = self.get_object()
+
+        # Check if the current user is the owner of the ad
+        if request.user != instance.user_order.username:
+            # If not, you can redirect to a 403 Forbidden page or handle it as you wish
+            return self.handle_no_permission()
+
+        return super().dispatch(request, *args, **kwargs)
 
 class DeleteAds(LoginRequiredMixin,DeleteView):
     model = Add_Reklama

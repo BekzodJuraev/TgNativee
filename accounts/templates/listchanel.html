@@ -6,38 +6,33 @@
    <main class="page">
 			<section class="channels-lists">
 				<div class="channels-lists__container container">
-					<h2 class="title">Сохраненное</h2>
+					<h2 class="title">Обраний</h2>
 
 						<div data-tabs-body class="tabs__content">
 							<div class="tabs__body">
-								<form action="#" method="post" class="channels-lists__form">
-									<input class="channels-lists__input" type="text" name="name" id="name" placeholder="Название">
-									<button class="button" type="submit">Создать список</button>
-								</form>
+
 								<div class="table-wrap">
 									<table class="table table_sm">
 										<thead>
 											<tr>
 												<th scope="col">
 													<div class="label-date label-date_sm label-grey label-grey_s16">
-														Название
+														Назва
 														<img src="{% static 'img/icons/triangle.svg' %}" alt="">
 													</div>
 												</th>
 												<th scope="col">
-													<div class="label-grey label-grey_s16">Каналы</div>
+													<div class="label-grey label-grey_s16">Канали</div>
 												</th>
 												<th>
-													<div class="label-grey label-grey_s16">Дата обновления</div>
+													<div class="label-grey label-grey_s16">Дата додавання</div>
 												</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
 												<td class="table-row" scope="row">
-													<div class="table-row__head">
-														<a class="label-white label-white_s20 hhv-green" href="#">Выбранное</a>
-													</div>
+
 												</td>
 												<td class="table-row">
 													<div class="label-dark-green label-dark-green_s24">{{count}}</div>
@@ -45,7 +40,7 @@
 												<td class="table-row">
 													<div class="label-date">
 														<span>{{ last_update.created_at}}</span>
-														
+
 													</div>
 												</td>
 											</tr>
@@ -54,9 +49,7 @@
 									</table>
 								</div>
 							</div>
-							<div class="tabs__body">
-								Содержимое второго таба
-							</div>
+
 						</div>
 					</div>
 				</div>
