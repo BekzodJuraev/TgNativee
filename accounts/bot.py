@@ -25,32 +25,46 @@ clients = {}  # Dictionary to store multiple Pyrogram clients
 
 
 async def update(client):
-    session=aiohttp.ClientSession()
-    while True:
-        print("Enter")
-        await waiting()
-        async with session.get('https://ab9e-94-141-68-116.ngrok-free.app/api/') as resp:
-            data = await resp.json()
-            #print(data)
-            for i in data:
-                channel_link = i['chanel_link']
-                channel_username = channel_link.split('/')[-1]
-                chat = await client.get_chat("@" + channel_username)
-                total_view =  client.get_chat_history("@" + channel_username, limit=5)
-                send_view = 0
-                async for views in total_view:
-                    if views.views:
-                        send_view += views.views
-                payload = {
-                    'name': chat.title,
-                    'subscribers': chat.members_count,
-                    'chanel_link': channel_link,
-                    'views': send_view
-                }
+    session = aiohttp.ClientSession()
 
-                await session.post('https://ab9e-94-141-68-116.ngrok-free.app/api/', data=payload)
-                print(payload)
+    while True:
+        try:
+            #print("Enter")
+            await waiting()
+
+            async with session.get('http://194.163.187.72/api/') as resp:
+                data = await resp.json()
+
+                for i in data:
+                    channel_link = i['chanel_link']
+                    channel_username = channel_link.split('/')[-1]
+
+                    try:
+                        chat = await client.get_chat("@" + channel_username)
+                        total_view = client.get_chat_history("@" + channel_username, limit=5)
+
+                        send_view = 0
+                        async for views in total_view:
+                            if views.views:
+                                send_view += views.views
+
+                        payload = {
+                            'name': chat.title,
+                            'subscribers': chat.members_count,
+                            'chanel_link': channel_link,
+                            'views': send_view
+                        }
+
+                        await session.post('http://194.163.187.72/api/', data=payload)
+                        #print(payload)
+
+                    except Exception as e:
+                        print(f"Error processing channel {channel_link}: {e}")
+
             await asyncio.sleep(60)
+
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
 
 
@@ -81,11 +95,11 @@ async def initialize_clients():
 
 
         clients[userbot.id] = client
-        print('userbot_added')
+        #print('userbot_added')
 
 async def remove_inactive_clients():
     while True:
-        print('hi')
+        #print('hi')
         active_userbot_ids = [userbot.id for userbot in await get_userbots()]
 
         # Remove clients that are no longer in the database

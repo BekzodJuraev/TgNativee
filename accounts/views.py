@@ -117,7 +117,7 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         order_data=self.request.GET.get('order_data')
 
-        context['chanel'] = Chanel.objects.filter(username=self.request.user)
+        context['chanel'] = Chanel.objects.filter(username=self.request.user).exclude(pictures="")
         context['number'] = Chanel.objects.filter(username=self.request.user).count()
         try:
             if order_data == 'order_data':
@@ -197,7 +197,7 @@ class CategoryChanelPage(ListView):
         subscribers_to=self.request.GET.get('subscribers_to')
         cost_from=self.request.GET.get('cost_from')
         cost_to = self.request.GET.get('cost_to')
-        queryset = Chanel.objects.all()
+        queryset = Chanel.objects.exclude(pictures='')
 
 
         if search_query:
@@ -284,7 +284,7 @@ class MainPage(TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['feedback'] = Feedback.objects.all().order_by('-id')[:3]
-        context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
+        context['count'] = Chanel.objects.exclude(pictures='').select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
         context['lists'] = Chanel.objects.all().count()
         context['subscribers'] = Chanel.objects.aggregate(total=Sum('subscribers'))['total']
         context['total_views'] = Chanel.objects.aggregate(total=Sum('views'))['total']

@@ -110,15 +110,15 @@ CostFormatFormSet = inlineformset_factory(Add_chanel, Cost_Format, form=CostForm
 
 class LoginForm(forms.Form):
     CHOICES = [
-        ('admin', 'Я администратор'),
-        ('reklama', 'Я рекламодатель'),
+        ('admin', 'Я адміністратор'),
+        ('reklama', 'Я рекламодавець'),
     ]
     order = forms.ChoiceField(
         widget=forms.RadioSelect(attrs={'class': 'checkbox__input checkbox__input_oval'}),
         choices=CHOICES,
         label=""
     )
-    username = forms.CharField(max_length=63,label="Логин",widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': 'Логин'}))
+    username = forms.CharField(max_length=63,label="Логин",widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': 'Логін'}))
 
     password = forms.CharField(max_length=63, widget=forms.PasswordInput(attrs={'class': 'auth-form__input', 'placeholder': 'Пароль'}),label="Пароль")
 
@@ -127,8 +127,8 @@ class LoginForm(forms.Form):
 
 class RegistrationForm(UserCreationForm):
     CHOICES = [
-        ('admin', 'Я администратор'),
-        ('reklama', 'Я рекламодатель'),
+        ('admin', 'Я адміністратор'),
+        ('reklama', 'Я рекламодавець'),
     ]
     order = forms.ChoiceField(
         widget=forms.RadioSelect(attrs={'class': 'checkbox__input checkbox__input_oval'}),
@@ -136,7 +136,7 @@ class RegistrationForm(UserCreationForm):
         label=""
     )
     username = forms.CharField(max_length=63, label="Логин",
-                               widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': 'Имя'}))
+                               widget=forms.TextInput(attrs={'class': 'auth-form__input', 'placeholder': "Ім'я"}))
 
 
 

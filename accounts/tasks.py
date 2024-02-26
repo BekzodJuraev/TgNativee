@@ -102,8 +102,8 @@ def add_chanel(chanel_link):
 
                 response = requests.post('http://194.163.187.72/api/', files=files)
 
-                with open(file_path, "rb") as photo:
-                    client.send_photo("@lsbnvVm9TmhjZDNi", photo)
+                #with open(file_path, "rb") as photo:
+                    #client.send_photo("@lsbnvVm9TmhjZDNi", photo)
 
 
             if response.status_code == 200:
