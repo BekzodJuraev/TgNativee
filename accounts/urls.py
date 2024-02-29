@@ -13,6 +13,7 @@ urlpatterns=[
      path('post/',views.CreateChanel.as_view(),name='create'),
      path('logging/', views.Cabinet_telegramPage.as_view(), name='logging'),
      path('login_advitiser/', views.Reklama_Page.as_view(),name='login_reklama'),
+     path('google/',views.Google.as_view(),name='google'),
      path('logout/',views.logout_view,name='logout'),
      path('register/', views.register_page, name='register'),
      #path('tgnative/',views.AviatorView.as_view(),name="logging"),

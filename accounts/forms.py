@@ -180,3 +180,13 @@ class RegistrationForm(UserCreationForm):
 
 
 
+class GoogleForm(forms.Form):
+    CHOICES = [
+        ('admin', 'Я адміністратор'),
+        ('reklama', 'Я рекламодавець'),
+    ]
+    order = forms.ChoiceField(
+        widget=forms.RadioSelect(attrs={'class': 'checkbox__input checkbox__input_oval'}),
+        choices=CHOICES,
+        label=""
+    )

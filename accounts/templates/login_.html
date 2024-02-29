@@ -57,10 +57,10 @@
 								<picture><source srcset="{% static 'img/place-ad/tg.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/tg.png' %}" alt=""></picture>
 								Telegram
 							</button>
-							<button class="button button_sm button_no-bg" type="button">
+							<a href="{% url 'social:begin' 'google-oauth2' %}"><button class="button button_sm button_no-bg" type="button">
 								<picture><source srcset="{% static 'img/place-ad/google.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/google.png' %}" alt=""></picture>
 								Google
-							</button>
+							</button></a>
 						</div>
 					</div>
 

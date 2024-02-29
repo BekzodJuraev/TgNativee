@@ -39,12 +39,27 @@ def user_logged_out_handler(sender, request, user, **kwargs):
 @receiver(post_save,sender=User)
 def create_profile_for_user(sender,instance,created,*args,**kwargs):
     if created:
-        order = getattr(instance, 'order', 'reklama')  # Get 'order' attribute or default to 'reklama'
+        if hasattr(instance, 'order'):
+            order = getattr(instance, 'order')
+            if order == 'admin':
+                Profile.objects.create(
+                    username=instance,
+                    first_name=instance.username,
+                    last_name=instance.last_name,
+                    email=instance.email,
+                    phone_number=instance.phone_number
+                )
+            elif order == 'reklama':
+                Profile_advertiser.objects.create(
+                    username=instance,
+                    first_name=instance.username,
+                    last_name=instance.last_name,
+                    email=instance.email,
+                    phone_number=instance.phone_number
+                )
 
-        if order == 'admin':
-            Profile.objects.create(username=instance, first_name=instance.username, last_name=instance.last_name,email=instance.email,phone_number=instance.phone_number)
-        elif order == 'reklama':
-            Profile_advertiser.objects.create(username=instance, first_name=instance.username, last_name=instance.last_name,email=instance.email,phone_number=instance.phone_number)
+        # Get 'order' attribute or default to 'reklama'
+
 @receiver(post_save,sender=Add_chanel)
 def create_chanel(sender,instance,created,*args,**kwargs):
     if created:
