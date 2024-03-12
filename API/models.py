@@ -40,29 +40,7 @@ class Chanel(models.Model):
                 else:
                     self.weekly_monthy = 0
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         super().save(*args, **kwargs)
-
-
-
-
-
-
-
-
-
 
 
 

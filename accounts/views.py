@@ -203,8 +203,10 @@ class Page_List(DetailView):
         channel_name = self.object.name  # Assuming 'name' is the field in Chanel model
         comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(comment__isnull=True)
         er=(self.object.subscribers/self.object.views)*10
+        er_daily=(self.object.daily_subscribers/self.object.views)*10
 
         context['er']=round(er,1)
+        context['er_daily']=round(er_daily,1)
 
 
 

@@ -53,10 +53,11 @@
 						<div class="auth-form__bottom">
 						<div class="label-white label-white_s16 label-white_fw700" style="color: #008e8b;">або продовжити з</div>
 						<div class="place-ad__btns">
+							<a href="'social:begin' 'telegram'">
 							<button class="button button_sm button_no-bg" type="button">
 								<picture><source srcset="{% static 'img/place-ad/tg.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/tg.png' %}" alt=""></picture>
 								Telegram
-							</button>
+							</button></a>
 							<a href="{% url 'social:begin' 'google-oauth2' %}"><button class="button button_sm button_no-bg" type="button">
 								<picture><source srcset="{% static 'img/place-ad/google.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/google.png' %}" alt=""></picture>
 								Google
