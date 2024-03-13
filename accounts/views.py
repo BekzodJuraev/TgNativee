@@ -241,6 +241,7 @@ class CategoryChanelPage(ListView):
         subscribers_to=self.request.GET.get('subscribers_to')
         cost_from=self.request.GET.get('cost_from')
         cost_to = self.request.GET.get('cost_to')
+        description=self.request.GET.get('search-desc')
         queryset = Chanel.objects.exclude(pictures='')
 
 
@@ -252,6 +253,9 @@ class CategoryChanelPage(ListView):
 
         if chanel_name:
             queryset = queryset.filter(name__icontains=chanel_name)
+
+        if description:
+            queryset=queryset.filter(add_chanel__description__icontains=description)
 
             # If no search parameters are provided, return all objects
 

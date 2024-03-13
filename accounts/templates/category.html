@@ -57,17 +57,17 @@
 
 
 											<div class="search-form__item">
-												<label for="search-link" class="label-white">Ссылка:</label>
-												<input type="text" id="search-link" name="chanel_link" placeholder="https://telemetr.me/channels/" class="form__input">
+												<label for="search-link" class="label-white">Посилання:</label>
+												<input type="text" id="search-link" name="chanel_link" placeholder="https://t.me/example" class="form__input">
 											</div>
 											<div class="search-form__item">
-												<label for="search-name" class="label-white">Название канала:</label>
+												<label for="search-name" class="label-white">Назва каналу:</label>
 												<input type="text" id="search-name" name="chanel_name" placeholder="взлом маркетинга" class="form__input">
 											</div>
 										</div>
 										<div class="search-form__column">
 											<div class="search-form__item">
-												<label for="price-from" class="label-white">Цена:</label>
+												<label for="price-from" class="label-white">Ціна:</label>
 												<div class="search-form__item-content">
 													<label for="price-from" class="label-white">От</label>
 													<input type="number" id="cost_from" name="price-from" placeholder="1000" class="form__input">
@@ -76,7 +76,7 @@
 												</div>
 											</div>
 											<div class="search-form__item">
-												<label for="form-subs-from" class="label-white">Подписчиков:</label>
+												<label for="form-subs-from" class="label-white">Пiдписники:</label>
 												<div class="search-form__item-content">
 													<label for="orm-subs-from" class="label-white">От</label>
 													<input type="number" id="form-subs-from" name="subscribers_from" placeholder="1000" class="form__input">
@@ -85,7 +85,7 @@
 												</div>
 											</div>
 											<div class="search-form__item">
-												<label for="views-from" class="label-white">Просмотров на пост:</label>
+												<label for="views-from" class="label-white">Переглядів на пост:</label>
 												<div class="search-form__item-content">
 													<label for="views-from" class="label-white">От</label>
 													<input type="number" id="views-from" name="views_from" placeholder="1000" class="form__input">
@@ -93,22 +93,14 @@
 													<input type="number" id="views-to" name="views_to" placeholder="1000" class="form__input">
 												</div>
 											</div>
-											<div class="search-form__item">
-												<label for="engagement-from" class="label-white">Вовлеченность:</label>
-												<div class="search-form__item-content">
-													<label for="engagement-from" class="label-white">От</label>
-													<input type="number" id="engagement-from"  placeholder="1000" class="form__input">
-													<label for="engagement-to" class="label-white">До</label>
-													<input type="number" id="engagement-to"  placeholder="1000" class="form__input">
-												</div>
-											</div>
+
 										</div>
 										<div class="search-form__column">
 											<div data-spollers class="spollers">
 												<div class="spollers__item">
-													<button type="button" data-spoller class="spollers__title">
+													<button type="button" data-spoller class="spollers__title _spoller-active">
 														<span class="label-white label-white_s20">
-															Дополнительные поля
+															Додаткові поля
 															<img class="arrow" src="img/icons/arrow-down.svg" alt="">
 														</span>
 													</button>
@@ -116,42 +108,22 @@
 														<div class="search-form__sub-body search-form__column">
 															<div class="search-form__item search-form__item_select">
 																<div class="search-form__item-content">
-																	<div class="search-form__item search-form__item_select">
-																		<label for="channel-type" class="label-white">Тип канала:</label>
-																		<select name="channel-type" id="channel-type" data-class-modif="custom-select">
-																			<option value="1" selected>Не важно</option>
-																			<option value="2">Не важно 1</option>
-																			<option value="3">Не важно 2</option>
-																			<option value="4">Не важно 3</option>
-																		</select>
-																	</div>
-																	<div class="search-form__item search-form__item_range search-form__item_select">
-																		<label for="channel-type" class="label-white">Соотношение полов, %</label>
-																		<input type="range" value="50" min="0" max="100" step="1" class="progress">
-																		<div class="progress__row">
-																			<div id="man" class="progress__item">
-																				М <span class="label-dark-green">50</span>
-																			</div>
-																			<div id="woman" class="progress__item">
-																				Ж <span class="label-dark-green">50</span>
-																			</div>
-																		</div>
-																	</div>
+
 																</div>
 															</div>
 															<div class="search-form__item search-form__item_select">
 																<div class="search-form__item-content">
 																	<div class="search-form__item">
-																		<label for="verification" class="label-white">Формат размещения:</label>
+																		<label for="verification" class="label-white">Формат розміщення:</label>
 																		<select name="verification" id="verification" data-class-modif="custom-select">
-																			<option value="1" selected>Нативный</option>
+																			<option value="1" selected>Нативний</option>
 																			<option value="2">Нативный 1</option>
 																			<option value="3">Нативный 2</option>
 																			<option value="4">Нативный 3</option>
 																		</select>
 																	</div>
 																	<div class="search-form__item">
-																		<label for="verification" class="label-white">Верификация:</label>
+																		<label for="verification" class="label-white">Верифікація:</label>
 																		<select name="verification" id="verification" data-class-modif="custom-select">
 																			<option value="1" selected>Не важно</option>
 																			<option value="2">Не важно 1</option>
@@ -162,7 +134,7 @@
 																</div>
 															</div>
 															<div class="search-form__item">
-																<label for="search-desc" class="label-white">Описание:</label>
+																<label for="search-desc" class="label-white">Опис:</label>
 																<input type="text" id="search-desc" name="search-desc" placeholder="маркетинг" class="form__input">
 															</div>
 														</div>
@@ -172,7 +144,7 @@
 										</div>
 									</div>
 									<div class="catalog-mainscreen__bottom">
-										<button class="button button_no-bg button_sm" type="submit">Найти каналы</button>
+										<button class="button button_no-bg button_sm" type="submit">Знайти канали</button>
 									</div>
 								</form>
 							</div>
@@ -274,7 +246,7 @@
 										<div class="label-dark label-dark_s20">{{last_cost_format.placement_format}}</div>
 									</td>
 									<td class="table-row">
-										<a href="{% url 'page' item.pk %}" target="_blank" class="label-dark-green hhv-blue label-underline label-dark-green_s24" type="button">Подробнее</a>
+										<a href="{% url 'page' item.pk %}" target="_blank" class="label-dark-green hhv-blue label-underline label-dark-green_s24" type="button">Детальніше</a>
 									</td>
 								</tr>
 							 {% endwith %}
