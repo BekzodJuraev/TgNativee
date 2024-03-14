@@ -59,11 +59,21 @@
 					</div>
 				</div>
 			</section>
+
 			<section class="faq-form">
 				<div class="faq-form__container container">
 					<h2 class="label-white label-white_s36">Не нашли то что искали? Задайте вопрос</h2>
-					<form action="#" method="post" class="form-faq squire">
-						<textarea class="form-faq__textarea" id="question" name="question" placeholder="Вопрос"></textarea>
+					<form  method="post" class="form-faq squire" id="form">
+
+						{% csrf_token %}
+						{{form.question}}
+							{% if messages %}
+					   {% for message in messages %}
+
+							   <p style="color:green">{{message}}</p>
+							{% endfor %}
+
+					{% endif %}
 						<div class="form-faq__actions">
 							<button class="button button_sm" type="submit">Отправить</button>
 

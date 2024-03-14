@@ -1,5 +1,5 @@
 from django import forms
-from .models import Add_chanel,Cost_Format,Add_Reklama,Category_chanels,Profile_advertiser,Profile
+from .models import Add_chanel,Cost_Format,Add_Reklama,Category_chanels,Profile_advertiser,Profile,Faq_Question
 from django.contrib.auth.models import User
 from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm
@@ -7,6 +7,11 @@ from django.forms.models import inlineformset_factory
 from phonenumber_field.formfields import PhoneNumberField
 import pytz
 
+class FormFAQ(forms.ModelForm):
+    question=forms.CharField(widget=forms.Textarea(attrs={'class': 'form-faq__textarea', 'placeholder': 'Вопрос'}))
+    class Meta:
+        model=Faq_Question
+        fields = ['question']
 
 class BaseUpdateForm(forms.ModelForm):
     email = forms.EmailField(max_length=63, label="Логин",
@@ -18,14 +23,11 @@ class BaseUpdateForm(forms.ModelForm):
         required=False,
         widget=forms.FileInput(attrs={'id': 'photoInput', 'style': 'display: none;'})
     )
-    timezone = forms.ChoiceField(
-        choices=[(tz, tz) for tz in pytz.all_timezones],
-        widget=forms.Select(attrs={'placeholder': 'Часовой пояс', 'id': 'time', 'data-class-modif': 'custom-select'})
-    )
+
 
 
     class Meta:
-        fields = ['email', 'phone_number', 'photo','timezone']
+        fields = ['email', 'phone_number', 'photo']
 
 
 class Update_Profile(BaseUpdateForm):

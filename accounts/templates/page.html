@@ -11,10 +11,12 @@
 				<div class="channel__container">
 					<div class="channel__col channel__col_1">
 						<div class="channel__item item-channel-main squire">
+							 {% if request.user.is_authenticated %}
 							<button id="like" class="icon-heart _active" type="button">
 								<img class="not-fill img-fluid" src="{% static 'img/catalog/like.svg' %}" alt="">
 								<img class="fill img-fluid" src="{% static 'img/catalog/like-fill.svg' %}" alt="">
 							</button>
+							{% endif %}
 							<div class="item-channel-main__head">
 								<div class="item-channel-main__img">
 									<picture><source srcset="/{{object.pictures}}" type="image/webp"><img class="img-fluid" src="/{{object.pictures}}" alt=""></picture>
@@ -26,7 +28,7 @@
 									</a>
 									<div data-da=".item-channel-main__descr,480.98,first" class="item-channel-main__info">
 										<div class="item-channel-main__info-item">Категория: <span>{{object.add_chanel.category}}</span></div>
-										<div class="item-channel-main__info-item">Язык: <span>Язык</span></div>
+										<!--<div class="item-channel-main__info-item">Язык: <span>Язык</span></div> -->
 									</div>
 									<div data-da=".item-channel-main__descr,480.98,first" class="item-channel-main__stars">
 										<img src="{% static 'img/channel/star.svg' %}" alt="">
@@ -110,14 +112,24 @@
                         {% endif %}
                         {% endif %}
                         <div data-da=".channel__col_2,992.98" class="channel__item item-channel-reviews">
+							{% if comments %}
 							<h3 class="label-blue label-blue_s24 label-blue_fw400">Отзывы</h3>
+							{% endif %}
 							<div data-showmore="items" class="item-channel-reviews__showmore">
 
 								<ul data-showmore-content="3" class="item-channel-reviews__content">
                                     {% for item in category %}
 									<li data-gap="10" class="item-channel-reviews__item squire">
 										<div class="item-channel-reviews__avatar">
+											{% if item.user_order.photo %}
 											<picture><source srcset="/{{item.user_order.photo}}" type="image/webp"><img class="img-fluid" src="/{{item.user_order.photo}}" alt=""></picture>
+											{% else %}
+
+											<picture><source srcset="{% static 'img/channel/avatar-not-found.png' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/channel/avatar-not-found.png' %}" alt=""></picture>
+
+
+
+											{% endif %}
 										</div>
 										<div class="item-channel-reviews__item-content">
 											<div class="label-dark label-dark_s16"> {{item.user_order.first_name}}</div>
@@ -136,16 +148,7 @@
 												<img src="{% static 'img/channel/star.svg' %}" alt="">
 												<img src="{% static 'img/channel/star.svg' %}" alt="">
 											</div>
-											<div class="item-channel-reviews__actions">
-												<div class="item-channel-reviews__action">
-													<img src="{% static 'img/channel/like.svg' %}" alt="">
-													<span>0</span>
-												</div>
-												<div class="item-channel-reviews__action">
-													<img src="{% static 'img/channel/dislike.svg' %}" alt="">
-													<span>0</span>
-												</div>
-											</div>
+
 										</div>
 									</li>
 
@@ -214,12 +217,9 @@
 								</div>
 								<div class="item-subs-analitics__row-inline-item">
 									<div class="label-dark label-dark_s20">Суточный</div>
-									<div class="label-blue label-blue_s24 label-blue_fw400">0%</div>
+									<div class="label-blue label-blue_s24 label-blue_fw400">{{er_daily}}%</div>
 								</div>
-								<div class="item-subs-analitics__row-inline-item">
-									<div class="label-dark label-dark_s20">Упоминаний в ТГ</div>
-									<div class="label-blue label-blue_s24 label-blue_fw400">177/62</div>
-								</div>
+
 							</div>
 						</div>
 						<div class="channel__item item-channel-chart">

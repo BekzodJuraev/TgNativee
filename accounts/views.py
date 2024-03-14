@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
-import telegram
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.utils import timezone
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from datetime import date
@@ -11,9 +12,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, Update_Profile, Update_Reklama,GoogleForm
+from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, Update_Profile, Update_Reklama,GoogleForm,FormFAQ
 from API.models import Chanel, Feedback, Add_Sponsors,FAQ
-from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format,Like,Message
+from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format,Like,Message,Faq_Question
 from django.contrib.auth import logout
 from django.views.generic import View,ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView,FormView
 from .models import Message
@@ -196,7 +197,7 @@ class Cabinet_telegramPage(LoginRequiredMixin, TemplateView):
 class Page_List(DetailView):
     template_name = 'page.html'
     model = Chanel
-    login_url = reverse_lazy('login')
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -307,10 +308,24 @@ class ContactPage(TemplateView):
     template_name = 'contact.html'
 
 
-class FaqPage(ListView):
-    model = FAQ
-    context_object_name = 'items'
+class FaqPage(SuccessMessageMixin, CreateView):
+    model = Faq_Question
+    form_class = FormFAQ
     template_name = 'faq.html'
+
+    success_message = "Успешно отправлено"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['items'] = FAQ.objects.all()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('faq') + '#form'
+
+
+
+
 
 
 

@@ -37,7 +37,7 @@
 					{% endif %}
 
 					{% if bell %}
-					<a href="{% url 'logging' %}" class="header__cart">
+					<a href="{% url 'logging' %}#noti" class="header__cart">
 						<img class="img-fluid" src="{% static 'img/icons/bell.svg' %}" alt="">
 						<span>{{number_count}}</span>
 					</a>
@@ -98,7 +98,7 @@
 									FAQ
 								</span>
 							</a>
-							<a href="{% url 'main' %}}" class="dropdown-header__item">
+							<a href="{% url 'main' %}" class="dropdown-header__item">
 								<span>
 									Повернутися на головну
 								</span>

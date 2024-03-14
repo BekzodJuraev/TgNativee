@@ -85,7 +85,12 @@ class Add_chanel(models.Model):
     def __str__(self):
         return self.username.username.username
 
+class Faq_Question(models.Model):
+    question=models.TextField()
+    created_at=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.question
 
 
 class Cost_Format(models.Model):

@@ -121,7 +121,7 @@
 														<div class="table-row__content">
 															<a href="{% url 'page' item.pk  %}" target="_blank" class="label-white hhv-blue">{{item.name}}</a>
 															<a href="{{item.chanel_link}}" class="table-row__name">
-																{{item.chanel_link}}
+																@{{item.chanel_link | cut:'https://t.me/'}}
 															</a>
 														</div>
 													</div>

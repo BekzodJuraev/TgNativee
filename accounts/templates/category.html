@@ -221,9 +221,9 @@
 												<div class="table-row__content">
 													<a href="{% url 'page' item.pk %}" target="_blank" class="label-dark-blue label-dark-blue_s20 hhv-green">{{item.name}}</a>
 													<div class="table-row__btns">
-
+														{% if user.is_authenticated %}
 														<img  class="likeButton" data-chanel-id="{{ item.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
-
+														{% endif %}
 
 													</div>
 												</div>
