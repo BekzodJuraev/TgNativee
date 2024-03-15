@@ -22,7 +22,7 @@
                                               <li class="catalog-mainscreen__cat-item">
 
 												   {% if request.GET.selected_category == item.name %}
-												   <a href="?selected_category={{item.name}}"> <button class="catalog-mainscreen__cat-btn _active" type="button">{{ item.name }}</button></a>
+												   <a href="{% url 'category-list' %}"> <button class="catalog-mainscreen__cat-btn _active" type="button">{{ item.name }}</button></a>
 												  {% else %}
 												  <a href="?selected_category={{item.name}}"> <button class="catalog-mainscreen__cat-btn" type="button">{{ item.name }}</button></a>
 												  {% endif %}
