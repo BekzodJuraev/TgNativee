@@ -232,6 +232,7 @@
 				</div>
 			</section>
 
+
 		</main>
 
 
@@ -240,14 +241,14 @@
 $(document).ready(function() {
     if ($("#chart2").length) {
         var ctx = $("#chart2")[0].getContext("2d");
-        var views = [3, 10, 33, 55, 77, 88, 99];
-        var labels = []; // You need to define your labels here
+        console.log({{dates}});
+        var views = {{ views }};
+        var labels = [1] // You need to define your labels here
+
 
         // Assuming you have some dates as labels, you can use them
         // Replace this with your actual date labels
-        for (var i = 0; i < views.length; i++) {
-            labels.push("Date " + (i + 1));
-        }
+
 
         new Chart(ctx, {
             type: "line",

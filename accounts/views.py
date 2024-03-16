@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+from django.core.cache import cache
+
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -18,6 +20,7 @@ from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Catego
 from django.contrib.auth import logout
 from django.views.generic import View,ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView,FormView
 from .models import Message
+
 
 
 
@@ -205,6 +208,46 @@ class Page_List(DetailView):
         comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(comment__isnull=True)
         er=(self.object.subscribers/self.object.views)*10
         er_daily=(self.object.daily_subscribers/self.object.views)*10
+
+
+        views=cache.get('views',[])
+        daily=cache.get('daily',[])
+        today=cache.get('today',date(1960, 1, 1))
+
+
+
+
+
+        if today.month != date.today().month:
+            views.clear()
+            daily.clear()
+
+        # Check if today's date is different from the stored date
+        if today != date.today():
+            timeout_seconds = 30 * 24 * 60 * 60
+            today = date.today()
+            cache.set('today', today, timeout=timeout_seconds)
+            daily.append(today.strftime("%Y-%m-%d"))
+            views.append(self.object.views)
+            cache.set('views', views, timeout=timeout_seconds)
+            cache.set('daily', daily, timeout=timeout_seconds)
+
+        # Check if the month of today's date is different from the stored date's month
+
+
+
+
+
+
+
+
+
+        print(views)
+        print(daily)
+        context['dates']=daily
+        context['views']=views
+
+
 
         context['er']=round(er,1)
         context['er_daily']=round(er_daily,1)
@@ -544,6 +587,7 @@ class Chat(LoginRequiredMixin,View):
             return JsonResponse({'messages_content': list(messages_content)})
         else:
             return JsonResponse({'error': 'No message_id provided'})
+
 
 
 
