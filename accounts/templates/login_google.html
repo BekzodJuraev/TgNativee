@@ -1,14 +1,61 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+	<title>TGnative</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<!-- <style>body{opacity: 0;}</style> -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap&_v=20240118214023" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css?_v=20240118214023">
 </head>
 <body>
-<form method="post">
-     {% csrf_token %}
-    {{form.order}}
-    <input type="submit" value="Сохранить">
-</form>
+<div class="wrapper">
+    <main class="page">
+			<section class="auth-form">
+				<div class="auth-form__container">
+					<form method="post" class="auth-form__form">
+                        {% csrf_token %}
+						<div class="auth-form__radios">
+                            {% for radio in form.order %}
+							<div class="auth-form__radios-item">
+								<div class="checkbox checkbox_radio">
+									{{ radio.tag }}
+									<label for="{{ radio.id_for_label }}" class="checkbox__label">
+										<span class="auth-form__label">{{ radio.choice_label }}</span>
+									</label>
+								</div>
+							</div>
+						{% endfor %}
+
+						</div>
+						<button class="button button_sm button_no-bg" type="submit">Завершити реєстрацію</button>
+
+					</form>
+
+				</div>
+			</section>
+		</main>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js?"></script>
+	<script src="{% static 'js/app.min.js' %}"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+
+	<script>
+		const inputinputPhone1 = document.querySelector("#phone");
+		window.intlTelInput(inputinputPhone1, {
+			initialCountry: "ua",
+			separateDialCode: true,
+			utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+		});
+	</script>
 </body>
 </html>

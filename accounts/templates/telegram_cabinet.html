@@ -83,18 +83,22 @@
 										<div class="owner-cabinet__nav-count">0</div>
 									</div>
 								</div>
+								 {% if number == 0 %}
 								<div class="not-found-channels">
+
 									<div class="not-found-channels__img">
 										<picture><source srcset="{% static 'img/owner-cabinet/bg.webp' %}" type="image/webp"><img class="img-flud" src="{% static 'img/owner-cabinet/bg.png' %}" alt=""></picture>
 									</div>
-                                    {% if number == 0 %}
+
 									<div class="not-found-channels__title">Каналів немає</div>
 									<p class="not-found-channels__text text text_s20">
 										Ви ще не додали жодного каналу
 									</p>
-                                    {% endif %}
 									<a href="{% url 'create' %}"><button class="button button_gradient" type="button">Додати канал</button></a>
+
+
 								</div>
+								{% endif %}
 
 								{% if number != 0 %}
 								<div class="table-wrap">
@@ -146,10 +150,17 @@
 											</tr>
 
                                         {% endfor %}
+
 										</tbody>
 									</table>
+
 								</div>
+								<div class="not-found-channels">
+								<a href="{% url 'create' %}"><button class="button button_gradient" type="button">Додати канал</button></a></div>
+
 							   {% endif %}
+
+
 							</div>
 
                             <div class="tabs__body" id="second">

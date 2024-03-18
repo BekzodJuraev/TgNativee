@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load mathfilters %}
 {% load static %}
 
     {% block content %}
@@ -8,53 +9,128 @@
 				<div class="channels-lists__container container">
 					<h2 class="title">Обраний</h2>
 
-						<div data-tabs-body class="tabs__content">
-							<div class="tabs__body">
+ 						{% if count > 0 %}
+						<div class="table-wrap">
+						<table class="table table_w">
+							<thead>
+								<tr>
+									<th scope="col">
+										<div class="label-white label-white_s16">Назва</div>
+									</th>
+									<th scope="col">
+										<div class="label-white label-white_s16">Тематика</div>
+									</th>
+									<th>
+										<div class="label-white label-white_s16">Передплатники</div>
+									</th>
+									<th>
+										<div class="d-flex">
+											<img src="img/icons/eye.svg" alt="">
+											<div class="label-white label-white_s16">Перегляди</div>
+										</div>
+									</th>
+									<th>
+										ER
+									</th>
+									<th>
+										Формат
+									</th>
+									<th>
 
-								<div class="table-wrap">
-									<table class="table table_sm">
-										<thead>
-											<tr>
-												<th scope="col">
-													<div class="label-date label-date_sm label-grey label-grey_s16">
-														Назва
-														<img src="{% static 'img/icons/triangle.svg' %}" alt="">
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+							 {% for item in object_list  %}
+
+               				 {% with last_cost_format=item.chanel_name.add_chanel.cost_formats.last %}
+							 {% with er=item.chanel_name.views|div:item.chanel_name.subscribers|mul:100 %}
+								<tr>
+									<td class="table-row" scope="row">
+										<div class="table-row__head">
+											<a href="#" target="_blank" class="table-row__img">
+												<picture><source srcset="/{{ item.chanel_name.pictures }}" type="image/webp"><img class="img-fluid" src="/{{ item.chanel_name.pictures }}" alt=""></picture>
+											</a>
+											<div class="table-row__content">
+												<div class="table-row__content">
+													<a href="{% url 'page' item.chanel_name.pk %}" target="_blank" class="label-dark-blue label-dark-blue_s20 hhv-green">{{item.chanel_name.name}}</a>
+													<div class="table-row__btns">
+														<img  class="likeButton" data-chanel-id="{{ item.chanel_name.id }}" src="{% static 'img/catalog/like-fill.svg' %}" alt="">
+
 													</div>
-												</th>
-												<th scope="col">
-													<div class="label-grey label-grey_s16">Канали</div>
-												</th>
-												<th>
-													<div class="label-grey label-grey_s16">Дата додавання</div>
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="table-row" scope="row">
+												</div>
+											</div>
+										</div>
+									</td>
+									<td class="table-row">
+										<div class="label-dark label-dark_s20">{{item.chanel_name.add_chanel.category}}</div>
+									</td>
+									<td class="table-row">
+										<div class="label-dark-green label-dark-green_s24">{{item.chanel_name.subscribers}}</div>
+									</td>
+									<td class="table-row">
+										<div class="label-dark label-dark_s20">{{item.chanel_name.views}}</div>
+									</td>
+									<td class="table-row">
+										<div class="label-dark label-dark_s20">{{er|floatformat:2 }}%</div>
+									</td>
+									<td class="table-row">
+										<div class="label-dark label-dark_s20">{{last_cost_format.placement_format}}</div>
+									</td>
+									<td class="table-row">
+										<a href="{% url 'page' item.chanel_name.pk %}" target="_blank" class="label-dark-green hhv-blue label-underline label-dark-green_s24" type="button">Детальніше</a>
+									</td>
+								</tr>
+							 {% endwith %}
+               				 {% endwith %}
 
-												</td>
-												<td class="table-row">
-													<div class="label-dark-green label-dark-green_s24">{{count}}</div>
-												</td>
-												<td class="table-row">
-													<div class="label-date">
-														<span>{{ last_update.created_at}}</span>
 
-													</div>
-												</td>
-											</tr>
 
-										</tbody>
-									</table>
-								</div>
-							</div>
+							 {% endfor %}
 
-						</div>
+							</tbody>
+						</table>
+					</div>
+						{% endif %}
+
+
+
+
 					</div>
 				</div>
 			</section>
 		</main>
 
+<script>
+    $(".likeButton").click(function() {
+        var chanelId = $(this).data("chanel-id");
+        var csrfToken = "{{ csrf_token }}";  // Include your CSRF token here
+        // Toggle between favorite.png and love.png
+
+        // Send a POST request to the server to toggle the like status
+        $.ajax({
+            url: "{% url 'like_toggle' %}",
+            type: 'POST',
+            data: {
+                csrfmiddlewaretoken: csrfToken,
+                chanel_id: chanelId
+            },
+            success: function(response) {
+                if (response.liked) {
+                    // Logic for when the channel is liked
+                    console.log('Channel liked!');
+
+                } else {
+
+
+                     window.location.reload();
+                }
+            },
+            error: function(error) {
+                console.error('Error toggling like:', error);
+            }
+        });
+    });
+</script>
 
     {% endblock %}

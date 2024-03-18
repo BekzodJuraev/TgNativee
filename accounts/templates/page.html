@@ -241,9 +241,9 @@
 $(document).ready(function() {
     if ($("#chart2").length) {
         var ctx = $("#chart2")[0].getContext("2d");
-        console.log({{dates}});
+
         var views = {{ views }};
-        var labels = [1] // You need to define your labels here
+        var labels = {{dates | safe}}// You need to define your labels here
 
 
         // Assuming you have some dates as labels, you can use them
@@ -255,7 +255,7 @@ $(document).ready(function() {
             data: {
                 labels: labels, // Use the labels array for x-axis
                 datasets: [{
-                    label: "Views",
+                    label: "Просмотров",
                     data: views, // Use the views array for y-axis data
                     fill: true,
                     backgroundColor: "#00EFA2"

@@ -242,8 +242,7 @@ class Page_List(DetailView):
 
 
 
-        print(views)
-        print(daily)
+
         context['dates']=daily
         context['views']=views
 
@@ -333,9 +332,9 @@ class ListChanelPage(LoginRequiredMixin,TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        like=Like.objects.filter(username=self.request.user)
-        context['count'] = like.count()
-        context['last_update']=like.last()
+        like = Like.objects.filter(username=self.request.user).select_related('chanel_name').prefetch_related('chanel_name__add_chanel__cost_formats')
+        context['object_list']=like
+        context['count']=like.count()
         return context
 
 
