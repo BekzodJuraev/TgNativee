@@ -169,3 +169,13 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.example.com'  # Your SMTP server
+EMAIL_PORT = 587  # SMTP port (typically 587 for TLS/STARTTLS)
+EMAIL_USE_TLS = True  # Enable TLS/STARTTLS
+EMAIL_HOST_USER = 'your_email@example.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'your_password'  # Your email password
+DEFAULT_FROM_EMAIL = 'your_email@example.com'  # Default sender email
+

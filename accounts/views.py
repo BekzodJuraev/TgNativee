@@ -126,26 +126,23 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         order_data = self.request.GET.get('order_data')
+        current_time = timezone.now()
         if order_data == 'order_data':
-            context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user).order_by(
+            context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user,order_data__gt=current_time).order_by(
                 'order_data')
         else:
-            context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user)
+            context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user,order_data__gt=current_time)
         context['count'] = Add_Reklama.objects.filter(user_order__username=self.request.user).count()
         context['aprove_owner'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=False).count()
         context['aprove_admin'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
                                                              status="DN").count()
-        current_time = timezone.now()
+
+
+        context['complete'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
+                                                          status="DN", order_data__lt=current_time)
 
         context['completed'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
                                                              status="DN",order_data__lt=current_time).count()
-
-
-
-        # Convert to the local timezone
-
-
-
 
         return context
 
