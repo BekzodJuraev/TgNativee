@@ -30,12 +30,16 @@
 										<div class="item-channel-main__info-item">Категория: <span>{{object.add_chanel.category}}</span></div>
 										<!--<div class="item-channel-main__info-item">Язык: <span>Язык</span></div> -->
 									</div>
+									{% if category %}
 									<div data-da=".item-channel-main__descr,480.98,first" class="item-channel-main__stars">
 										<img src="{% static 'img/channel/star.svg' %}" alt="">
 										<img src="{% static 'img/channel/star.svg' %}" alt="">
 										<img src="{% static 'img/channel/star.svg' %}" alt="">
 										<img src="{% static 'img/channel/star.svg' %}" alt="">
 									</div>
+									{% else %}
+									<p style="color:green">Нет отзывов</p>
+									{% endif %}
 								</div>
 							</div>
 							<div class="item-channel-main__descr">
@@ -112,7 +116,7 @@
                         {% endif %}
                         {% endif %}
                         <div data-da=".channel__col_2,992.98" class="channel__item item-channel-reviews">
-							{% if comments %}
+							{% if category %}
 							<h3 class="label-blue label-blue_s24 label-blue_fw400">Отзывы</h3>
 							{% endif %}
 							<div data-showmore="items" class="item-channel-reviews__showmore">

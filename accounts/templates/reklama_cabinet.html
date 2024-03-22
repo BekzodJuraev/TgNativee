@@ -114,22 +114,7 @@
 								</div>
                             {% endif %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            {% if count != 0 %}
+                            {% if chanel %}
                             <div class="table-wrap">
                                 <table class="table table_w">
                                     <thead>
@@ -199,9 +184,7 @@
                                         <td class="table-row">
                                             <a href="{% url 'updateads' item.pk %}" target="_blank" class="button button_sm button_no-bg"
                                                type="button">Доповнити пост</a>
-                                            <p class="label-dark label-dark_s16 label-underline hhv-green" style="margin-top: 0.5rem">
-                                                Повторивши
-                                            </p>
+
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -212,6 +195,10 @@
                             </div>
                             {% endif %}
                         </div>
+
+
+
+
                         <div class="tabs__body">
                             <div class="owner-cabinet__nav">
                                 <div class="owner-cabinet__nav-item">
@@ -279,7 +266,125 @@
                                 </div>
                             </div>
 
+                            {% if count == 0 %}
+                            <div class="not-found-channels">
+									<div class="not-found-channels__img">
+										<picture><source srcset="{% static 'img/owner-cabinet/bg.webp' %}" type="image/webp"><img class="img-flud" src="{% static 'img/owner-cabinet/bg.png' %}" alt=""></picture>
+									</div>
+
+									<div class="not-found-channels__title">Заявок немає</div>
+									<p class="not-found-channels__text text">
+                                       У вас ще немає жодної заявки на розміщення
+									</p>
+                                   <a href="{% url 'category-list' %}"><button class="button button_gradient" type="button">Розмістити рекламу</button></a>
+								</div>
+                            {% endif %}
+
+                            {% if complete_chanel %}
+                            <div class="table-wrap">
+                                <table class="table table_w">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">
+                                            <div class="label-white label-white_s16">Розміщений</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="label-white label-white_s16">Завдання</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="label-white label-white_s16">Публікація</div>
+                                        </th>
+                                        <th>
+                                            <div class="label-white label-white_s16">Перегляд</div>
+                                        </th>
+                                        <th>
+                                            <div class="label-white label-white_s16">Ціна</div>
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in complete_chanel %}
+                                    <tr>
+                                        <td class="table-row" scope="row">
+                                            <div class="table-row__head table-row__head_center">
+                                                <a href="#" target="_blank" class="table-row__img">
+                                                    <picture>
+                                                        <source srcset="/{{item.chanel.pictures}}" type="image/webp">
+                                                        <img class="img-fluid" src="/{{item.chanel.pictures}}" alt=""></picture>
+                                                </a>
+                                                <div class="table-row__content">
+                                                    <div class="table-row__content">
+                                                        <a href="#" target="_blank"
+                                                           class="label-dark-blue label-dark-blue_s20 hhv-green">{{item.chanel.name}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="table-row">
+                                            <p
+                                                    class="label-dark label-dark_s16 label-underline hhv-green">{{item.order_data}}
+                                            </p>
+                                        </td>
+                                        <td class="table-row">
+                                            <button type="button" data-popup="#comment{{item.id}}"
+                                                    class="label-dark label-dark_s16 label-underline hhv-green">Cмотреть
+                                            </button>
+                                        </td>
+                                        <td class="table-row">
+                                            <a href="https://telegra.ph/TZ...." target="_blank"
+                                               class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel.chanel_link }}</a>
+                                        </td>
+                                        <td class="table-row">
+                                            <div class="label-dark-green label-dark-green_fw700 label-dark_s20">0
+                                            </div>
+                                        </td>
+                                        <td class="table-row">
+                                            <div class="label-dark-green label-dark-green_fw700 label-dark_s20">{{item.format.cost_per_format}}
+                                                UAH
+                                            </div>
+                                        </td>
+                                        <td class="table-row">
+                                            <a href="{% url 'updateads' item.pk %}" target="_blank" class="button button_sm button_no-bg"
+                                               type="button">Повторивши</a>
+
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            {% endif %}
                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

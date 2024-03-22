@@ -133,8 +133,8 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
         else:
             context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user,order_data__gt=current_time)
         context['count'] = Add_Reklama.objects.filter(user_order__username=self.request.user).count()
-        context['aprove_owner'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=False).count()
-        context['aprove_admin'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
+        context['aprove_owner'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=False,status="WT").count()
+        context['aprove_admin'] = Add_Reklama.objects.filter(user_order__username=self.request.user, order_data__gt=current_time, aprove=True,
                                                              status="DN").count()
 
 
@@ -143,6 +143,9 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
 
         context['completed'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
                                                              status="DN",order_data__lt=current_time).count()
+
+        context['complete_chanel']=Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
+                                                             status="DN",order_data__lt=current_time)
 
         return context
 
@@ -232,25 +235,11 @@ class Page_List(DetailView):
         # Check if the month of today's date is different from the stored date's month
 
 
-
-
-
-
-
-
-
-
         context['dates']=daily
         context['views']=views
 
-
-
         context['er']=round(er,1)
         context['er_daily']=round(er_daily,1)
-
-
-
-
 
         context['day']=self.object.daily_subscribers
         context['week'] = self.object.weekly_subscribers
