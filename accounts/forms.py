@@ -91,8 +91,9 @@ class AddChanelForm(forms.ModelForm):
         fields = [ 'chanel_link', 'category','description']
 
 class CostFormatForm(forms.ModelForm):
-    placement_format = forms.CharField(max_length=63, label="Линк", widget=forms.TextInput(
-        attrs={'class': 'auth-form__input', 'placeholder': 'Формат'}))
+    placement_format = forms.CharField(max_length=63, label="Линк",
+                                       widget=forms.TextInput(
+        attrs={'class': 'auth-form__input', 'readonly': True}))
     cost_per_format = forms.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -107,7 +108,8 @@ class CostFormatForm(forms.ModelForm):
 
 
 
-CostFormatFormSet = inlineformset_factory(Add_chanel, Cost_Format, form=CostFormatForm, extra=2, can_delete=False,validate_max=True)
+CostFormatFormSet = inlineformset_factory(Add_chanel, Cost_Format, form=CostFormatForm, extra=4, can_delete=False,validate_max=True)
+
 
 
 class LoginForm(forms.Form):

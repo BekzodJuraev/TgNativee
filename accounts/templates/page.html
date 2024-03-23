@@ -83,11 +83,7 @@
 
                                               <img src="{% static 'img/channel/calendar.svg' %}" alt="Calendar icon" class="calendar-icon">
 										</div>
-										<div class="item-channel-order__row-item">
-                                          <input type="time" class="form__input" name="time"  id="selected_time" placeholder="Выбрать Время">
 
-
-										</div>
 										<!-- <div class="item-channel-order__row-item">
                         <input type="text" class="form__input" name="time" id="time" placeholder="Выбрать время">
                         <img src="img/icons/arrow-down-pink.svg" alt="">
@@ -279,9 +275,9 @@ $(document).ready(function() {
             // Extract specific values from the form
             var formatValue = $('#id_format_select').val();
             var selectedDate = $('#selected_date').val();
-            var selectedTime = $('#selected_time').val();
-            var combinedDateTime = selectedDate + ' ' + selectedTime;
-            var formattedDateTime = moment(combinedDateTime, 'DD.MM.YYYY HH:mm').format('YYYY-MM-DD HH:mm');
+
+
+            var formattedDateTime = moment(selectedDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
 
             // Create the data object
             var data = {

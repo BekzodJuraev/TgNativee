@@ -23,7 +23,9 @@
                      <div class="auth-form__item">
                          {{ cost_format_formset.management_form }}
                          {% for form in cost_format_formset %}
-                             {{ form.as_p }}
+
+                             <p style="color:#00b2eb">Формат:</p>{{ form.placement_format }}
+                            {{ form.cost_per_format }}
                           {% endfor %}
 
                     </div>

@@ -468,10 +468,18 @@ class CreateChanel(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        initial_values = ['1/24', '2/48', '3/72', 'Без удаления']  # List of initial values
         if self.request.POST:
-            context['cost_format_formset'] = CostFormatFormSet(self.request.POST, prefix='cost_formats')
+            context['cost_format_formset'] = CostFormatFormSet(
+                self.request.POST,
+                prefix='cost_formats',
+                initial=[{'placement_format': value} for value in initial_values]
+            )
         else:
-            context['cost_format_formset'] = CostFormatFormSet(prefix='cost_formats')
+            context['cost_format_formset'] = CostFormatFormSet(
+                prefix='cost_formats',
+                initial=[{'placement_format': value} for value in initial_values]
+            )
         return context
 
     def dispatch(self, request, *args, **kwargs):

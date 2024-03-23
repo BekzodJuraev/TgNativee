@@ -61,7 +61,7 @@ async def update(client):
                     except Exception as e:
                         print(f"Error processing channel {channel_link}: {e}")
 
-            await asyncio.sleep(60)
+            await asyncio.sleep(600)
 
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
