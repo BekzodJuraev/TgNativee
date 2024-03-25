@@ -70,15 +70,14 @@
 								<div class="item-channel-order__item">
 									<div class="label-black label-black_s16">Ближайшее время публикации : </div>
 									<div class="label-black label-black_s16 item-channel-order__nearest">
-										<span>26.05.2023</span>
-										<span>12:30</span>
+
 									</div>
 								</div>
 								<div class="item-channel-order__item">
-									<label for="date" class="label-underline item-channel-order__item-link hhv-green">Выбрать время</label>
+									<label id="toggleLabel" for="date" class="label-underline item-channel-order__item-link hhv-green">Выбрать дату</label>
 									<div class="item-channel-order__row">
 
-										<div class="item-channel-order__row-item">
+										<div id="datepickerContainer" class="item-channel-order__row-item" style="display:none">
 											 <input type="text" data-datepicker class="form__input" name="date" id="selected_date" placeholder="Select date">
 
                                               <img src="{% static 'img/channel/calendar.svg' %}" alt="Calendar icon" class="calendar-icon">
@@ -137,6 +136,7 @@
 												Отзыв о
 												<span class="label-dark-green_fw700"> {{item.chanel.name}}</span>
 											</div>
+
 											<p class="text text_black">
 												{{item.comment}}
 											</p>
@@ -267,6 +267,12 @@ $(document).ready(function() {
 
     $(document).ready(function () {
 
+
+    // Toggle visibility of datepicker container when label is clicked
+    $('#toggleLabel').click(function () {
+     $('#datepickerContainer').toggle();
+    });
+
         $('#button').click(function (event) {
             event.preventDefault();
 
@@ -276,18 +282,32 @@ $(document).ready(function() {
             var formatValue = $('#id_format_select').val();
             var selectedDate = $('#selected_date').val();
 
+            if (selectedDate) {
+    		var formattedDateTime = moment(selectedDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+			data = {
+				"chanel": "{{chanel}}",
+				"user_order":{{user}},
+				"format": formatValue,
+				"order_data":formattedDateTime,
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+				// Add other fields as needed
+			};
+		} else {
+			data = {
+				"chanel": "{{chanel}}",
+				"user_order":{{user}},
+				"format": formatValue,
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+				// Add other fields as needed
+			};
+		}
 
-            var formattedDateTime = moment(selectedDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+
+
+
 
             // Create the data object
-            var data = {
-                "chanel": "{{chanel}}",
-                "user_order":{{user}},
-                "format": formatValue,
-                "order_data":formattedDateTime,
-                 csrfmiddlewaretoken: '{{ csrf_token }}'
-                // Add other fields as needed
-            };
+
 
 
 

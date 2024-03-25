@@ -131,7 +131,10 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
             context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user,order_data__gt=current_time).order_by(
                 'order_data')
         else:
-            context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user,order_data__gt=current_time)
+            context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user,order_data__gt=current_time) | Add_Reklama.objects.filter(
+                user_order__username=self.request.user,
+                order_data__isnull=True,
+                )
         context['count'] = Add_Reklama.objects.filter(user_order__username=self.request.user).count()
         context['aprove_owner'] = Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=False,status="WT").count()
         context['aprove_admin'] = Add_Reklama.objects.filter(user_order__username=self.request.user, order_data__gt=current_time, aprove=True,
