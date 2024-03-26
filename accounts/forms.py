@@ -71,6 +71,19 @@ class Add_ReklamaStatus(forms.ModelForm):
         fields = ['status']
 
 
+class Comment(forms.ModelForm):
+    commented=forms.CharField(
+        max_length=63,
+        label="Коментарии",
+        widget=forms.Textarea(attrs={'class': 'auth-form__input', 'placeholder': 'Коментарии'})
+    )
+
+    class Meta:
+        model = Add_Reklama
+        fields=['commented']
+
+
+
 
 
 class AddChanelForm(forms.ModelForm):

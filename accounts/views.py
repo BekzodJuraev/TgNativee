@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, Update_Profile, Update_Reklama,GoogleForm,FormFAQ
+from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, Update_Profile, Update_Reklama,GoogleForm,FormFAQ,Comment
 from API.models import Chanel, Feedback, Add_Sponsors,FAQ
 from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format,Like,Message,Faq_Question
 from django.contrib.auth import logout
@@ -150,6 +150,9 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
         context['complete_chanel']=Add_Reklama.objects.filter(user_order__username=self.request.user, aprove=True,
                                                              status="DN",order_data__lt=current_time)
 
+
+        context['form']=Comment
+
         return context
 
 
@@ -208,7 +211,8 @@ class Page_List(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         channel_name = self.object.name  # Assuming 'name' is the field in Chanel model
-        comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(comment__isnull=True)
+        comments = Add_Reklama.objects.filter(chanel__name=channel_name).exclude(commented__isnull=True)
+
         er=(self.object.subscribers/self.object.views)*10
         er_daily=(self.object.daily_subscribers/self.object.views)*10
 
@@ -506,6 +510,12 @@ class CreateChanel(LoginRequiredMixin, CreateView):
         else:
 
             return self.form_invalid(form)
+
+class Comment_Page(LoginRequiredMixin,UpdateView):
+    model = Add_Reklama
+    form_class = Comment
+    success_url = reverse_lazy('login_reklama')
+    login_url = reverse_lazy('login')
 
 class Updatestatus(LoginRequiredMixin,UpdateView):
     model = Add_Reklama

@@ -355,8 +355,7 @@
                                             </div>
                                         </td>
                                         <td class="table-row">
-                                            <a href="{% url 'updateads' item.pk %}" target="_blank" class="button button_sm button_no-bg"
-                                               type="button">Оставить отзыв</a>
+                                            <button class="button button_sm button_no-bg" data-popup="#commented{{item.id}}"  type="button">Оставить отзыв</button>
 
                                         </td>
                                     </tr>
@@ -463,6 +462,40 @@
 	</div>
 
 {% endfor %}
+{% for item in complete_chanel %}
+<div id="commented{{item.id}}" aria-hidden="true" class="popup popup-chat popup-comment">
+		<div class="popup__wrapper">
+			<div class="popup__content">
+				<button data-close type="button" class="popup__close">
+					<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" alt="">
+				</button>
+                 <div class="auth-form__container">
+				 <form action="{% url 'comment' item.pk %}"  method="post" class="auth-form__form">
+					  {% csrf_token %}
+
+
+					 {{ form.commented }}
+					   <div class="auth-form__form-bottom">
+                        <button class="button" type="submit">Отправить</button>
+                    </div>
+
+
+
+				</form>
+				 </div>
+
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endfor %}
+
+
 <script>
 
 

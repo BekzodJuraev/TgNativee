@@ -110,14 +110,16 @@
 
                         {% endif %}
                         {% endif %}
+
+
                         <div data-da=".channel__col_2,992.98" class="channel__item item-channel-reviews">
 							{% if category %}
 							<h3 class="label-blue label-blue_s24 label-blue_fw400">Отзывы</h3>
 							{% endif %}
 							<div data-showmore="items" class="item-channel-reviews__showmore">
-
+								 {% for item in category %}
 								<ul data-showmore-content="3" class="item-channel-reviews__content">
-                                    {% for item in category %}
+
 									<li data-gap="10" class="item-channel-reviews__item squire">
 										<div class="item-channel-reviews__avatar">
 											{% if item.user_order.photo %}
@@ -125,9 +127,6 @@
 											{% else %}
 
 											<picture><source srcset="{% static 'img/channel/avatar-not-found.png' %}" type="image/webp"><img class="img-fluid" src="{% static 'img/channel/avatar-not-found.png' %}" alt=""></picture>
-
-
-
 											{% endif %}
 										</div>
 										<div class="item-channel-reviews__item-content">
@@ -138,7 +137,7 @@
 											</div>
 
 											<p class="text text_black">
-												{{item.comment}}
+												{{ item.commented }}
 											</p>
 										</div>
 										<div class="item-channel-reviews__info">
@@ -152,8 +151,9 @@
 										</div>
 									</li>
 
-                                    {% endfor %}
+
 								</ul>
+								 {% endfor %}
 								<div class="item-channel-reviews__bottom">
 									<button hidden data-showmore-button type="button" class="item-channel-reviews__more label-dark-green label-dark-green_s16 label-underline hhv-blue">
 

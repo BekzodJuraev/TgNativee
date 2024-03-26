@@ -116,6 +116,7 @@ class Add_Reklama(models.Model):
     media=models.ImageField(null=True,blank=True)
     name_ads = models.CharField(max_length=150,null=True)
     comment=models.TextField(null=True)
+    commented=models.TextField(null=True,blank=True)
     order_data=models.DateTimeField(null=True,blank=True)
     aprove = models.BooleanField(default=False)
     status = models.CharField(max_length=2, choices=Status.choices,
