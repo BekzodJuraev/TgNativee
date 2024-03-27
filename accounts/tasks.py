@@ -78,36 +78,41 @@ def add_chanel(chanel_link):
         with Client(name, api_id=api_id, api_hash=api_hash, phone_number=phone,session_string=session_data) as client:
             channel_link = chanel_link
             channel_username = channel_link.split('/')[-1]
-            chat = client.get_chat("@" + channel_username)
-            total_view = client.get_chat_history("@" + channel_username, limit=5)
-            send_view = 0
-            for views in total_view:
-                if views.views:
-                    send_view += views.views
+            chat_link="@"+channel_username
+            bot_id = bot_telegram.get_me()
+            bot_status = bot_telegram.get_chat_member(chat_id=chat_link, user_id=bot_id.id).status
+            if bot_status == 'administrator' or bot_status == 'creator':
+                chat = client.get_chat(chat_link)
+                total_view = client.get_chat_history(chat_link, limit=3)
+                send_view = 0
+                for views in total_view:
+                    if views.views:
+                        send_view += views.views
 
-            payload = {
-                'name': chat.title,
-                'subscribers': str(chat.members_count),
-                'chanel_link': channel_link,
-                'views': str(send_view),
-            }
+                payload = {
+                    'name': chat.title,
+                    'subscribers': str(chat.members_count),
+                    'chanel_link': channel_link,
+                    'views': str(send_view),
+                }
 
-            if chat.photo is not None:
-                file_path = client.download_media(chat.photo.big_file_id, file_name="channel_photo.jpg")
-                files = {'pictures': open(file_path, 'rb')}
+                if chat.photo is not None:
+                    file_path = client.download_media(chat.photo.big_file_id, file_name="channel_photo.jpg")
+                    files = {'pictures': open(file_path, 'rb')}
 
-                # Add the payload as form fields
-                for key, value in payload.items():
-                    files[key] = (None, str(value))
+                    # Add the payload as form fields
+                    for key, value in payload.items():
+                        files[key] = (None, str(value))
 
-                response = requests.post('http://194.163.187.72/api/', files=files)
+                    response = requests.post('http://194.163.187.72/api/', files=files)
 
-                #with open(file_path, "rb") as photo:
-                    #client.send_photo("@lsbnvVm9TmhjZDNi", photo)
+                    # with open(file_path, "rb") as photo:
+                    # client.send_photo("@lsbnvVm9TmhjZDNi", photo)
+
+                if response.status_code == 200:
+                    break
 
 
-            if response.status_code == 200:
-                break
 
             # Do something with the response if needed
 
