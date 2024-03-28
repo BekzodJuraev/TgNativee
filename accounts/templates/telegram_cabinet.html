@@ -21,7 +21,7 @@
 							</nav>
 							<div class="tabs-row__item">
 								  {% if request.GET.order_data == 'order_data' %}
-                             <select  id="date_select" name="order_data" data-class-modif="custom-select">
+								<select  id="date_select" name="order_data" data-class-modif="custom-select">
 
                                  <option value="order_data" selected>За датою</option>
 
@@ -29,10 +29,12 @@
 
                         </select>
                           {% else %}
+
                             <select  id="date_select" name="order_data" data-class-modif="custom-select">
                             <option value="alpha" selected>За алфавітом</option>
-                            <option value="order_data">За датою</option>
+                            <option value="order_data"> За датою</option>
                         </select>
+
                             {% endif %}
                         </select>
 							</div>
@@ -370,7 +372,7 @@
 		</div>
 	</div>
 {% endfor %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
         if (window.location.hash === "#noti") {
@@ -389,25 +391,37 @@
 
     $(document).ready(function() {
 
-
       var imgElement = document.getElementById("img");
       imgElement.src = "{% static 'img/icons/arrow-down-pink.svg' %}";
 
-        // Listen for the change event on the select element
-             $('select[name="order_data"]').on('change', function() {
-            // Get the selected value
-            var selectedValue = $(this).val();
 
-            // Update the URL with the selected value
-            if (selectedValue === 'order_data') {
-                alert('hello');
+        $('.select__options button').on('click', function() {
+        var selectedValue = $(this).data('value'); // Get the value of the clicked button
 
-                // Example: Redirect to a new URL
-                var currentUrl = window.location.href.split('?')[0];
-                var newUrl = currentUrl + '?order_data=order_data';
-                window.location.href = newUrl;
-            }
-        });
+        // Set the selected value to the select element
+        $('#date_select').val(selectedValue);
+
+        // Trigger the change event on the select element
+        $('#date_select').trigger('change');
+    });
+
+    // Listen for change events on the select element
+    $('#date_select').on('change', function() {
+        var selectedValue = $(this).val();
+
+        // Add your logic here based on the selected value of date_select
+        if (selectedValue === 'order_data') {
+            var currentUrl = window.location.href.split('?')[0];
+            var newUrl = currentUrl + '?order_data=order_data';
+            window.location.href = newUrl;
+        }
+        if (selectedValue === 'alpha') {
+            var currentUrl = window.location.href.split('?')[0];
+            var newUrl = currentUrl;
+            window.location.href = newUrl;
+        }
+
+    });
     });
 </script>
 

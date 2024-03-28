@@ -129,7 +129,10 @@ class Reklama_Page(LoginRequiredMixin, TemplateView):
         current_time = timezone.now()
         if order_data == 'order_data':
             context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user,order_data__gt=current_time).order_by(
-                'order_data')
+                'order_data') | Add_Reklama.objects.filter(
+                user_order__username=self.request.user,
+                order_data__isnull=True,
+                ).order_by('order_data')
         else:
             context['chanel'] = Add_Reklama.objects.filter(user_order__username=self.request.user,order_data__gt=current_time) | Add_Reklama.objects.filter(
                 user_order__username=self.request.user,
