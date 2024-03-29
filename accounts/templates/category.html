@@ -58,11 +58,11 @@
 
 											<div class="search-form__item">
 												<label for="search-link" class="label-white">Посилання:</label>
-												<input type="text" id="search-link" name="chanel_link" placeholder="https://t.me/example" class="form__input">
+												<input type="text" id="search-link" name="chanel_link" placeholder="https://t.me/example" class="form__input" value="{{ request.GET.chanel_link }}">
 											</div>
 											<div class="search-form__item">
 												<label for="search-name" class="label-white">Назва каналу:</label>
-												<input type="text" id="search-name" name="chanel_name" placeholder="взлом маркетинга" class="form__input">
+												<input type="text" id="search-name" name="chanel_name" placeholder="взлом маркетинга" class="form__input"  value="{{ request.GET.chanel_name }}">
 											</div>
 										</div>
 										<div class="search-form__column">
@@ -70,27 +70,27 @@
 												<label for="price-from" class="label-white">Ціна:</label>
 												<div class="search-form__item-content">
 													<label for="price-from" class="label-white">От</label>
-													<input type="number" id="cost_from" name="price-from" placeholder="1000" class="form__input">
+													<input type="number" id="cost_from" name="price_from" placeholder="1000" class="form__input"  value="{{ request.GET.price_from}}" >
 													<label for="price-to" class="label-white">До</label>
-													<input type="number" id="cost_to" name="price-to" placeholder="1000" class="form__input">
+													<input type="number" id="cost_to" name="price_to" placeholder="1000" class="form__input" value="{{ request.GET.price_to }}">
 												</div>
 											</div>
 											<div class="search-form__item">
 												<label for="form-subs-from" class="label-white">Пiдписники:</label>
 												<div class="search-form__item-content">
 													<label for="orm-subs-from" class="label-white">От</label>
-													<input type="number" id="form-subs-from" name="subscribers_from" placeholder="1000" class="form__input">
+													<input type="number" id="form-subs-from" name="subscribers_from" placeholder="1000" class="form__input" value="{{ request.GET.subscribers_from }}">
 													<label for="form-subs-to" class="label-white">До</label>
-													<input type="number" id="form-subs-to" name="subscribers_to" placeholder="1000" class="form__input">
+													<input type="number" id="form-subs-to" name="subscribers_to" placeholder="1000" class="form__input" value="{{ request.GET.subscribers_to }}">
 												</div>
 											</div>
 											<div class="search-form__item">
 												<label for="views-from" class="label-white">Переглядів на пост:</label>
 												<div class="search-form__item-content">
 													<label for="views-from" class="label-white">От</label>
-													<input type="number" id="views-from" name="views_from" placeholder="1000" class="form__input">
+													<input type="number" id="views-from" name="views_from" placeholder="1000" class="form__input" value="{{ request.GET.views_from }}">
 													<label for="views-to" class="label-white">До</label>
-													<input type="number" id="views-to" name="views_to" placeholder="1000" class="form__input">
+													<input type="number" id="views-to" name="views_to" placeholder="1000" class="form__input" value="{{ request.GET.views_to }}">
 												</div>
 											</div>
 
@@ -101,7 +101,7 @@
 													<button type="button" data-spoller class="spollers__title _spoller-active">
 														<span class="label-white label-white_s20">
 															Додаткові поля
-															<img class="arrow" src="img/icons/arrow-down.svg" alt="">
+															<img class="arrow" src="{% static 'img/icons/arrow-down.svg' %}" alt="">
 														</span>
 													</button>
 													<div class="spollers__body">
@@ -135,7 +135,7 @@
 															</div>
 															<div class="search-form__item">
 																<label for="search-desc" class="label-white">Опис:</label>
-																<input type="text" id="search-desc" name="search-desc" placeholder="маркетинг" class="form__input">
+																<input type="text" id="search-desc" name="search_desc" placeholder="маркетинг" class="form__input" value="{{ request.GET.search_desc }}">
 															</div>
 														</div>
 													</div>
@@ -147,6 +147,7 @@
 										<button class="button button_no-bg button_sm" type="submit">Знайти канали</button>
 									</div>
 								</form>
+
 							</div>
 						</div>
 					</div>
@@ -191,7 +192,7 @@
 									</th>
 									<th>
 										<div class="d-flex">
-											<img src="img/icons/eye.svg" alt="">
+											<img src="{% static 'img/icons/eye.svg' %}" alt="">
 											<div class="label-white label-white_s16">Перегляди</div>
 										</div>
 									</th>

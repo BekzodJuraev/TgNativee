@@ -278,9 +278,9 @@ class CategoryChanelPage(ListView):
         views_to=self.request.GET.get('views_to')
         subscribers_from=self.request.GET.get('subscribers_from')
         subscribers_to=self.request.GET.get('subscribers_to')
-        cost_from=self.request.GET.get('cost_from')
-        cost_to = self.request.GET.get('cost_to')
-        description=self.request.GET.get('search-desc')
+        cost_from=self.request.GET.get('price_from')
+        cost_to = self.request.GET.get('price_to')
+        description=self.request.GET.get('search_desc')
         queryset = Chanel.objects.exclude(pictures='')
 
 

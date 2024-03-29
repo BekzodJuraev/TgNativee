@@ -23,9 +23,12 @@
 								</div>
 								<div class="item-channel-main__content">
 									<h1 class="item-channel-main__title">{{object.name}}</h1>
+									<div class="channel-wrapper">
 									<a href="{{object.chanel_link}}" class="item-channel-main__link hhv-green">
 										{{object.chanel_link}}
-									</a>
+									</a> <picture><source srcset="{% static 'img/copy.svg' %}" type="image/svg"><img id="copyButton"  class="img-fluid" src="{% static 'img/copy.svg' %}" alt=""></picture>
+									</div>
+
 									<div data-da=".item-channel-main__descr,480.98,first" class="item-channel-main__info">
 										<div class="item-channel-main__info-item">Категория: <span>{{object.add_chanel.category}}</span></div>
 										<!--<div class="item-channel-main__info-item">Язык: <span>Язык</span></div> -->
@@ -266,6 +269,15 @@ $(document).ready(function() {
 });
 
     $(document).ready(function () {
+    $('#copyButton').click(function() {
+        var channelLink = $('.item-channel-main__link').text().trim();
+        var tempInput = $('<input>');
+        $('body').append(tempInput);
+        tempInput.val(channelLink).select();
+        document.execCommand('copy');
+        tempInput.remove();
+        alert('Ссылка скопирована в буфер обмена!');
+    });
 
 
     // Toggle visibility of datepicker container when label is clicked
