@@ -180,6 +180,8 @@
 							</p>
 
 						</div>
+						{% if request.user.is_authenticated %}
+						{% else %}
 						<div class="place-ad__actions">
 							<a href="{% url 'register' %}" class="button button_gradient button_mobi-sm" type="button">Зареєструватися телефоном або ел. поштою</a>
 							<div class="label-white label-white_s16 label-white_fw700">або продовжити з</div>
@@ -188,12 +190,16 @@
 									<picture><source srcset="{% static 'img/place-ad/tg.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/tg.png' %}" alt=""></picture>
 									Telegram
 								</button>
+								<a href="{% url 'social:begin' 'google-oauth2' %}">
 								<button class="button button_sm button_no-bg" type="button">
 									<picture><source srcset="{% static 'img/place-ad/google.webp' %}" type="image/webp"><img src="{% static 'img/place-ad/google.png' %}" alt=""></picture>
 									Google
-								</button>
+								</button></a>
 							</div>
 						</div>
+						{% endif %}
+
+
 					</div>
 				</div>
 			</section>
