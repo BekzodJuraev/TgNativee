@@ -470,10 +470,18 @@
 					<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" alt="">
 				</button>
                  <div class="auth-form__container">
+
 				 <form action="{% url 'comment' item.pk %}"  method="post" class="auth-form__form">
+                     <button id="like" class="icon-heart _active" type="button">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
+					</button>
 					  {% csrf_token %}
 
-
+                     {{form.stars_like}}
 					 {{ form.commented }}
 					   <div class="auth-form__form-bottom">
                         <button class="button" type="submit">Отправить</button>
@@ -497,6 +505,24 @@
 
 
 <script>
+$(".likeButton").click(function() {
+
+        var chanelId = $(this).data("chanel-id");
+        // Include your CSRF token here
+
+
+        var index = $(this).index();
+        $("#id_stars_like").val(index+1);
+
+    // Loop through all images
+    $(".likeButton").each(function(i) {
+        // Determine the new source based on the index
+        var newSrc = i <= index ? "{% static 'img/catalog/like-fill.svg' %}" : "{% static 'img/catalog/like.svg' %}";
+        // Update the image source
+        $(this).attr("src", newSrc);
+    });
+
+});
 
 
    $(document).ready(function() {

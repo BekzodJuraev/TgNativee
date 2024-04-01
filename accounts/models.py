@@ -118,6 +118,7 @@ class Add_Reklama(models.Model):
     comment=models.TextField(null=True)
     commented=models.TextField(null=True,blank=True)
     order_data=models.DateTimeField(null=True,blank=True)
+    stars_like=models.IntegerField(null=True)
     aprove = models.BooleanField(default=False)
     status = models.CharField(max_length=2, choices=Status.choices,
                               default=Status.DRAFT)

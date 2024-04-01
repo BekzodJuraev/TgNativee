@@ -13,8 +13,7 @@
 						<div class="channel__item item-channel-main squire">
 							 {% if request.user.is_authenticated %}
 							<button id="like" class="icon-heart _active" type="button">
-								<img class="not-fill img-fluid" src="{% static 'img/catalog/like.svg' %}" alt="">
-								<img class="fill img-fluid" src="{% static 'img/catalog/like-fill.svg' %}" alt="">
+								<img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
 							</button>
 							{% endif %}
 							<div class="item-channel-main__head">
@@ -145,10 +144,11 @@
 										</div>
 										<div class="item-channel-reviews__info">
 											<div class="item-channel-main__stars">
+												{% for item in ''|rjust:item.stars_like  %}
+
 												<img src="{% static 'img/channel/star.svg' %}" alt="">
-												<img src="{% static 'img/channel/star.svg' %}" alt="">
-												<img src="{% static 'img/channel/star.svg' %}" alt="">
-												<img src="{% static 'img/channel/star.svg' %}" alt="">
+
+												{% endfor %}
 											</div>
 
 										</div>
@@ -242,6 +242,66 @@
 <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script>
 $(document).ready(function() {
+
+    function setInitialLikeState(chanelId, liked) {
+        var currentSrc = liked ? "{% static 'img/catalog/like-fill.svg' %}" : "{% static 'img/catalog/like.svg' %}";
+        $(".likeButton[data-chanel-id='" + chanelId + "']").attr("src", currentSrc);
+    }
+
+    // Fetch the initial state of liked channels on page load
+    $.ajax({
+        url: "{% url 'like_toggle' %}",
+        type: 'GET',
+        success: function(response) {
+            // Loop through the liked channels and set the initial state for each button
+            for (var i = 0; i < response.liked_channels.length; i++) {
+                setInitialLikeState(response.liked_channels[i], true);
+            }
+        },
+        error: function(error) {
+            console.error('Error fetching initial like state:', error);
+        }
+    });
+
+    $(".likeButton").click(function() {
+
+        var chanelId = $(this).data("chanel-id");
+        var csrfToken = "{{ csrf_token }}";  // Include your CSRF token here
+
+
+        // Toggle between favorite.png and love.png
+        var currentSrc = $(this).attr("src");
+        var newSrc = currentSrc.includes("like.svg") ? "{% static 'img/catalog/like-fill.svg' %}" : "{% static 'img/catalog/like.svg' %}";
+
+        // Update the image source
+        $(this).attr("src", newSrc);
+
+        // Send a POST request to the server to toggle the like status
+        $.ajax({
+            url: {% url 'like_toggle' %},
+            type: 'POST',
+            data: {
+                csrfmiddlewaretoken: csrfToken,
+                chanel_id:chanelId
+            },
+            success: function(response) {
+                if (response.liked) {
+                    // Logic for when the channel is liked
+                    console.log('Channel liked!');
+                } else {
+                    // Logic for when the like is removed (unliked)
+                    console.log('Like removed!');
+                }
+            },
+            error: function(error) {
+                console.error('Error toggling like:', error);
+            }
+        });
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
     if ($("#chart2").length) {
         var ctx = $("#chart2")[0].getContext("2d");
 
@@ -296,14 +356,28 @@ $(document).ready(function() {
 
             if (selectedDate) {
     		var formattedDateTime = moment(selectedDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
-			data = {
-				"chanel": "{{chanel}}",
-				"user_order":{{user}},
-				"format": formatValue,
-				"order_data":formattedDateTime,
-				csrfmiddlewaretoken: '{{ csrf_token }}'
-				// Add other fields as needed
-			};
+    		var tomorrow = moment().add(1, 'days').startOf('day');
+    		 if (moment(formattedDateTime).isSameOrBefore(tomorrow)) {
+        		alert('Please select a date from tomorrow onwards.');
+        		$('#selected_date').val('');
+    } else {
+        data = {
+            "chanel": "{{chanel}}",
+            "user_order": {{user}},
+            "format": formatValue,
+            "order_data": formattedDateTime,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+            // Add other fields as needed
+        };
+        // Continue with your AJAX request or other logic
+    }
+
+
+
+
+
+
+
 		} else {
 			data = {
 				"chanel": "{{chanel}}",

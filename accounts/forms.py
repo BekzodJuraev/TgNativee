@@ -77,10 +77,14 @@ class Comment(forms.ModelForm):
         label="Коментарии",
         widget=forms.Textarea(attrs={'class': 'auth-form__input', 'placeholder': 'Коментарии'})
     )
+    stars_like=forms.IntegerField(
+        widget=forms.HiddenInput()
+    )
+
 
     class Meta:
         model = Add_Reklama
-        fields=['commented']
+        fields=['commented','stars_like']
 
 
 
