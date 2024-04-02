@@ -23,12 +23,12 @@ urlpatterns=[
      path('<int:pk>/telegram',views.UpdateTelegram.as_view(),name='cabinet_telegram'),
      path('balance/',views.BalancePage.as_view(),name='balance'),
      path('createads/',views.ads_view,name='createads'),
+     path('basket/',views.Basket.as_view(),name='basket'),
+     path('deletelist/',views.DeleteList.as_view(),name='deletelist'),
      path('deleteads/<int:pk>',views.DeleteAds.as_view(),name='deleteads'),
      path('like-toggle/', views.LikeToggleView.as_view(), name='like_toggle'),
      path('message/',views.Chat.as_view(),name='message'),
-
      path('update_online_status/', views.update_online_status, name='update_online_status'),
-
      path('reklama/create/<int:pk>',views.CreateAds.as_view(),name="updateads"),
      path('<int:pk>/update',views.Updatestatus.as_view(),name='update'),
      path('password-reset/', auth_views.PasswordResetView.as_view(),name='password_reset'),

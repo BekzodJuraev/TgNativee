@@ -425,6 +425,27 @@ def login_page(request):
 
     return render(request, "login_.html", context)
 
+class Basket(LoginRequiredMixin,TemplateView):
+    template_name = 'basket.html'
+    success_url = reverse_lazy('login_reklama')
+    login_url = reverse_lazy('login')
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        ads=Add_Reklama.objects.filter(
+                user_order__username=self.request.user,
+                )
+        context['sum']=ads.aggregate(total=Sum('format__cost_per_format'))['total']
+        context['count']=ads.count()
+        context['form']=BasketForm
+        return context
+
+
+
+
+
+
 
 class CreateAds(LoginRequiredMixin, UpdateView):
     template_name = 'create_ads.html'
@@ -445,11 +466,30 @@ class CreateAds(LoginRequiredMixin, UpdateView):
 
         return super().dispatch(request, *args, **kwargs)
 
+class DeleteList(LoginRequiredMixin,View):
+    login_url = reverse_lazy('login')
+    success_url = reverse_lazy('login_reklama')
+
+    def post(self, request, *args, **kwargs):
+        # Delete the object
+        ads = Add_Reklama.objects.filter(user_order__username=self.request.user,text_ads=None)
+        ads.delete()
+        data = {'message': 'Item deleted successfully', 'redirect_url': self.success_url}
+        return JsonResponse(data)
+
 class DeleteAds(LoginRequiredMixin,DeleteView):
     model = Add_Reklama
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('login_reklama')
     context_object_name = "item"
+
+    def post(self, request, *args, **kwargs):
+        # Delete the object
+        self.object = Add_Reklama.objects.filter(user_order__username=self.request.user,text_ads=None)
+        self.object.delete()
+        data = {'message': 'Item deleted successfully', 'redirect_url': self.success_url}
+        return JsonResponse(data)
+
 
 
 
@@ -459,6 +499,8 @@ class DeleteAds(LoginRequiredMixin,DeleteView):
         self.object.delete()
         data = {'message': 'Item deleted successfully', 'redirect_url': self.success_url}
         return JsonResponse(data)
+
+
 
 
 

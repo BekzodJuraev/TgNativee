@@ -99,8 +99,8 @@
                                         {% endfor %}
 									</div>
 									<div class="item-channel-order__bottom-row">
-										<button class="button" type="submit" id="button">Заказать</button>
-										<button class="item-channel-order__icon" type="button">
+										<button class="button common-class" type="submit" id="button">Заказать</button>
+										<button class="item-channel-order__icon common-class" type="button" id="basket">
 											<img src="{% static 'img/channel/add.svg' %}" alt="">
 										</button>
 									</div>
@@ -345,15 +345,14 @@ $(document).ready(function() {
      $('#datepickerContainer').toggle();
     });
 
-        $('#button').click(function (event) {
+
+
+
+        $('.common-class').click(function (event) {
             event.preventDefault();
-
-
-
-            // Extract specific values from the form
+            var buttonId = this.id;
             var formatValue = $('#id_format_select').val();
             var selectedDate = $('#selected_date').val();
-
             if (selectedDate) {
     		var formattedDateTime = moment(selectedDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
     		var tomorrow = moment().add(1, 'days').startOf('day');
@@ -372,12 +371,6 @@ $(document).ready(function() {
         // Continue with your AJAX request or other logic
     }
 
-
-
-
-
-
-
 		} else {
 			data = {
 				"chanel": "{{chanel}}",
@@ -387,25 +380,13 @@ $(document).ready(function() {
 				// Add other fields as needed
 			};
 		}
-
-
-
-
-
-            // Create the data object
-
-
-
-
             $.ajax({
                 type: 'POST',
                 url: '{% url "createads" %}',
                 data: data,  // Use the serialized data here
                 success: function (data) {
-
-            window.location.replace(data.redirect_url);
-
-
+                if (buttonId=== 'button'){window.location.replace(data.redirect_url);}
+                else if (buttonId=== 'basket'){window.location.reload()}
 
                 },
                 error: function (data) {

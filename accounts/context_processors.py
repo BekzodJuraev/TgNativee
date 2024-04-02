@@ -24,7 +24,7 @@ def user_authenticated(request):
                 user_authenticated_data['pk'] = advertiser_profile.pk
                 user_authenticated_data['balance'] = advertiser_profile.balance
                 user_authenticated_data['cart'] = advertiser_profile
-                user_authenticated_data['number_count']=Add_Reklama.objects.filter(user_order=advertiser_profile).count()
+                user_authenticated_data['number_count']=Add_Reklama.objects.filter(user_order=advertiser_profile,text_ads=None).count()
 
             except Profile_advertiser.DoesNotExist:
                 pass

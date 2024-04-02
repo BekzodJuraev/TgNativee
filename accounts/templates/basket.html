@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+   <main class="page">
+			<section class="cart">
+			 <form method="post"  enctype="multipart/form-data">
+       			 {% csrf_token %}
+				<div class="cart__container">
+					<h2 class="title">Корзина</h2>
+					<div class="cart__item item-cart squire">
+						<div class="cart__icon">
+							<img class="img-fluid" src="{% static 'img/channel/add.svg' %}" class="dont-fill" alt="">
+						</div>
+						<div class="item-cart__content">
+							<div class="item-cart__row">
+								<div class="label-black label-black_s24">Опубликованно</div>
+								<div class="label-black label-black_s24 item-cart__row-val">
+									<span class="label-dark-green label-dark-green_s24">{{count}}</span>
+									публикаций
+								</div>
+							</div>
+							<div class="item-cart__row">
+								<div class="label-black label-black_s24">На сумму</div>
+								<div class="label-black label-black_s24 label-black_s24 item-cart__row-val">
+									<span class="label-dark-green label-dark-green_s24">{{sum}}</span>
+									UAH
+								</div>
+							</div>
+						</div>
+						<div class="item-cart__bottom">
+							<button class="button" type="submit">Дать задание каналам</button>
+							<button class="item-cart__reset" type="button">
+								<img src="{% static 'img/icons/trash.svg' %}" class="dont-fill" alt="">
+								<span id="delete-trigger" class="hhv-green">Очистить корзину</span>
+							</button>
+						</div>
+					</div>
+					<div class="item-cart-public squire">
+						<div class="item-cart-public__head">
+							<div class="item-cart-public__avatar">
+								<picture><source srcset="/{{ object.chanel.pictures }}" type="image/webp"><img class="img-fluid" src="/{{ object.chanel.pictures }}" alt=""></picture>
+							</div>
+							<div class="item-cart-public__head-content">
+								<div class="item-cart-public__title"></div>
+								<div class="item-cart-public__head-text">Требования к публикации</div>
+							</div>
+							<button class="item-cart-public__exit" type="button">
+								<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" class="dont-fill" alt="">
+							</button>
+						</div>
+
+							<div class="item-cart-public__item">
+								<label for="text" class="label-black label-black_s16">Укажите текст публикации</label>
+								<div class="item-cart-public__textarea-wrap">
+									{{form.text_ads}}
+									<div class="item-cart-public__textarea-bottom">
+										<div class="item-cart-public__textarea-bottom-list">
+											<button class="textarea-btn" type="button">
+												<img src="{% static 'img/cart/1.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/1-fill.svg' %}" class="fill" alt="">
+											</button>
+											<button class="textarea-btn" type="button">
+												<img src="{% static 'img/cart/2.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/2-fill.svg' %}" class="fill" alt="">
+											</button>
+											<button class="textarea-btn" type="button">
+												<img src="{% static 'img/cart/3.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/3-fill.svg' %}" class="fill" alt="">
+											</button>
+											<button class="textarea-btn textarea-btn_link" type="button">
+												<img src="{% static 'img/cart/4.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/4-fill.svg' %}" class="fill" alt="">
+											</button>
+											<button class="textarea-btn" type="button">
+												<img src="{% static 'img/cart/5.svg' %}" class="dont-fill" alt="">
+												<img src="{% static 'img/cart/5-fill.svg' %}" class="fill" alt="">
+											</button>
+										</div>
+										{{form.media}}
+										<button data-da=".item-cart-public__textarea-bottom-list,767.98" id="changePhoto" title="Загрузить фото/видео" class="textarea-btn" type="button">
+											<img src="{% static 'img/cart/6.svg' %}" class="dont-fill" alt="">
+											<img src="{% static 'img/cart/6-fill.svg' %}" class="fill" alt="">
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="item-cart-public__item">
+								<label for="subjects" class="label-black label-black_s16">Название заказа:</label>
+                                 {{form.name_ads}}
+								<p class="item-cart-public__form-text">Это будет видно только вам</p>
+							</div>
+							<div class="item-cart-public__item">
+								<label for="text" class="label-black label-black_s16">Задании</label>
+								{{form.comment}}
+							</div>
+
+
+
+
+						</form>
+					</div>
+				</div>
+			</section>
+		</main>
+
+
+
+<script>
+	$(document).ready(function() {
+    $("#delete-trigger").on("click", function() {
+      // AJAX request to delete the item
+      $.ajax({
+        url: '{% url 'deletelist' %}',
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        success: function(data) {
+          // Handle success response, e.g., redirect to a different page
+          window.location.replace(data.redirect_url);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}
