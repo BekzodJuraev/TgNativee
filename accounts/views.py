@@ -434,9 +434,10 @@ class Basket(LoginRequiredMixin,TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         ads=Add_Reklama.objects.filter(
-                user_order__username=self.request.user,
+                user_order__username=self.request.user
                 )
         context['sum']=ads.aggregate(total=Sum('format__cost_per_format'))['total']
+        context['chanel']=ads
         context['count']=ads.count()
         context['form']=BasketForm
         return context

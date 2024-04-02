@@ -29,6 +29,54 @@
 								</div>
 							</div>
 						</div>
+						<div class="table-wrap">
+                                <table class="table table_w">
+                                    <thead>
+
+                                    </thead>
+                                    <tbody>
+                                    {% for item in chanel %}
+                                    <tr>
+                                        <td class="table-row" scope="row">
+                                            <div class="table-row__head table-row__head_center">
+                                                <a href="#" target="_blank" class="table-row__img">
+                                                    <picture>
+                                                        <source srcset="/{{item.chanel.pictures}}" type="image/webp">
+                                                        <img class="img-fluid" src="/{{item.chanel.pictures}}" alt=""></picture>
+                                                </a>
+                                                <div class="table-row__content">
+                                                    <div class="table-row__content">
+                                                        <a href="#" target="_blank"
+                                                           class="label-dark-blue label-dark-blue_s20 hhv-green">{{item.chanel.name}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+
+                                        <td class="table-row">
+                                            <a href="{{item.chanel.chanel_link }}" target="_blank"
+                                               class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel.chanel_link }}</a>
+                                        </td>
+
+                                        <td class="table-row">
+                                            <div class="label-dark-green label-dark-green_fw700 label-dark_s20">{{item.format.cost_per_format}}
+                                                UAH
+                                            </div>
+                                        </td>
+                                        <td class="table-row">
+                                           <button class="item-cart-public__exit" type="button">
+								<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" class="dont-fill" alt="">
+							</button>
+
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+                            </div>
 						<div class="item-cart__bottom">
 							<button class="button" type="submit">Дать задание каналам</button>
 							<button class="item-cart__reset" type="button">
@@ -36,20 +84,22 @@
 								<span id="delete-trigger" class="hhv-green">Очистить корзину</span>
 							</button>
 						</div>
+
 					</div>
+
+
+
+
 					<div class="item-cart-public squire">
 						<div class="item-cart-public__head">
-							<div class="item-cart-public__avatar">
-								<picture><source srcset="/{{ object.chanel.pictures }}" type="image/webp"><img class="img-fluid" src="/{{ object.chanel.pictures }}" alt=""></picture>
-							</div>
-							<div class="item-cart-public__head-content">
-								<div class="item-cart-public__title"></div>
-								<div class="item-cart-public__head-text">Требования к публикации</div>
-							</div>
-							<button class="item-cart-public__exit" type="button">
-								<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" class="dont-fill" alt="">
-							</button>
+
+
+
+
+
+
 						</div>
+
 
 							<div class="item-cart-public__item">
 								<label for="text" class="label-black label-black_s16">Укажите текст публикации</label>
