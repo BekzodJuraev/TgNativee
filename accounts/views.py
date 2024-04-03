@@ -430,17 +430,42 @@ class Basket(LoginRequiredMixin,TemplateView):
     success_url = reverse_lazy('login_reklama')
     login_url = reverse_lazy('login')
 
+    def get_queryset(self):
+        return Add_Reklama.objects.filter(
+            user_order__username=self.request.user,
+            text_ads=None
+        )
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        ads=Add_Reklama.objects.filter(
-                user_order__username=self.request.user
-                )
+        ads=self.get_queryset()
         context['sum']=ads.aggregate(total=Sum('format__cost_per_format'))['total']
         context['chanel']=ads
         context['count']=ads.count()
-        context['form']=BasketForm
+        context['form']=BasketForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = BasketForm(request.POST,request.FILES)
+
+
+        if form.is_valid():
+            text_ads=form.cleaned_data['text_ads']
+            name_ads=form.cleaned_data['name_ads']
+            comment=form.cleaned_data['comment']
+            media=form.cleaned_data['media']
+
+
+            ads=self.get_queryset()
+
+            ads.update(text_ads=text_ads,name_ads=name_ads,comment=comment,media=media)
+
+            # Redirect to success URL
+            return redirect(self.success_url)
+        else:
+            # If the form is invalid, re-render the template with the form and any validation errors
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 

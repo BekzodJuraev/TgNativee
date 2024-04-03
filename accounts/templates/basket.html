@@ -65,7 +65,7 @@
                                             </div>
                                         </td>
                                         <td class="table-row">
-                                           <button class="item-cart-public__exit" type="button">
+                                           <button class="item-cart-public__exit" type="button" id="delete" value="{{item.id}}" ">
 								<img class="img-fluid" src="{% static 'img/cart/exit.svg' %}" class="dont-fill" alt="">
 							</button>
 
@@ -158,25 +158,58 @@
 
 
 <script>
-	$(document).ready(function() {
-    $("#delete-trigger").on("click", function() {
-      // AJAX request to delete the item
-      $.ajax({
-        url: '{% url 'deletelist' %}',
-        method: 'POST',
-        headers: {
-          'X-CSRFToken': '{{ csrf_token }}'
-        },
-        success: function(data) {
-          // Handle success response, e.g., redirect to a different page
-          window.location.replace(data.redirect_url);
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      });
-    });
-  });
-</script>
 
+$(document).ready(function() {
+    $("#delete").on("click", function() {
+        // AJAX request to delete the item
+        var ButtonID = $(this).attr('value');
+
+
+        $.ajax({
+            url: '{% url 'deleteads' 0 %}'.replace('0', ButtonID),
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+                // Handle success response, e.g., redirect to a different page
+                window.location.reload()
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+
+    $("#delete-trigger").on("click", function() {
+        // AJAX request to delete the item
+        $.ajax({
+            url: '{% url 'deletelist' %}',
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+                // Handle success response, e.g., redirect to a different page
+                window.location.replace(data.redirect_url);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
+<script>
+document.getElementById('changePhoto').addEventListener('click', function() {
+    // Trigger the click event of the hidden file input
+
+    document.getElementById('photoInput').click();
+
+    // You can perform additional checks on the file if needed
+
+    // Example: Display the file name
+
+});
+</script>
 {% endblock %}

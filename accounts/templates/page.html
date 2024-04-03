@@ -336,7 +336,7 @@ $(document).ready(function() {
         tempInput.val(channelLink).select();
         document.execCommand('copy');
         tempInput.remove();
-        alert('Ссылка скопирована в буфер обмена!');
+        alert('Посилання скопійоване в буфер обміну!');
     });
 
 
@@ -357,7 +357,7 @@ $(document).ready(function() {
     		var formattedDateTime = moment(selectedDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
     		var tomorrow = moment().add(1, 'days').startOf('day');
     		 if (moment(formattedDateTime).isSameOrBefore(tomorrow)) {
-        		alert('Please select a date from tomorrow onwards.');
+        		alert('Будь ласка, виберіть дати з завтрашнього дня');
         		$('#selected_date').val('');
     } else {
         data = {
