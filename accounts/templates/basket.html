@@ -56,7 +56,9 @@
 
                                         <td class="table-row">
                                             <a href="{{item.chanel.chanel_link }}" target="_blank"
-                                               class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel.chanel_link }}</a>
+                                               class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">
+											@{{item.chanel.chanel_link| cut:'https://t.me/'}}
+											</a>
                                         </td>
 
                                         <td class="table-row">

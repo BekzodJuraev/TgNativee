@@ -107,6 +107,12 @@ class AddChanelForm(forms.ModelForm):
         model = Add_chanel
         fields = [ 'chanel_link', 'category','description']
 
+    def clean_chanel_link(self):
+        channel_link = self.cleaned_data['chanel_link']
+        if not chanel_link.startswith('https://'):
+            chanel_link = 'https://' + chanel_link
+        return chanel_link
+
 class CostFormatForm(forms.ModelForm):
     placement_format = forms.CharField(max_length=63, label="Линк",
                                        widget=forms.TextInput(

@@ -142,7 +142,9 @@
 														{{item.subscribers}}</button>
 												</td>
 												<td class="table-row">
-													<a href="{{item.chanel_link}}" target="_blank" class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel_link}}</a>
+													<a href="{{item.chanel_link}}" target="_blank" class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">
+														@{{item.chanel_link | cut:'https://t.me/'}}
+														</a>
 												</td>
 												<td class="table-row">
 													<div class="label-dark-green label-dark-green_fw700 label-dark_s20">
@@ -247,7 +249,9 @@
 													<button type="button" data-popup="#comment{{item.id}}" class="label-dark label-dark_s16 label-underline hhv-green">Cмотреть</button>
 												</td>
 												<td class="table-row">
-													<a href="{{item.chanel.chanel_link}}" target="_blank" class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">{{item.chanel.chanel_link}}</a>
+													<a href="{{item.chanel.chanel_link}}" target="_blank" class="label-dark-blue label-dark-blue_s16 label-underline hhv-green">
+														@{{item.chanel.chanel_link | cut:'https://t.me/'}}
+														</a>
 												</td>
 												<td class="table-row">
 													<div class="label-dark-green label-dark-green_fw700 label-dark_s20">
