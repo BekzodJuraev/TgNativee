@@ -139,16 +139,19 @@
 											</div>
 
 											<p class="text text_black">
+
 												{{ item.commented }}
 											</p>
 										</div>
 										<div class="item-channel-reviews__info">
 											<div class="item-channel-main__stars">
+												{% if item.stars_like %}
 												{% for item in ''|rjust:item.stars_like  %}
 
-												<img src="{% static 'img/channel/star.svg' %}" alt="">
+												<img src="{% static 'img/channel/star-active.svg' %}" alt="">
 
 												{% endfor %}
+												{% endif %}
 											</div>
 
 										</div>

@@ -473,11 +473,11 @@
 
 				 <form action="{% url 'comment' item.pk %}"  method="post" class="auth-form__form">
                      <button id="like" class="icon-heart _active" type="button">
-                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
-                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
-                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
-                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
-                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/catalog/like.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/channel/star-default.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/channel/star-default.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/channel/star-default.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/channel/star-default.svg' %}" alt="">
+                         <img  class="likeButton" data-chanel-id="{{ object.id }}" src="{% static 'img/channel/star-default.svg' %}" alt="">
 					</button>
 					  {% csrf_token %}
 
@@ -517,7 +517,7 @@ $(".likeButton").click(function() {
     // Loop through all images
     $(".likeButton").each(function(i) {
         // Determine the new source based on the index
-        var newSrc = i <= index ? "{% static 'img/catalog/like-fill.svg' %}" : "{% static 'img/catalog/like.svg' %}";
+        var newSrc = i <= index ? "{% static 'img/channel/star-active.svg' %}" : "{% static 'img/channel/star-default.svg' %}";
         // Update the image source
         $(this).attr("src", newSrc);
     });
