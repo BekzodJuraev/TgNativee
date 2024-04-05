@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import Add_chanel
+from accounts.models import Add_chanel,Faq_Subjects
 from datetime import date,timedelta
 class Chanel(models.Model):
     chanel_link=models.CharField(max_length=150)
@@ -90,6 +90,7 @@ class Feedback(models.Model):
 
 
 class FAQ(models.Model):
+    subjects=models.ForeignKey(Faq_Subjects,on_delete=models.CASCADE)
     question = models.CharField(max_length=200, verbose_name='Вопрос')
     created_at = models.DateTimeField(auto_now_add=True)
     answers = models.TextField(verbose_name="Ответ")

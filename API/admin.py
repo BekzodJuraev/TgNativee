@@ -10,7 +10,7 @@ class ChanelAdmin(admin.ModelAdmin):
     list_display = ['token','created_at']
 @admin.register(FAQ)
 class ChanelAdmin(admin.ModelAdmin):
-    list_display = ['question','answers']
+    list_display = ['subjects','question','answers']
 
 @admin.register(Chanel)
 class ChanelAdmin(admin.ModelAdmin):

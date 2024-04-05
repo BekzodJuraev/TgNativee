@@ -103,12 +103,13 @@ class AddChanelForm(forms.ModelForm):
         label="Линк",
         widget=forms.Textarea(attrs={'class': 'auth-form__input', 'placeholder': 'Описание'})
     )
+
     class Meta:
         model = Add_chanel
         fields = [ 'chanel_link', 'category','description']
 
     def clean_chanel_link(self):
-        channel_link = self.cleaned_data['chanel_link']
+        chanel_link = self.cleaned_data['chanel_link']
         if not chanel_link.startswith('https://'):
             chanel_link = 'https://' + chanel_link
         return chanel_link

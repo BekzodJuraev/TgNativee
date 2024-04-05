@@ -85,6 +85,12 @@ class Add_chanel(models.Model):
     def __str__(self):
         return self.username.username.username
 
+class Faq_Subjects(models.Model):
+    subjects=models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.subjects
+
 class Faq_Question(models.Model):
     question=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)

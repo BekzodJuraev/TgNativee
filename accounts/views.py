@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from .forms import LoginForm, RegistrationForm, AddChanelForm, CostFormatFormSet, BasketForm, Add_ReklamaStatus, Update_Profile, Update_Reklama,GoogleForm,FormFAQ,Comment
 from API.models import Chanel, Feedback, Add_Sponsors,FAQ
-from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format,Like,Message,Faq_Question
+from .models import Profile, Profile_advertiser, Add_chanel, Add_Reklama, Category_chanels, Cost_Format,Like,Message,Faq_Question,Faq_Subjects
 from django.contrib.auth import logout
 from django.views.generic import View,ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView,FormView
 from .models import Message
@@ -281,11 +281,17 @@ class CategoryChanelPage(ListView):
         cost_from=self.request.GET.get('price_from')
         cost_to = self.request.GET.get('price_to')
         description=self.request.GET.get('search_desc')
+        format=self.request.GET.get('verification')
         queryset = Chanel.objects.exclude(pictures='')
+
+
 
 
         if search_query:
             queryset = queryset.filter(chanel_link__icontains=search_query)
+
+        if format:
+            queryset=queryset.filter(add_chanel__cost_formats__placement_format=format)
 
         if select_category:
             queryset = queryset.filter(add_chanel__category__name=select_category)
@@ -310,6 +316,7 @@ class CategoryChanelPage(ListView):
 
 
 
+
         return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -318,6 +325,7 @@ class CategoryChanelPage(ListView):
         context['lists'] = self.get_queryset().count()
         context['count'] = Chanel.objects.select_related('add_chanel').prefetch_related('add_chanel__cost_formats')
         context['category'] = Category_chanels.objects.all()
+
 
         return context
 
@@ -356,6 +364,7 @@ class FaqPage(SuccessMessageMixin, CreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['items'] = FAQ.objects.all()
+        context['subjects']=Faq_Subjects.objects.all()
         return context
 
     def get_success_url(self):

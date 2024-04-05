@@ -1,6 +1,10 @@
 from django.contrib import admin
 
-from .models import Profile,Profile_advertiser,Add_chanel,Cost_Format,Add_Reklama,Category_chanels,Message,Like,Faq_Question
+from .models import Profile,Profile_advertiser,Add_chanel,Cost_Format,Add_Reklama,Category_chanels,Message,Like,Faq_Question,Faq_Subjects
+@admin.register(Faq_Subjects)
+class Faq_QuestionAdmin(admin.ModelAdmin):
+    list_display = ['subjects']
+
 @admin.register(Faq_Question)
 class Faq_QuestionAdmin(admin.ModelAdmin):
     list_display = ['question','created_at']

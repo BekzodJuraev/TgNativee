@@ -18,16 +18,22 @@
 				<div class="faq-spollers__container">
 					<div data-tabs class="tabs">
 						<nav data-tabs-titles class="tabs-navigation">
-							<button type="button" class="tabs-navigation__title _tab-active">Загальні</button>
-							<button type="button" class="tabs-navigation__title">Найпопулярніші</button>
-							<button type="button" class="tabs-navigation__title">Реклама</button>
-							<button type="button" class="tabs-navigation__title">Фінанси</button>
-							<button type="button" class="tabs-navigation__title">Зворотний зв'язок</button>
+							{% for item in subjects %}
+							{% if forloop.first %}
+        <button type="button" class="tabs-navigation__title _tab-active">{{ item.subjects }}</button>
+    {% else %}
+        <button type="button" class="tabs-navigation__title">{{ item.subjects }}</button>
+    {% endif %}
+							{% endfor %}
 						</nav>
 						<div data-tabs-body class="tabs__content">
+							 {% for i in subjects %}
 							<div class="tabs__body">
 								<div data-spollers class="spollers">
-                                    {% for item in items %}
+
+									{% for item in items %}
+
+									 {% if item.subjects == i %}
 
 									<div class="spollers__item">
 										<button type="button" data-spoller class="spollers__title label-black label-black_s20">
@@ -38,23 +44,16 @@
 											{{ item.answers|linebreaksbr }}
 										</div>
 									</div>
+									{% endif %}
 
-                                    {% endfor %}
+									{% endfor %}
+
+
 
                                 </div>
 							</div>
-							<div class="tabs__body">
-								Содержимое второго таба
-							</div>
-							<div class="tabs__body">
-								Содержимое третьего таба
-							</div>
-							<div class="tabs__body">
-								Содержимое четвертого таба
-							</div>
-							<div class="tabs__body">
-								Содержимое пятого таба
-							</div>
+							  {% endfor %}
+
 						</div>
 					</div>
 				</div>

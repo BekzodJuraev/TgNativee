@@ -76,11 +76,11 @@
 									</div>
 								</div>
 								<div class="item-channel-order__item">
-									<label id="toggleLabel" for="date" class="label-underline item-channel-order__item-link hhv-green">Выбрать дату</label>
+									<label id="toggleLabel" for="date" class="label-underline item-channel-order__item-link hhv-green">Виберіть дату</label>
 									<div class="item-channel-order__row">
 
 										<div id="datepickerContainer" class="item-channel-order__row-item" style="display:none">
-											 <input type="text" data-datepicker class="form__input" name="date" id="selected_date" placeholder="Select date">
+											 <input type="text" data-datepicker class="form__input" name="date" id="selected_date" placeholder="Виберіть дату">
 
                                               <img src="{% static 'img/channel/calendar.svg' %}" alt="Calendar icon" class="calendar-icon">
 										</div>
@@ -333,7 +333,7 @@ $(document).ready(function() {
 
     $(document).ready(function () {
     $('#copyButton').click(function() {
-        var channelLink = $('.item-channel-main__link').text().trim();
+        var channelLink = $('.item-channel-main__link').attr('href');
         var tempInput = $('<input>');
         $('body').append(tempInput);
         tempInput.val(channelLink).select();

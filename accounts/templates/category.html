@@ -106,31 +106,20 @@
 													</button>
 													<div class="spollers__body">
 														<div class="search-form__sub-body search-form__column">
-															<div class="search-form__item search-form__item_select">
-																<div class="search-form__item-content">
 
-																</div>
-															</div>
 															<div class="search-form__item search-form__item_select">
 																<div class="search-form__item-content">
 																	<div class="search-form__item">
 																		<label for="verification" class="label-white">Формат розміщення:</label>
 																		<select name="verification" id="verification" data-class-modif="custom-select">
-																			<option value="1" selected>Нативний</option>
-																			<option value="2">Нативный 1</option>
-																			<option value="3">Нативный 2</option>
-																			<option value="4">Нативный 3</option>
+																			<option value="" {% if request.GET.verification == '' %}selected{% endif %}>Выбрать формат</option>
+																			<option value="1/24" {% if request.GET.verification == '1/24' %}selected{% endif %}>1/24</option>
+																			<option value="2/48" {% if request.GET.verification == '2/48' %}selected{% endif %}>2/48</option>
+																			<option value="3/72" {% if request.GET.verification == '3/72' %}selected{% endif %}>3/72</option>
+																			<option value="Без удаления" {% if request.GET.verification == 'Без удаления' %}selected{% endif %}>Без удаления</option>
 																		</select>
 																	</div>
-																	<div class="search-form__item">
-																		<label for="verification" class="label-white">Верифікація:</label>
-																		<select name="verification" id="verification" data-class-modif="custom-select">
-																			<option value="1" selected>Не важно</option>
-																			<option value="2">Не важно 1</option>
-																			<option value="3">Не важно 2</option>
-																			<option value="4">Не важно 3</option>
-																		</select>
-																	</div>
+
 																</div>
 															</div>
 															<div class="search-form__item">
@@ -160,7 +149,8 @@
 							<div class="search-channels__nums tabs-navigation">
 								{% for p in page_obj.paginator.page_range %}
 								 {% if page_obj.number == p %}
-								<a href="?page={{ p }}">
+
+								<a href="?page={{ p }} ">
 								<button class="search-channels__num tabs-navigation__title _tab-active" type="button">{{p}}</button>
 								</a>
 								{% else %}
